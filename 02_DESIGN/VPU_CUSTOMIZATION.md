@@ -39,7 +39,12 @@ Build lại: `suitecrm/custom/themes/SuiteP/build_vpu_theme.sh` (cần Node; scr
 
 - Tiêu đề trình duyệt "VPU-CRM · Victoria Pacific University"; các chuỗi "SuiteCRM" trong giao diện đổi thành "VPU-CRM"
   (`custom/Extension/application/Ext/Language/*.vpu_branding.php`).
-- **Giữ nguyên** dòng "Supercharged by SuiteCRM" và "Powered By SugarCRM" ở footer. AGPLv3 §7(b) bắt buộc giữ hai dòng ghi công này.
+- **Footer mọi trang** (gồm trang đăng nhập): "© Bản quyền thuộc về VPU – Trường Đại học Victoria Thái Bình Dương · Phát triển từ
+  nguồn SuiteCRM" (`custom/themes/SuiteP/tpls/footer.tpl`, `custom/themes/SuiteP/login.tpl`). Hai dòng "Supercharged by SuiteCRM" và
+  "Powered by SugarCRM" vẫn được **giữ nguyên văn**, hiển thị chữ nhỏ bên dưới, vì AGPLv3 §7(b) của SuiteCRM bắt buộc. Bản quyền VPU áp dụng
+  cho phần tùy biến và nội dung của trường; mã SuiteCRM vẫn theo AGPLv3. Gói `vi_VN` dịch sai hai dòng này ("Được nén bởi…",
+  "Được tài trợ bởi…"); đã trả về nguyên văn. Trang xác thực 2 lớp qua email (`FactorAuthEmailCode.tpl`, đặt cứng đường dẫn trong core)
+  vẫn hiện footer gốc.
 - Gói `vi_VN` chính thức của cộng đồng (Crowdin), bản `7.15-26.10` lấy từ SourceForge
   `suitecrmtranslations/7.15`, khoảng 72% chuỗi đã dịch. Đã quét tĩnh: chỉ có mảng chuỗi, không có code thực thi.
 - Bổ sung các nhãn Leads còn tiếng Anh và đổi tên module theo nghiệp vụ: Leads → **Thí sinh**,
@@ -219,10 +224,9 @@ nhập sai mật khẩu bị từ chối, quyền khớp bảng trên (kiểm tr
 ## 5. Triển khai
 
 1. `cp suitecrm/config_override.php.example suitecrm/config_override.php`, điền khoá của từng kênh và `assigned_user_id`.
-2. Admin → Repair → **Quick Repair and Rebuild** → bấm *Execute* để tạo cột và bảng `vpu_schools`.
-   Sau đó chạy `php custom/include/VPU/Import/import_schools.php --link-leads` (§3.4) và `setup_counselors.php` (§3.5).
-   **Bắt buộc chạy Quick Repair sau mỗi lần triển khai code:** các file `custom/**/Ext/*.ext.php` trong repo là bản biên dịch
-   gốc của SuiteCRM; nếu không chạy, các trường `vpu_*` sẽ biến mất khỏi giao diện.
+2. **Không cần Quick Repair thủ công** (§7). Request đầu tiên sau khi triển khai tự biên dịch và tạo cột/bảng. Trong pipeline nên chạy
+   `php custom/include/VPU/Setup/post_deploy.php --seed` (biên dịch, đồng bộ schema, nạp danh mục trường), sau đó
+   `import_schools.php --link-leads` (§3.4) và `setup_counselors.php` (§3.5).
 3. Admin → Languages: bật Tiếng Việt. Người dùng chọn subtheme bất kỳ, tất cả đều đã mang màu VPU.
 4. Đăng ký webhook (yêu cầu HTTPS):
    - Meta: Callback URL `https://<crm>/index.php?entryPoint=vpuInbound&channel=facebook`, Verify token = `verify_token`, subscribe `messages`, `messaging_postbacks`.
@@ -237,3 +241,38 @@ nhập sai mật khẩu bị từ chối, quyền khớp bảng trên (kiểm tr
 - Webhook mới chỉ nhận tin vào. Trả lời ngược lại kênh (gửi tin Zalo/Messenger từ CRM) chưa làm, cần token gửi tin của từng nền tảng.
 - TikTok và WhatsApp chưa có adapter riêng, đang đi qua cổng generic (n8n/Make hoặc nhà cung cấp BSP).
 - Mũi tên ô chọn ngôn ngữ ở trang đăng nhập vẫn màu bạc hà của core (đặt cứng trong CSS lõi), lỗi thẩm mỹ nhỏ.
+
+## 7. Triển khai không cần Quick Repair (BuildGuard)
+
+**Nguyên nhân gốc** của việc "phải chạy Quick Repair sau mỗi lần triển khai":
+1. SuiteCRM **biên dịch** `custom/Extension/**` thành `custom/application/Ext/**` và `custom/modules/*/Ext/**`, đồng thời cache vardefs.
+   Nếu chưa biên dịch lại thì trường mới không hiện.
+2. Repo từng **commit 9 file biên dịch gốc**, nên mỗi lần `git pull`/`rsync` lại ghi đè bản biên dịch đúng bằng bản cũ.
+3. Cột và bảng mới chỉ được tạo khi chạy Repair.
+
+**Cách xử lý:**
+- Bỏ các file biên dịch khỏi git (`.gitignore`: `suitecrm/custom/application/Ext/`, `suitecrm/custom/modules/*/Ext/`). Đây là sản phẩm build.
+- `custom/include/VPU/Setup/BuildGuard.php` chạy ở hook `after_entry_point`. Hook được đăng ký trong `custom/modules/logic_hooks.php`,
+  file được nạp trực tiếp, nên hook vẫn chạy kể cả khi bản biên dịch đang cũ. Mỗi request, BuildGuard tính dấu vân tay
+  (đường dẫn, mtime, kích thước) của **cả file nguồn lẫn file đã biên dịch**, tốn khoảng 0,7 ms. Nếu dấu khác với `cache/vpu_build.stamp`,
+  trong một khoá loại trừ (`flock`, nên các request đồng thời không biên dịch chồng nhau), nó sẽ:
+  1. biên dịch Extension, rồi xoá cache vardefs, ngôn ngữ, template, theme và JS;
+  2. đồng bộ schema **chỉ theo kiểu cộng thêm**: tự chạy CREATE TABLE và các mệnh đề ADD COLUMN/INDEX. Các lệnh MODIFY/CHANGE/DROP,
+     ADD PRIMARY KEY và lệnh lạ **không bao giờ tự chạy**; chúng được ghi vào `cache/vpu_schema_pending.sql` để người duyệt;
+  3. lưu dấu mới, tính sau khi biên dịch. Nhờ vậy, nếu ai đó ghi đè file biên dịch bằng bản cũ, request kế tiếp sẽ phát hiện.
+  Mọi lỗi trong guard đều được ghi log và không làm hỏng request.
+- CLI `custom/include/VPU/Setup/post_deploy.php` dùng cho pipeline:
+  `--check` (exit 0 = đồng bộ, 3 = cần biên dịch; dùng cho health check), `--apply-modify` (chạy các lệnh chờ duyệt sau khi đã xem),
+  `--seed` (ACL và danh mục trường THPT).
+
+**Kiểm thử** (bản cài thật, không chạy Repair tay; 13 test cho bộ phân loại SQL):
+
+| Kịch bản | Kết quả |
+|---|---|
+| Triển khai mới: xoá toàn bộ file biên dịch và cache, xoá cột `vpu_program` và một index, thu hẹp `vpu_province` | Request đầu tiên tự sửa trong khoảng 1 giây: biên dịch lại, tạo lại cột và index. Lệnh MODIFY cột `vpu_province` vào file chờ duyệt, không tự chạy |
+| Ghi đè vardefs Leads đã biên dịch bằng bản cũ (đúng lỗi từng gặp) | Phát hiện ở request kế tiếp; các trường `vpu_*` hiện lại |
+| Request bình thường | Chi phí kiểm tra 0,72 ms |
+| `post_deploy.php --check` / `--apply-modify` | exit 0 hoặc 3 đúng trạng thái; chạy lệnh chờ duyệt xong thì xoá file chờ |
+
+**Lưu ý vận hành:** thư mục `cache/` phải ghi được bởi web server (SuiteCRM vốn đã yêu cầu). Request đầu tiên sau khi triển khai
+chậm hơn khoảng 1 giây. Thay đổi schema không phải kiểu cộng thêm vẫn cần người quyết; đây là chủ ý để không mất dữ liệu.

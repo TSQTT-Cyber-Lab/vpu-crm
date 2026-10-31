@@ -31,3 +31,17 @@
 - **Lý do:** Mã ngành là định danh chính thức. Dữ liệu cá nhân của thí sinh (có người chưa thành niên) không nên cho phép xuất hàng loạt (NĐ 13/2023).
 - **Đánh đổi:** Nguồn ngành/học phí/học bổng lấy qua tìm kiếm, chưa đối chiếu văn bản gốc (proxy chặn tbd.edu.vn). Còn 4 điểm mâu thuẫn chờ trường xác nhận.
 - **Người quyết:** (tác giả xác nhận)
+
+## D-005 · 2026-10-31 · Footer giữ ghi công SuiteCRM/SugarCRM bên cạnh bản quyền VPU
+- **Bối cảnh:** Yêu cầu footer "Bản quyền thuộc về VPU, Phát triển từ nguồn SuiteCRM".
+- **Quyết định:** Thêm dòng bản quyền VPU và "Phát triển từ nguồn SuiteCRM"; **giữ nguyên văn** "Supercharged by SuiteCRM" và "Powered by SugarCRM" (chữ nhỏ).
+- **Lý do:** SuiteCRM phát hành theo AGPLv3 kèm điều khoản §7(b) bắt buộc giữ hai dòng ghi công này. Xoá chúng là vi phạm giấy phép.
+- **Người quyết:** (tác giả xác nhận)
+
+## D-006 · 2026-10-31 · Biên dịch Extension tự động khi chạy (BuildGuard), file biên dịch không vào git
+- **Bối cảnh:** Mỗi lần triển khai đều phải chạy Quick Repair; quên chạy thì trường biến mất. Repo commit file biên dịch gốc nên deploy ghi đè bản đúng.
+- **Phương án đã cân nhắc:** (a) quy trình thủ công/checklist; (b) git hook post-merge; (c) bước CI duy nhất; (d) tự phát hiện ở runtime + CLI cho CI.
+- **Quyết định:** (d), kèm bỏ file biên dịch khỏi git. Schema chỉ tự áp dụng phần cộng thêm; thay đổi phá huỷ luôn chờ người duyệt.
+- **Lý do:** (a), (b), (c) vẫn phụ thuộc vào việc người hoặc máy nhớ chạy, và không bắt được trường hợp rsync ghi đè. (d) tự sửa bất kể cách triển khai, chi phí khoảng 0,7 ms mỗi request.
+- **Đánh đổi:** Request đầu tiên sau deploy chậm khoảng 1 giây. Hook nằm trong `custom/modules/logic_hooks.php`; nếu ModuleInstaller viết lại file này thì vẫn giữ mục hook nhưng mất comment.
+- **Người quyết:** (tác giả xác nhận)

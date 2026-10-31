@@ -17,5 +17,11 @@ if (isset($app_strings) && is_array($app_strings)) {
         }
     }
     $app_strings['LBL_BROWSER_TITLE'] = 'VPU-CRM · Victoria Pacific University';
+    // Footer mọi trang (custom/themes/SuiteP/tpls/footer.tpl, custom/themes/SuiteP/login.tpl).
+    $app_strings['LBL_VPU_COPYRIGHT'] = 'Bản quyền thuộc về VPU – Trường Đại học Victoria Thái Bình Dương';
+    $app_strings['LBL_VPU_BUILT_ON'] = 'Phát triển từ nguồn SuiteCRM';
+    // Ghi công bắt buộc AGPLv3 §7(b): giữ NGUYÊN VĂN (gói vi_VN dịch sai thành "Được nén bởi…", "Được tài trợ bởi…").
+    $app_strings['LBL_SUITE_SUPERCHARGED'] = 'Supercharged by SuiteCRM';
+    $app_strings['LBL_SUITE_POWERED_BY'] = 'Powered by SugarCRM';
 }
 unset($vpuKeep, $vpuKey, $vpuVal);

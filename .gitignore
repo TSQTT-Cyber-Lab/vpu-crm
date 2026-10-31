@@ -17,3 +17,8 @@ suitecrm/cache/*
 !suitecrm/cache/include/
 suitecrm/upload/*
 !suitecrm/upload/index.html
+# SuiteCRM: file BIÊN DỊCH từ suitecrm/custom/Extension/** — sinh lại tự động bởi
+# custom/include/VPU/Setup/BuildGuard.php (hook after_entry_point) hoặc post_deploy.php. Không commit,
+# để triển khai (git pull / rsync) không ghi đè bản biên dịch đúng bằng bản cũ.
+suitecrm/custom/application/Ext/
+suitecrm/custom/modules/*/Ext/

@@ -20,3 +20,21 @@ div.p_login .p_login_top a {
 .panel-default > .panel-heading > a,
 .panel-default > .panel-heading > a > div { background-color: $vpu-blue; color: $vpu-white; }
 .sub-panel > .panel-heading, .panel-default.sub-panel > .panel-heading > a { background-color: lighten($vpu-blue, 6%); color: $vpu-white; }
+
+// Footer: dòng bản quyền VPU nổi bật; ghi công SuiteCRM/SugarCRM (bắt buộc AGPLv3 §7(b)) giữ nguyên, chữ nhỏ hơn.
+#vpu_copyright {
+  display: block;
+  margin-bottom: 4px;
+  color: $vpu-ink;
+  font-size: 13px;
+  .vpu-owner { font-weight: 700; color: $vpu-blue; }
+  .vpu-sep { margin: 0 6px; color: $vpu-muted; }
+  .vpu-built { color: $vpu-ink; }
+}
+#copyright_data #copyrightbuttons a,
+div.p_login .p_login_bottom a#admin_options,
+div.p_login .p_login_bottom a#powered_by {
+  font-size: 11px;
+  color: $vpu-muted;
+}
+div.p_login .p_login_bottom a#admin_options { margin-left: 0; }
