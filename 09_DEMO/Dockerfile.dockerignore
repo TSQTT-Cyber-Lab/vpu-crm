@@ -1,0 +1,14 @@
+# Build context là thư mục gốc repo — chỉ gửi những gì image cần.
+*
+!suitecrm
+!09_DEMO
+suitecrm/config.php
+suitecrm/config_override.php
+suitecrm/config_si.php
+suitecrm/cache/*
+!suitecrm/cache/index.html
+suitecrm/upload/*
+!suitecrm/upload/index.html
+suitecrm/custom/application/Ext
+suitecrm/custom/modules/*/Ext
+suitecrm/*.log

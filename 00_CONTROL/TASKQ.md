@@ -16,3 +16,4 @@ Codex ghi câu hỏi vào cột Kết quả và để trạng thái = blocked.
 | T-008 | cowork | Vai trò "Tư vấn tuyển sinh" + 3 tài khoản demo | Mật khẩu không lưu repo; không xoá/xuất dữ liệu cá nhân | done | setup_counselors.php; VPU_CUSTOMIZATION §3.5. Link demo cần staging (T-004) |
 | T-009 | cowork | Footer mọi trang: bản quyền VPU, phát triển từ nguồn SuiteCRM | Giữ ghi công AGPLv3 §7(b) | done | footer.tpl + login.tpl override; sửa bản dịch sai của dòng ghi công |
 | T-010 | cowork | Xử lý triệt để việc phải chạy Quick Repair sau triển khai | Không sửa core; không tự chạy thay đổi schema phá huỷ | done | BuildGuard + post_deploy.php; bỏ file biên dịch khỏi git; VPU_CUSTOMIZATION §7 |
+| T-011 | cowork | Bản demo dựng vào 09_DEMO (D:\NCKH-workflow\VPU-CRM\09_DEMO) | Dữ liệu giả; chỉ mở localhost; mật khẩu sinh lúc cài | done | Docker Compose (Ubuntu 24.04 + PHP 8.3 + MariaDB 10.11) + start-demo.ps1; kiểm trên Linux, chưa kiểm trên Windows |

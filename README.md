@@ -15,3 +15,5 @@ trong `suitecrm/custom/`, không sửa core.
 
 Cài mới: tạo database, trỏ web server vào `suitecrm/`, mở `install.php`. `config.php`,
 `cache/` sinh ra và `upload/` không được commit.
+
+Demo chạy trên máy (Docker Desktop): `09_DEMO/README.md` — trên Windows chạy `09_DEMO\start-demo.ps1`.

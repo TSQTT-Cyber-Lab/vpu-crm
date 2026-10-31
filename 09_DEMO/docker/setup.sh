@@ -1,0 +1,116 @@
+#!/bin/bash
+# VPU-CRM demo: cài lần đầu (SuiteCRM silent install + tùy biến VPU + dữ liệu mẫu) hoặc gắn lại trạng thái đã lưu.
+# Trạng thái bền vững nằm ở volume /state: config.php, config_override.php, upload/, demo-accounts.txt.
+set -euo pipefail
+APP=/var/www/html
+STATE=/state
+SITE_URL="${SITE_URL:-http://localhost:8080}"
+log() { echo "[vpu-demo] $*"; }
+cd "$APP"
+as_www() { runuser -u www-data -- "$@"; }
+rm -f "$STATE/.ready"
+mkdir -p "$STATE/upload"
+[ -f "$STATE/upload/index.html" ] || cp "$APP/upload/index.html" "$STATE/upload/index.html" 2>/dev/null || true
+rm -rf "$APP/upload" && ln -s "$STATE/upload" "$APP/upload"
+chown -R www-data:www-data "$STATE"
+
+link_state() {
+  ln -sf "$STATE/config.php" "$APP/config.php"
+  ln -sf "$STATE/config_override.php" "$APP/config_override.php"
+}
+
+log "chờ MariaDB ($DB_HOST)…"
+for i in $(seq 1 90); do
+  mariadb -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" -e 'SELECT 1' "$DB_NAME" >/dev/null 2>&1 && break
+  sleep 2
+done
+log "chờ Apache…"
+for i in $(seq 1 30); do curl -fsS -o /dev/null http://localhost/robots.txt && break; sleep 1; done
+
+if [ -f "$STATE/config.php" ]; then
+  log "đã cài trước đó — gắn lại cấu hình, đồng bộ build"
+  link_state
+  as_www php custom/include/VPU/Setup/post_deploy.php >/dev/null || true
+  touch "$STATE/.ready"; chown www-data:www-data "$STATE/.ready"
+  log "SẴN SÀNG: $SITE_URL  (tài khoản: cat /state/demo-accounts.txt)"
+  exit 0
+fi
+
+if [ "$(mariadb -N -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" -e "SHOW TABLES LIKE 'users'" | wc -l)" != "0" ]; then
+  log "LỖI: database đã có dữ liệu nhưng thiếu /state/config.php. Dựng lại sạch: docker compose down -v && docker compose up -d"
+  exit 1
+fi
+
+ADMIN_PW="Vpu-$(head -c 9 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 10)"
+log "cài SuiteCRM (silent install)…"
+cat > config_si.php <<PHP
+<?php
+\$sugar_config_si = [
+  'setup_site_url' => '$SITE_URL',
+  'setup_system_name' => 'VPU-CRM',
+  'setup_db_host_name' => '$DB_HOST',
+  'setup_db_database_name' => '$DB_NAME',
+  'setup_db_admin_user_name' => '$DB_USER',
+  'setup_db_admin_password' => '$DB_PASSWORD',
+  'setup_db_type' => 'mysql',
+  'setup_db_create_database' => 0,
+  'setup_db_drop_tables' => 0,
+  'setup_site_admin_user_name' => 'admin',
+  'setup_site_admin_password' => '$ADMIN_PW',
+  'demoData' => 'no',
+  'default_language' => 'vi_VN',
+  'default_currency_iso4217' => 'VND',
+  'default_currency_name' => 'VND',
+  'default_currency_symbol' => '₫',
+  'default_date_format' => 'd/m/Y',
+  'default_time_format' => 'H:i',
+  'setup_license_accept' => true,
+];
+PHP
+chown www-data:www-data config_si.php
+curl -fsS -m 900 "http://localhost/install.php?goto=SilentInstall&cli=true" | grep -q "<bottle>Success!</bottle>" \
+  || { log "LỖI: silent install thất bại — xem: docker compose logs app"; exit 1; }
+rm -f config_si.php
+mv config.php "$STATE/config.php"
+
+# config_override: tiếng Việt mặc định + khoá webhook ngẫu nhiên cho demo
+rnd() { head -c 18 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 24; }
+sed -e "s/'verify_token' => 'DOI_CHUOI_NAY'/'verify_token' => '$(rnd)'/" \
+    -e "s/'app_secret'   => ''/'app_secret'   => '$(rnd)'/" \
+    -e "s/'oa_secret'  => ''/'oa_secret'  => '$(rnd)'/" \
+    -e "s/'app_id'     => ''/'app_id'     => 'demo'/" \
+    -e "s/'secret_token' => ''/'secret_token' => '$(rnd)'/" \
+    -e "s/'api_key' => ''/'api_key' => '$(rnd)'/" \
+    config_override.php.example > "$STATE/config_override.php"
+cat >> "$STATE/config_override.php" <<'PHP'
+
+// Demo: cho phép form Web-to-Lead chuyển hướng về localhost
+$sugar_config['WebToLead_AllowedRedirectHosts'] = ['localhost', '127.0.0.1'];
+PHP
+chown www-data:www-data "$STATE"/config*.php
+link_state
+chown -R www-data:www-data "$APP/cache" "$APP/custom" "$APP/modules"
+
+log "biên dịch tùy biến VPU + nạp danh mục 463 trường THPT…"
+as_www php custom/include/VPU/Setup/post_deploy.php --seed
+log "nạp thí sinh mẫu (dữ liệu giả)…"
+as_www php /opt/vpu-demo/seed/seed_demo_leads.php
+log "tạo vai trò + 3 tài khoản tư vấn viên…"
+ACCOUNTS=$(as_www php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign)
+as_www php custom/include/VPU/Import/import_schools.php --link-leads >/dev/null
+
+{
+  echo "VPU-CRM demo — $SITE_URL"
+  echo "Tạo lúc: $(date '+%d/%m/%Y %H:%M') — DỮ LIỆU GIẢ, chỉ dùng thử nghiệm"
+  echo
+  echo "Quản trị:  admin     $ADMIN_PW"
+  echo "$ACCOUNTS" | sed -n '/^  tvts/p' | sed 's/^  /Tư vấn:    /'
+  echo
+  echo "Webhook (khoá trong /state/config_override.php):"
+  echo "  $SITE_URL/index.php?entryPoint=vpuInbound&channel=sms   (header X-VPU-Key)"
+} > "$STATE/demo-accounts.txt"
+chmod 600 "$STATE/demo-accounts.txt"
+touch "$STATE/.ready"; chown www-data:www-data "$STATE/.ready"
+log "=============================================="
+cat "$STATE/demo-accounts.txt" | sed 's/^/[vpu-demo] /'
+log "=============================================="
