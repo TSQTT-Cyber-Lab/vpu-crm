@@ -20,3 +20,7 @@ $mod_strings['LBL_VPU_CONSENT_AT'] = 'Consent given at';
 $mod_strings['LBL_VPU_UTM_SOURCE'] = 'UTM source';
 $mod_strings['LBL_VPU_UTM_CAMPAIGN'] = 'UTM campaign';
 $mod_strings['LBL_VPU_LAST_MESSAGE_AT'] = 'Last message';
+
+$mod_strings['LBL_VPU_SCHOOL_NAME'] = 'High school (directory)';
+$mod_strings['LBL_VPU_SCHOOL_ID'] = 'High school ID';
+$mod_strings['LBL_VPU_HIGH_SCHOOL'] = 'High school (as entered)';

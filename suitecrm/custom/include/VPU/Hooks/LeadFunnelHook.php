@@ -38,6 +38,16 @@ class LeadFunnelHook
         } elseif (!$consent) {
             $bean->vpu_consent_at = '';
         }
+        // Gắn thí sinh với danh mục trường THPT (chỉ khi ghép được duy nhất).
+        if (empty($bean->vpu_school_id) && !empty($bean->vpu_high_school)) {
+            require_once 'custom/include/VPU/Schools/SchoolMatcher.php';
+            \VPU\Schools\SchoolMatcher::linkLead($bean);
+        }
+        if (!empty($bean->vpu_school_id) && empty($bean->vpu_province)) {
+            $prov = \DBManagerFactory::getInstance()->getOne('SELECT province_code FROM vpu_schools WHERE id = '
+                . \DBManagerFactory::getInstance()->quoted($bean->vpu_school_id));
+            $bean->vpu_province = preg_replace('/\s*\(\d+\)$/', '', (string)($GLOBALS['app_list_strings']['vpu_province_dom'][$prov] ?? ''));
+        }
         if (!empty($bean->phone_mobile)) {
             $d = preg_replace('/\D+/', '', $bean->phone_mobile);
             if (strpos($d, '84') === 0 && strlen($d) >= 11) {

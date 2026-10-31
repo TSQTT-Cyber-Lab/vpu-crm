@@ -141,8 +141,8 @@ array(
       'LBL_VPU_PANEL_ADMISSIONS' => array(
         array(array('name' => 'vpu_funnel_stage', 'studio' => 'visible'), array('name' => 'vpu_intake_year')),
         array(array('name' => 'vpu_major', 'studio' => 'visible'), array('name' => 'vpu_interest', 'studio' => 'visible')),
-        array(array('name' => 'vpu_scholarship', 'studio' => 'visible'), array('name' => 'vpu_high_school')),
-        array(array('name' => 'vpu_province'), ''),
+        array(array('name' => 'vpu_scholarship', 'studio' => 'visible'), array('name' => 'vpu_province')),
+        array(array('name' => 'vpu_school_name'), array('name' => 'vpu_high_school')),
         array(array('name' => 'vpu_guardian_name'), array('name' => 'vpu_guardian_phone')),
       ),
       'LBL_VPU_PANEL_CHANNEL' => array(

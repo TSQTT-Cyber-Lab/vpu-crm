@@ -5,3 +5,4 @@
 | 2026-10-31 | S0 | Claude Opus 5.5 | Dựng workspace, cài SuiteCRM, đề xuất workflow CRM | Chưa được người kiểm chứng |
 | 2026-10-31 | CRM-G3 | Claude Opus 5.5 | Theme VPU, đổi tên VPU-CRM, cài vi_VN, trường phễu + webhook đa kênh | 28 unit test; kiểm thử trên bản cài thật (webhook 4 kênh, ảnh giao diện); chưa có người kiểm chứng |
 | 2026-10-31 | CRM-G3 | Claude Opus 5.5 | Đo mã màu từ ảnh header tbd.edu.vn do tác giả cung cấp, áp vào theme/logo/form | Tác giả cung cấp ảnh gốc; đối chiếu bằng ảnh chụp giao diện sau khi build |
+| 2026-10-31 | CRM-G4 | Claude Opus 5.5 | Module VPU_Schools, chuyển Excel danh sách THPT do tác giả cung cấp thành seed, importer, bộ ghép tên trường | 41 unit test trên dữ liệu thật (0 gắn sai); import/idempotent/gắn thí sinh kiểm trên bản cài thật; phát hiện 14 cặp trùng mã Khánh Hòa cần người xác minh |

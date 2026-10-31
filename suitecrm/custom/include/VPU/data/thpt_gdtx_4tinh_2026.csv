@@ -1,0 +1,464 @@
+school_code,name,address,ward_code,province_code,province,school_type,note,ward_source,needs_verification
+001,Trường THPT Tô Văn Ơn,Xã Tu Bông,22498,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+002,Trường THPT Nguyễn Thị Minh Khai,Xã Vạn Thắng,22516,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+003,Trường THPT Huỳnh Thúc Kháng,Xã Vạn Ninh,22489,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+004,Trường THPT Lê Hồng Phong,Xã Vạn Hưng,22525,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+006,Trường THPT Nguyễn Du - Bắc Ninh Hòa,Xã Bắc Ninh Hòa,22546,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+007,Trường THPT Trần Quý Cáp,Phường Đông Ninh Hòa,22561,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+008,Trường THPT Nguyễn Chí Thanh,"Thôn Đại Cát, phường Ninh Hòa",22528,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+009,Trường THPT Nguyễn Trãi - Ninh Hòa,Phường Ninh Hòa,22528,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+010,Trường THPT Trần Cao Vân,Phường Ninh Hòa,22528,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+011,Trường THPT Tôn Đức Thắng – Nam Ninh Hòa,"Thôn Mỹ Lợi, xã Nam Ninh Hòa",22597,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+012,Trung tâm Giáo dục thường xuyên Ninh Hòa,"469 Trần Quý Cáp, phường Ninh Hòa",22528,56,Khánh Hòa,gdtx,,ghep-tu-dong,0
+014,Trường THPT chuyên Lê Quý Đôn - Nam Nha Trang,"Đại lộ Nguyễn Tất Thành, phường Nam Nha Trang",22402,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+015,Trường THPT Hoàng Văn Thụ,"Số 02 Hòn Chồng, phường Bắc Nha Trang",22333,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+016,Trường THPT Lý Tự Trọng,"Số 07 Lý Tự Trọng, phường Nha Trang",22366,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+017,Trường THPT Nguyễn Văn Trỗi,"Số 32 Hàn Thuyên, phường Nha Trang",22366,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+018,Trường THPT Phạm Văn Đồng – Nha Trang,"Số 05 Trường Sơn, phường Nha Trang",22366,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+019,Trường THPT Hà Huy Tập,Phường Tây Nha Trang,22390,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+020,Trường Phổ thông Dân tộc nội trú THPT Khánh Hòa,"Số 02 Hòn Chồng, phường Bắc Nha Trang",22333,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+021,Trung tâm Giáo dục thường xuyên tỉnh Khánh Hòa,"Số 03 Trần Hưng Đạo, phường Nha Trang",22366,56,Khánh Hòa,gdtx,,ghep-tu-dong,0
+023,"Trường TH, THCS và THPT iSchool Nha Trang","Số 25 Hai Bà Trưng, phường Nha Trang",22366,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+024,Trường THPT Nguyễn Thiện Thuật,"Số 75 đường Nguyễn Thị Minh Khai, phường Nha Trang",22366,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+025,Trường THPT Lê Thánh Tôn,"Số 10, đường Phước Long, phường Nha Trang",22366,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+026,"Trường TH, THCS và THPT Quốc tế Việt Nam Singapore","Đường A1, Khu dân cư VĐT, phường Tây Nha Trang",22390,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+029,Trường THPT Hoàng Hoa Thám,"Khóm Phú Lộc Đông, xã Diên Khánh",22651,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+030,Trường THPT Nguyễn Thái Học,"Phước Tuy, Xã Diên Thọ",22672,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+031,Trường THPT Võ Nguyên Giáp,Xã Diên Lạc,22678,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+033,Trường THPT Lạc Long Quân,"Số 90, Đường Hùng Vương, xã Khánh Vĩnh",22609,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+034,Trường THCS và THPT Nguyễn Thái Bình,"Thôn Bến Khế, xã Bắc Khánh Vĩnh",22615,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+036,Trường THPT Đoàn Thị Điểm,"Tân Xương, xã Suối Dầu",22708,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+037,Trường THPT Trần Bình Trọng,"Số 08, đường Trường Chinh, xã Cam Lâm",22453,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+038,Trường THPT Nguyễn Huệ - Cam Lâm,"Số 100 Nguyễn Trãi, xã Cam Lâm",22453,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+039,Trường THPT Ngô Gia Tự,"Đường Nguyễn Công Trứ, phường Bắc Cam Ranh",22411,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+040,Trường THPT Phan Bội Châu – Cam Ranh,"Khóm I, phường Cam Ranh",22420,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+041,Trường THPT Trần Hưng Đạo,"Số 386, đường 3/4, phường Cam Linh",22432,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+042,Trung tâm Giáo dục thường xuyên Cam Ranh,"135, Phan Chu Trinh, phường Cam Ranh",22420,56,Khánh Hòa,gdtx,,ghep-tu-dong,0
+045,Trường THPT Khánh Sơn,"Đường Lê Duẩn, xã Khánh Sơn",22714,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+047,Trường THPT Phan Bội Châu - Thuận Bắc,Xã Thuận Bắc,22849,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+048,Trường THCS và THPT Bác Ái,Xã Bác Ái Đông,22801,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+049,Trường Phổ thông DTNT THCS và THPT Pi Năng Tắc,Xã Bác Ái Đông,22801,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+050,Trường THPT Nguyễn Du - Ninh Sơn,Xã Ninh Sơn,22810,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+051,Trường THPT Trường Chinh,Xã Ninh Sơn,22810,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+052,Trường THPT Lê Duẩn,Phường Đô Vinh,22738,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+053,Trường THPT Phạm Văn Đồng - Phước Hậu,Xã Phước Hậu,22873,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+054,Trường THPT Nguyễn Huệ - Ninh Phước,Xã Ninh Phước,22870,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+055,Trường THPT An Phước,Xã Ninh Phước,22870,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+056,Trường THCS và THPT Nguyễn Văn Linh,Xã Thuận Nam,22897,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+057,Trường THCS và THPT Đặng Chí Thanh,Xã Cà Ná,22909,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+058,Trường THPT chuyên Lê Quý Đôn - Đông Hải,Phường Đông Hải,22780,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+059,Trường THCS và THPT Trần Hưng Đạo,Phường Đông Hải,22780,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+060,Trường THPT Nguyễn Trãi – Phan Rang,Phường Phan Rang,22759,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+061,Trường THPT Chu Văn An,Phường Bảo An,22741,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+062,Trường THPT Tháp Chàm,Phường Bảo An,22741,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+063,Trường Phổ thông Dân tộc nội trú THPT Ninh Thuận,Phường Bảo An,22741,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+064,Trường THPT iSchool Ninh Thuận,Phường Phan Rang,22759,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+065,"Trường TH, THCS và THPT Hoa Sen","08 Hoàng Diệu - Khu K1, phường Phan Rang",22759,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+066,Trung tâm Giáo dục thường xuyên Phan Rang,Phường Phan Rang,22759,56,Khánh Hòa,gdtx,,ghep-tu-dong,0
+067,Trường THPT Tôn Đức Thắng – Xuân Hải,Xã Xuân Hải,22861,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+068,Trường THPT Ninh Hải,Phường Ninh Chử,22834,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+069,Trường THPT Phan Chu Trinh,Xã Vĩnh Hải,22846,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+070,Trường THPT Hà Huy Tập (Hệ GDTX),Phường Tây Nha Trang,22390,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+071,Trường THPT Ngô Gia Tự (Hệ GDTX),"Đường Nguyễn Công Trứ, phường Bắc Cam Ranh",22411,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+072,Trường THPT Nguyễn Du - Bắc Ninh Hòa,Xã Bắc Ninh Hòa,22546,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+073,Trường THPT Tôn Đức Thắng – Nam Ninh Hòa,"Thôn Mỹ Lợi, xã Nam Ninh Hòa",22597,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+074,Trường THPT Phạm Văn Đồng – Nha Trang,"Số 05 Trường Sơn, phường Nha Trang",22366,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+075,Trường THPT Lê Thánh Tôn,"Số 10, đường Phước Long, phường Nha Trang",22366,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+076,Trường THPT Nguyễn Thái Học,"Phước Tuy, Xã Diên Thọ",22672,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+077,Trường THPT Trần Bình Trọng,"Số 08, đường Trường Chinh, xã Cam Lâm",22453,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+078,Trường THPT Nguyễn Huệ - Cam Lâm,"Số 100 Nguyễn Trãi, xã Cam Lâm",22453,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+080,Trường THPT Nguyễn Du - Ninh Sơn,Xã Ninh Sơn,22810,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+081,Trường THPT Trường Chinh,Xã Ninh Sơn,22810,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+082,Trường THPT Lê Duẩn,Phường Đô Vinh,22738,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+083,Trường THCS và THPT Nguyễn Văn Linh,Xã Thuận Nam,22897,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+084,Trường THPT Tôn Đức Thắng – Xuân Hải,Xã Xuân Hải,22861,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+085,Trường THPT Ninh Hải,Phường Ninh Chử,22834,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+086,Trường THPT Phan Chu Trinh,Xã Vĩnh Hải,22846,56,Khánh Hòa,thpt,,ghep-tu-dong,0
+001,THCS&THPT Lộc Bắc,"Thôn 1 Lộc Bảo, xã Bảo Lâm 5, tỉnh Lâm Đồng",25057,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+002,THPT Bảo Lâm,"Thôn 8 Lộc Thắng, xã Bảo Lâm 1, tỉnh Lâm Đồng",25054,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+003,THPT Lộc An,"Thôn 3, xã Bảo Lâm 2, tỉnh Lâm Đồng",25084,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+004,THPT Lộc Thành,"Thôn 11, xã Bảo Lâm 3, tỉnh Lâm Đồng",25093,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+005,THPT Bảo Lộc,"101 Lê Hồng Phong, Phường 1 Bảo Lộc",24823,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+006,THPT Lê Thị Pha,"Tổ 1 Đại Lào, Phường 3 Bảo Lộc",24841,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+007,THPT Lộc Phát,"390 Nguyễn Văn Cừ, Phường 1 Bảo Lộc",24823,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+008,THPT Lộc Thanh,"149 Lê Lợi, Phường 1 Bảo Lộc",24823,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+009,THPT Nguyễn Du – Bảo Lộc,"245 Nguyễn Công Trứ, phường 2 Bảo Lộc",24820,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+010,THPT Nguyễn Tri Phương,"Hẻm 1223 Trần Phú, phường 3 Bảo Lộc, tỉnh Lâm Đồng",24841,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+011,THPT Di Linh,"Thôn 16, xã Di Linh, tỉnh Lâm Đồng",25000,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+012,THPT Lê Hồng Phong,"Thôn 1, xã Hoà Ninh, tỉnh Lâm Đồng",25036,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+013,THPT Nguyễn Huệ - Đinh Trang Thượng,"Thôn Tân Lâm 5, xã Đinh Trang Thượng, tỉnh Lâm Đồng",25007,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+014,THPT Nguyễn Viết Xuân,"Thôn 7, xã Gia Hiệp, tỉnh Lâm Đồng",25015,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+015,THPT Phan Bội Châu - Di Linh,"Thôn 9, xã Di Linh, tỉnh Lâm Đồng",25000,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+016,THPT Trường Chinh - Hòa Ninh,"Thôn 14, xã Hoà Ninh, tỉnh Lâm Đồng",25036,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+017,THPT Cát Tiên,"Thôn 1, xã Cát Tiên, tỉnh Lâm Đồng",25159,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+018,THPT Gia Viễn,Thôn Trấn Phú - xã Cát Tiên 3 - tỉnh Lâm Đồng,25162,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+019,THPT Quang Trung - Cát Tiên,Thôn Cát Lâm 3 - Xã Cát Tiên 2 - Tỉnh Lâm Đồng,25180,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+020,THPT Đạ Huoai,Thôn 7 - xã Đạ Huoai – Tỉnh Lâm Đồng,25099,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+021,THPT Đạm Ri,"Thôn 6, Xã Đạ Huoai 2, Tỉnh Lâm Đồng",25105,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+022,THPT Đạ Tẻh,"Số 15, Đường 30/4, Thôn 6A, Xã Đạ Tẻh, Lâm Đồng",25126,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+023,THPT Lê Quý Đôn – Đạ Tẻh,"Thôn Hòa Bình, xã Đạ Tẻh 3, Lâm Đồng",25135,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+024,THCS&THPT Chi Lăng,"8 Phan Chu Trinh, Phường Lâm Viên - Đà Lạt, Lâm Đồng",24778,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+025,THCS&THPT Đống Đa,"253 Xô Viết Nghệ Tĩnh, phường LangBiang-Đà Lạt, Lâm Đồng",24846,68,Lâm Đồng,thpt,Mã xã/phường điền bổ sung 31/10/2026: Phường Lang Biang - Đà Lạt,dien-tay:Cao,0
+026,THCS&THPT Tà Nung,"TDP Tà Nung 5, phường Cam Ly - Đà Lạt, Lâm Đồng",24787,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+027,THCS&THPT Tây Sơn,"1/2/2 Nhà Chung, Phường Xuân Hương - Đà Lạt, Lâm Đồng",24781,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+028,THCS&THPT Xuân Trường,"TDP Cầu Đất, phường Xuân Trường - Đà Lạt, Lâm Đồng",24805,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+029,THPT Bùi Thị Xuân - Đà Lạt,"242 Bùi Thị Xuân - Phường Xuân Hương - Đà Lạt, Lâm Đồng",24781,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+030,THPT Trần Phú - Đà Lạt,10 Trần Quang Diệu- phường Xuân Hương - Đà Lạt,24781,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+031,THCS&THPT Võ Nguyên Giáp,"Thôn 1, Đam Rông 2, Lâm Đồng",24877,68,Lâm Đồng,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Đam Rông 2,dien-tay:Cao,0
+032,THPT Đạ Tông,Liêng Trang 1 - Đam Rông 4 - Lâm Đồng,24853,68,Lâm Đồng,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Đam Rông 4,dien-tay:Cao,0
+033,THPT Nguyễn Chí Thanh,Thôn Trung Tâm - Đam Rông 1 - Lâm Đồng,24886,68,Lâm Đồng,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Đam Rông 1,dien-tay:Cao,0
+034,THPT Phan Đình Phùng - Đam Rông,Thôn Tân Tiến- Xã Đam Rông 3- Lâm Đồng,24875,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+035,THPT Đơn Dương,01- Chu Văn An - Xã Đơn Dương - Lâm Đồng,24931,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+036,THPT Hùng Vương - D'Ran,33 Nguyễn Huệ - Xã Dran - Lâm Đồng,24934,68,Lâm Đồng,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã D'Ran,dien-tay:Cao,0
+037,THPT Pró,"Thôn Krăng Gọ, xã Quảng Lập, tỉnh Lâm Đồng",24955,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+038,THPT Chu Văn An -Hiệp Thạnh,"Quốc lộ 20, thôn Quảng Hiệp, xã Hiệp Thạnh, tỉnh Lâm Đồng",24967,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+039,THPT Đức Trọng,"360 Quốc lộ 20, xã Đức Trọng, tỉnh Lâm Đồng",24958,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+040,THPT Hoàng Hoa Thám,"Thôn Thái Sơn, xã Tân Hội, tỉnh Lâm Đồng",24976,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+041,THPT Lương Thế Vinh - Đức Trọng,"Thôn 27, xã Đức Trọng, tỉnh Lâm Đồng",24958,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+042,THPT Nguyễn Bỉnh Khiêm - Tà Hine,"Thôn Đà Lâm, Xã Tà Hine, Tỉnh Lâm Đồng",24991,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+043,THPT Nguyễn Thái Bình,"Thôn RChai II, xã Đức Trọng, tỉnh Lâm Đồng",24958,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+044,THCS&THPT Đạ Nhim,"Thôn Đara Hoa, xã Lạc Dương, tỉnh lâm Đồng",24848,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+045,THCS&THPT Đạ Sar,"Thôn 1, xã Lạc Dương, tỉnh lâm Đồng",24848,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+046,THPT Lang Biang,"Tổ dân phố Đăng Lèn, phường Lang Biang - Đà Lạt",24846,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+047,THPT Huỳnh Thúc Kháng - Lâm Hà,"Thôn Vinh Quang, xã Tân Hà Lâm Hà",24916,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+048,THPT Lâm Hà,"Thôn Yên Bình, Xã Đinh Văn Lâm Hà",24871,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+049,THPT Lê Quý Đôn - Lâm Hà,"Thôn R'Lơm, xã Phú Sơn Lâm Hà, tỉnh Lâm Đồng",24895,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+050,THPT Tân Hà,"Thôn Liên Trung, xã Tân Hà Lâm Hà, tỉnh Lâm Đồng",24916,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+051,THPT Thăng Long,"Thôn Ba Đình, xã Nam Ban Lâm Hà, tỉnh Lâm Đồng",24868,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+071,THPT Chuyên Bảo Lộc,"53 Đào Duy Từ, Phường 1 Bảo Lộc, tỉnh Lâm Đồng",24823,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+072,THPT Chuyên Thăng Long,10 Trần Phú- phường Xuân Hương - Đà Lạt - Lâm Đồng,24781,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+076,PT DTNT THCS&THPT Đạ Tẻh,"Số 284 - đường 30/4, thôn 5C, xã Đạ Tẻh, tỉnh Lâm Đồng",25126,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+077,PT DTNT THCS&THPT tỉnh Lâm Đồng,"02 Huyền Trân Công Chúa, Phường Cam Ly Đà Lạt, Lâm Đồng",24787,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+082,"TH, THCS & THPT Yersin Đà Lạt","27 Tôn Thất Tùng- Phường Lâm Viên - Đà Lạt, Lâm Đồng",24778,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+083,"TH, THCS và THPT Quốc tế Châu Á Thái Bình Dương Bảo Lộc","192 Huỳnh Thúc Kháng, phường 2 Bảo Lộc, tỉnh Lâm Đồng",24820,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+091,Trung tâm GDTX Đà Lạt,"01 Lương Thế Vinh, phường Xuân Hương, Đà Lạt",24781,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+092,Trung tâm GDNN-GDTX Đức Trọng,"Số 08 Lê Hồng Phong, xã Đức Trọng, tỉnh Lâm Đồng",24958,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+093,Trung Tâm GDNN-GDTX Lâm Hà,"Thôn Yên Bình, Xã Đinh Văn Lâm Hà, tỉnh Lâm Đồng",24871,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+094,Trung tâm GDNN-GDTX Di Linh,"02 Võ Thị Sáu, thôn 3, xã Di Linh, Lâm Đồng",25000,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+095,Trung tâm GDNN-GDTX Đạ Huoai,"Số 11 - Nguyễn Thái Học, thôn 3, xã Đạ Huoai, Lâm Đồng",25099,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+096,Trung tâm GDNN-GDTX Bảo Lộc,"77 Phan Đình Phùng, Phường 2 Bảo Lộc",24820,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+201,THPT Cát Tiên (2023),"Thôn 1, xã Cát Tiên, tỉnh Lâm Đồng",25159,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+202,THPT Gia Viễn (2023),Thôn Trấn Phú - xã Cát Tiên 3 - tỉnh Lâm Đồng,25162,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+301,THPT Hòa Đa,"Xã Phan Rí Cửa, Tỉnh Lâm Đồng",22972,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+302,THPT Tuy Phong,"Đường Phan Bội Châu, thôn 5, xã Liên Hương, tỉnh Lâm Đồng",22969,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+303,THPT Bắc Bình,"Số 02- Trần Hưng Đạo, thôn Xuân An, xã Bắc Bình",23005,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+304,THPT Nguyễn Thị Minh Khai,"Số 19 Nguyễn Thị Minh Khai, xã Lương Sơn, tỉnh Lâm Đồng",23032,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+305,THPT Hàm Thuận Bắc,"437 Đường 8/4, Xã Hàm Thuận, Lâm Đồng",23059,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+306,THPT Nguyễn Văn Linh,"Quốc lộ 1A, thôn 2, xã Hàm Thuận, tỉnh Lâm Đồng",23059,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+307,THPT Hàm Thuận Nam,"18, Trần Phú, xã Hàm Thuận Nam, tỉnh Lâm Đồng",23110,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+308,THPT Lương Thế Vinh - Hàm Kiệm,"Thôn Dân Phú, xã Hàm Kiệm, tỉnh Lâm Đồng",23128,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+309,THPT Lý Thường Kiệt,"609 Thống Nhất, phường La Gi, tỉnh Lâm Đồng",23235,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+310,THPT Nguyễn Huệ - La Gi,"25 Nguyễn Huệ, Phường La Gi, Tỉnh Lâm Đồng",23235,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+311,THPT Nguyễn Trường Tộ,"Km 01, đường Mai Thúc Loan, thôn Hiệp Hòa, xã Tân Hải, tỉnh Lâm Đồng",23246,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+312,THPT Đức Linh,"06 Nguyễn Khuyến, thôn Võ Xu 1, xã Đức Linh, tỉnh Lâm Đồng",23191,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+313,THPT Hùng Vương - Hoài Đức,"Số 01, Thù Khoa Huân, Thôn Võ Đắt, Xã Hoài Đức, tỉnh Lâm Đồng",23194,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+314,THPT Quang Trung - Nam Thành,"31, đường 766, Thôn Mê Pu 4, xã Nam Thành, tỉnh Lâm Đồng",23200,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+315,THPT Nguyễn Văn Trỗi,"xã Bắc Ruộng, tỉnh Lâm Đồng",23152,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+316,THPT Tánh Linh,"43, Thác bà, xã Tánh Linh, tỉnh Lâm Đồng",23149,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+317,THPT Đức Tân,"Thôn 5, xã Tân Minh, tỉnh Lâm Đồng",23230,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+318,THPT Hàm Tân,"Thôn 3, xã Hàm Tân, tỉnh Lâm Đồng",23236,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+319,THPT Huỳnh Thúc Kháng - Sơn Mỹ,"Thôn Gò Đồn, xã Sơn Mỹ, tỉnh Lâm Đồng",23266,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+320,THPT Bùi Thị Xuân - Mũi Né,"83, Huỳnh Tấn Phát, Phường Mũi Né, tỉnh Lâm Đồng",22918,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+321,THPT Phan Bội Châu - Phan Thiết,"Phường Phú Thuỷ, Tỉnh Lâm Đồng",22924,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+322,THPT Phan Chu Trinh - Phan Thiết,"163 Tuyên Quang, Phường Phú Thủy, Tỉnh Lâm Đồng",22924,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+323,THPT Phan Thiết,"427 Trần Hưng Đạo, Phường Phan Thiết, Tỉnh Lâm Đồng",22945,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+324,THPT Ngô Quyền,"Số 171, Võ Văn Kiệt, Thôn Quý Thạnh, Đặc khu Phú Quý, tỉnh Lâm Đồng",23272,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+330,THPT chuyên Trần Hưng Đạo,"Phường Phú Thuỷ, Tỉnh Lâm Đồng",22924,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+340,THCS&THPT Lê Lợi,"Số 111 Nguyễn Hội, Phường Bình Thuận, tỉnh Lâm Đồng",22960,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+341,"TH, THCS và THPT Lê Quý Đôn","Khu dân cư Bắc Xuân An, phường Hàm Thắng, tỉnh Lâm Đồng",22933,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+350,Trung tâm GDNN-GDTX Bắc Bình,"Thôn Xuân An 2, xã Bắc Bình, tỉnh Lâm Đồng",23005,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+351,Trung tâm GDNN-GDTX Đức Linh,"Thôn Võ Xu 3 xã Đức Linh, tỉnh Lâm Đồng",23191,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+352,Trung tâm GDNN-GDTX La Gi,"Cơ sở chính, số 261 - Ngô Quyền, Phường La Gi, Lâm Đồng",23235,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+601,THCS&THPT Lê Hữu Trác,"Bản Giang Châu, xã Quảng Tân, tỉnh Lâm Đồng",24748,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+602,THPT Lê Quý Đôn - Tuy Đức,"Thôn 3, xã Tuy Đức, tỉnh Lâm Đồng",24739,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+604,THPT Nguyễn Tất Thành,"Thôn Quảng Chánh, xã Kiến Đức, tỉnh Lâm Đồng",24733,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+605,THPT Phạm Văn Đồng,"Thôn 2, xã Kiến Đức, tỉnh Lâm Đồng",24733,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+606,THPT Trường Chinh - Nhân Cơ,"Thôn 20, xã Nhân Cơ, Tỉnh Lâm Đồng",24751,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+607,THPT Chu Văn An - Gia Nghĩa,"Phường Bắc Gia Nghĩa, tỉnh Lâm Đồng",24611,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+608,THPT Gia Nghĩa,"Phường Nam Gia Nghĩa, tỉnh Lâm Đồng",24615,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+609,THPT Đắk Song,"Thôn 4, xã Đức An, tỉnh Lâm Đồng",24717,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+610,THPT Lương Thế Vinh - Thuận Hạnh,"Thôn Thuận Tình, xã Thuận Hạnh, tỉnh Lâm Đồng",24722,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+611,THPT Phan Đình Phùng - Đức An,"Thôn Đăk Kual, xã Đức An, tỉnh Lâm Đồng",24717,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+612,THPT Đắk Mil,"102 Lê Duẩn, Thôn 8, Đức Lập, Lâm Đồng",24664,68,Lâm Đồng,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Đức Lập,dien-tay:Cao,0
+613,THPT Nguyễn Du – Đắk Sắk,"Thôn 3/2, xã Đắk Sắk, tỉnh Lâm Đồng",24678,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+614,THPT Quang Trung - Đắk Mil,"Thôn 3, xã Đăk Mil, tỉnh Lâm Đồng",24670,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+615,THPT Trần Hưng Đạo,"69 Trần Hưng Đạo, Xã Đức Lập, Tỉnh Lâm Đồng",24664,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+616,THPT Nguyễn Bỉnh Khiêm – Nam Dong,"Thôn 30, xã Nam Dong, tỉnh Lâm Đồng",24649,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+617,THPT Phan Bội Châu - Nam Dong,"Thôn 13, xã Nam Dong, tỉnh Lâm Đồng",24649,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+618,THPT Phan Chu Trinh - Cư Jút,"Thôn 13 Tâm Thắng, Xã Cư Jút, Tỉnh Lâm Đồng",24640,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+619,THPT Hùng Vương - Quảng Phú,"Thôn Phú Xuân, Xã Quảng Phú, tỉnh Lâm Đồng",24712,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+620,THPT Krông Nô,"02 Chu Văn An, thôn Đăk Mâm 3, xã Krông Nô, tỉnh Lâm Đồng",24688,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+621,THPT Trần Phú – Nam Đà,"Thôn Đăk Thành, xã Nam Đà",24697,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+622,THPT Đắk Glong,"Bon R' Dạ, xã Quảng Khê, tỉnh Lâm Đồng",24631,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+623,THPT Lê Duẩn,"Thôn Quảng Hợp, xã Quảng Sơn, tỉnh Lâm Đồng",24616,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+671,THPT chuyên Nguyễn Chí Thanh,"Phường Nam Gia Nghĩa, tỉnh Lâm Đồng",24615,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+676,THPT DTNT N'Trang Lơng,"Đường Ybih ALêô - Tổ 3, phường Đông Gia Nghĩa, tỉnh Lâm Đồng",24617,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+677,PTDTNT THCS&THPT Cư Jút,"Bon U2, xã Cư Jút, tỉnh Lâm Đồng",24640,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+678,PTDTNT THCS&THPT Đăk Mil,"Số 13 - Lê Duẫn, xã Đức Lập, tỉnh Lâm Đồng",24664,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+679,PTDTNT THCS&THPT Đắk Song,"Thôn 4, xã Đức An - Lâm Đồng",24717,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+680,PT DTNT THCS&THPT Tuy Đức,"Thôn 2, xã Tuy Đức, tỉnh Lâm Đồng",24739,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+681,PT DTNT THCS&THPT Đăk Glong,"Bon R' Dạ, xã Quảng Khê, tỉnh Lâm Đồng",24631,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+682,PTDTNT THCS&THPT Krông Nô,"Thôn Đăk Mâm 1, xã Krông Nô, tỉnh Lâm Đồng",24688,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+683,PT DTNT THCS&THPT Đắk R'Lấp,"thôn 3, xã Kiến Đức, tỉnh Lâm Đồng",24733,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+691,THCS-THPT Trương Vĩnh Ký,"Thôn Xuân Phong, xã Đức Lập, tỉnh Lâm Đồng",24664,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+701,"Trung tâm GDTX - Ngoại ngữ, Tin học tỉnh","Số 147 dường Nguyễn Thái Học, phường Đông Gia Nghĩa, tỉnh Lâm Đồng",24617,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+702,Trung tâm GDNN-GDTX Đắk Mil,"Thôn Thuận Sơn, xã Thuận An, tỉnh Lâm Đồng",24682,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+703,Trung tâm GDNN-GDTX Tuy Đức,"Thôn 2, xã Tuy Đức, tỉnh Lầm Đồng",24739,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+704,"Trung tâm GDTX - Ngoại ngữ, Tin học tỉnh (Đắk R'Lấp)","tổ DP6, xã Kiến Đức, tỉnh Lâm Đồng",24733,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+706,Trung tâm GDNN-GDTX Tuy Đức (Đắk Song),"Tổ 1, xã Đức An, tỉnh Lâm Đồng",24717,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+707,Trung tâm GDNN-GDTX Đắk Mil (Cư Jút),25 Nguyễn Đình Chiểu xã Cư Jút tỉnh Lâm Đồng,24640,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+708,Trung tâm GDNN-GDTX Đắk Mil (Krông Nô),"Thôn Đắk Mâm 1, xã Krông Nô, tỉnh Lâm Đồng",24688,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+801,Trường THPT KV 1,"Số 36 Trần Phú, Phường Xuân Hương - Đà Lạt",24781,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+802,Trường THPT KV 2NT,"Số 36 Trần Phú, Phường Xuân Hương - Đà Lạt",24781,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+803,Trường THPT KV 2,"Số 36 Trần Phú, Phường Xuân Hương - Đà Lạt",24781,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+804,Trường THPT KV 3,"Số 36 Trần Phú, Phường Xuân Hương - Đà Lạt",24781,68,Lâm Đồng,thpt,,ghep-tu-dong,0
+950,Trung tâm GDTX Đà Lạt (cơ sở 2),"148 - Lang Biang, phường Lang Biang, Đà Lạt",24846,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+951,Trung tâm GDNN-GDTX Đức Trọng (cơ sở 2),05 - Lý Tự Trọng – xã Đơn Dương - tỉnh Lâm Đồng,24931,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+952,Trung tâm GDNN-GDTX Đạ Huoai (Đạ Tẻh),"113 - Quang Trung, thôn 2A, Xã Đạ Tẻh, Lâm Đồng",25126,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+953,Trung tâm GDNN-GDTX Đạ Huoai (Cát Tiên),"TDP 12, xã Cát Tiên, Lâm Đồng",25159,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+954,Trung tâm GDNN-GDTX Bảo Lộc (cơ sở 2),"Số 201 Lê Duẩn, xã Bảo Lâm 1, tỉnh Lâm Đồng",25054,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+955,Trung tâm GDNN-GDTX Bắc Bình (Phan Bội Châu),"Phường Phú Thuỷ, Tỉnh Lâm Đồng",22924,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+956,Trung tâm GDNN-GDTX Bắc Bình (Tuy Phong),"Đường Phan Bội Châu, thôn 5, xã Liên Hương, tỉnh Lâm Đồng",22969,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+957,Trung tâm GDNN-GDTX Bắc Bình (Hòa Đa),"Xã Phan Rí Cửa, Tỉnh Lâm Đồng",22972,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+958,Trung tâm GDNN-GDTX Đức Linh (Cơ sở 2),"Thôn Lạc Hưng 2, Xã Tánh Linh, Tỉnh Lâm Đồng",23149,68,Lâm Đồng,gdtx,,ghep-tu-dong,0
+001,Trường PTDTNT THPT Đam San,"Thôn Đông Xuân, xã Ea Đrông, tỉnh Đắk Lắk",24328,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+002,Trường PTDTNT THPT N' Trang Lơng,"694/26, Đường Võ Văn Kiệt, phường Thành Nhất, tỉnh Đắk Lắk",24154,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+003,Trường THCS và THPT Tây Nguyên,"45 Thủ Khoa Huân, phường Thành Nhất, tỉnh Đắk Lắk",24154,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+004,Trường THPT Buôn Đôn,"Xã Ea Wer, tỉnh Đắk Lắk",24241,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+005,Trường THPT Buôn Hồ,"19 Quang Trung, phường Buôn Hồ, tỉnh Đắk Lắk",24305,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+006,Trường THPT Buôn Ma Thuột,"57 Bà Triệu, Tự An, Phường Buôn Ma Thuột, Đăk Lăk",24133,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+007,Trường THPT Cao Bá Quát,"Km9-Quốc lộ 14, phường Tân An, tỉnh Đắk Lắk",24163,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+008,Trường THPT Chu Văn An,"249 Phan Bội Châu, phường Buôn Ma Thuột, Tỉnh Đắk Lắk",24133,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+009,Trường THPT chuyên Nguyễn Du,"Khối 6, phường Tân An, tỉnh Đắk Lắk",24163,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+010,Trường THPT Cư M'gar,"10 Lê Quý Đôn, xã Quảng Phú, tỉnh Đắk Lắk",24259,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+011,Trường THPT Ea H'leo,"31, Điện Biên Phủ, xã Ea Drăng, tỉnh Đắk Lắk",24181,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+012,Trường THPT Ea Rốk,"Thôn 7, xã Ea Rốk, tỉnh Đắk Lắk",24217,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+013,Trường THPT Ea Súp,"Số 09 Chu Văn An, thôn Hòa Bình, xã Ea Súp, tỉnh Đắk Lắk",24211,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+014,Trường THPT Hai Bà Trưng,"Phường Buôn Hồ, tỉnh Đắk Lắk",24305,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+015,Trường THPT Hồng Đức,"03 Lê Hồng Phong, phường Buôn Ma Thuột, tỉnh Đắk Lắk",24133,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+016,Trường THPT Hùng Vương,"Số 222 Hùng Vương, xã Krông Ana, tỉnh Đắk Lắk",24538,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+017,Trường THPT Huỳnh Thúc Kháng,"Đường Đặng Thùy Trâm, phường Buôn Hồ, tỉnh Đắk Lắk",24305,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+018,Trường THPT Krông Ana,"61 Chu Văn An, xã Krông Ana, tỉnh Đắk Lắk",24538,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+019,Trường THPT Krông Bông,"02, Nam Cao, xã Krông Bông, Đăk Lăk",24448,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+020,Trường THPT Lắk,"05 Âu Cơ, xã Liên Sơn Lắk, tỉnh Đắk Lắk",24580,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+021,Trường THPT Lê Duẩn,"129B Đường Phan Huy Chú, phường Thành Nhất, tỉnh Đắk Lắk",24154,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+022,Trường THPT Lê Hữu Trác,"47 Lê Hữu Trác, xã Quảng Phú, tỉnh Đắk Lắk",24259,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+023,Trường THPT Lê Quý Đôn,"27 Trần Nhật Duật, phường Buôn Ma Thuột, tỉnh Đắk Lắk",24133,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+024,Trường THPT Lý Tự Trọng,"Thôn 12, xã Phú Xuân, tỉnh Đắk Lắk",24364,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+025,Trường THPT Nguyễn Bỉnh Khiêm,"Km 28, QL 26, xã Krông Pắc, tỉnh Đắk Lắk",24490,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+026,Trường THPT Nguyễn Chí Thanh,"Buôn Ba Yang, xã Krông Nô, tỉnh Đắk Lắk",24604,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+027,Trường THPT Nguyễn Tất Thành,"Thôn 12, xã M'Drắk, tỉnh Đắk Lắk",24412,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+028,Trường THPT Nguyễn Văn Cừ,"Buôn Kđrô, xã Krông Búk, tỉnh Đắk Lắk",24310,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+029,Trường THPT Phan Đăng Lưu,"TDP 11, xã Pơng Drang, tỉnh Đắk Lắk",24316,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+030,Trường THPT Quang Trung,"Km 14, Quốc lộ 26, tỉnh Đắk Lắk",24505,66,Đắk Lắk,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Ea Knuếc,dien-tay:Cao,0
+031,Trường THPT số 1 Lê Hồng Phong,"Km 38, Quốc Lộ 26, Xã Ea Phê, tỉnh Đắk Lắk",24502,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+032,Trường THPT số 1 Ngô Gia Tự,"Km52, QL 26, thôn Hưng Long, xã Ea Kar, tỉnh Đắk Lắk",24373,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+033,Trường THPT số 1 Nguyễn Công Trứ,"436 Giải Phóng, xã Krông Pắc, tỉnh Đắk Lắk",24490,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+034,Trường THPT số 1 Nguyễn Huệ,"Thôn Tân Thành, xã Dliê Ya, tỉnh Đắk Lắk",24346,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+035,Trường THPT số 1 Nguyễn Thái Bình,"Thôn 5, xã Ea Kar, tỉnh Đắk Lắk",24373,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+036,Trường THPT số 1 Nguyễn Thị Minh Khai,"Thôn 4A, xã Tân Tiến, tỉnh Đắk Lắk",24526,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+037,Trường THPT số 1 Nguyễn Trãi,"Km19, Ql14, Cuôr Đăng, tỉnh Đắk Lắk",24301,66,Đắk Lắk,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Cuôr Đăng,dien-tay:Cao,0
+038,Trường THPT số 1 Nguyễn Trường Tộ,"Thôn 10, Ea Riêng, tỉnh Đắk Lắk",24433,66,Đắk Lắk,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Ea Riêng,dien-tay:Cao,0
+039,Trường THPT số 1 Phạm Văn Đồng,"Thôn Tân Tiến, xã EaNa, tỉnh Đăk Lăk",24559,66,Đắk Lắk,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Ea Na,dien-tay:Cao,0
+040,Trường THPT số 1 Phan Bội Châu,"112, Hùng Vương, xã Krông Năng, tỉnh Đắk Lắk",24343,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+041,Trường THPT số 1 Phan Chu Trinh,"Xã Ea Drăng, Tỉnh Đắk Lắk",24181,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+042,Trường THPT số 1 Phan Đình Phùng,"Thôn 6A, xã Ea Kly, tỉnh Đắk Lắk",24496,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+043,Trường THPT số 1 Tôn Đức Thắng,"Thôn Phước Lộc, xã Tam Giang, tỉnh Đắk Lắk",24352,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+044,Trường THPT số 1 Trần Phú,"Km12, Quốc lộ 14, xã Hòa Phú, tỉnh Đắk Lắk",24175,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+045,Trường THPT Thực hành Cao Nguyên,"567 Lê Duẩn, phường Ea Kao, tỉnh Đắk Lắk",24169,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+046,Trường THPT Trần Đại Nghĩa,"Xã Ea Nuôl, tỉnh Đắk Lắk",24250,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+047,Trường THPT Trần Hưng Đạo,"Xã Cư Đrăm, tỉnh Đăk Lăk",24484,66,Đắk Lắk,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Yang Mao,dien-tay:Cao,0
+048,Trường THPT Trần Nhân Tông,"Xã Ea Đar, tỉnh Đắk Lắk",24373,66,Đắk Lắk,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Ea Kar,dien-tay:Cao,0
+049,Trường THPT Trần Quang Khải,"xã Cư M'gar, tỉnh Đắk Lắk",24280,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+050,Trường THPT Trần Quốc Toản,"100 Nguyễn Văn Linh, xã Ea Knốp, tỉnh Đắk Lắk",24376,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+051,Trường THPT Trường Chinh,"Thôn 2B, xã Ea Drăng, tỉnh Đắk Lắk",24181,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+052,Trường THPT Việt Đức,"Km12, Xã Ea Ktur, Tỉnh Đắk Lắk",24544,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+053,Trường THPT Võ Nguyên Giáp,"Thôn 12, xã Ea Ô, tỉnh Đắk Lắk",24403,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+054,Trường THPT Võ Văn Kiệt,"Thôn 10, xã Ea Khăl, tỉnh Đắk Lắk",24208,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+055,Trường THPT Y Jút,"Thôn 4, xã Dray Bhăng, tỉnh Đắk Lắk",24561,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+056,Trung tâm GDNN-GDTX Buôn Đôn,"Thôn Hà Bắc, Xã Ea Wer, tỉnh Đắk Lắk",24241,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+057,Trung tâm GDNN-GDTX Buôn Hồ,"Xã Ea Drông, tỉnh Đắk Lắk",24328,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+058,Trung tâm GDNN-GDTX Buôn Ma Thuột,"Số 01 Tôn Đức Thắng, Phường Tân An, tỉnh Đắk Lắk",24163,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+059,Trung tâm GDNN-GDTX Cư Kuin,"Thôn Kim Châu, xã Dray Bhăng",24561,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+060,Trung tâm GDNN-GDTX Cư M'Gar,"Đường Phù Đổng, xã Quảng Phú",24259,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+061,Trung tâm GDNN-GDTX Ea H'leo,"Buôn lê B, xã Ea H'Leo, tỉnh Đắk Lắk",24184,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+062,Trung tâm GDNN-GDTX Ea Kar,"Thôn1, xã Ea Kar, tỉnh Đắk Lắk",24373,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+063,Trung tâm GDNN-GDTX Ea Súp,"Thôn 8, Xã Ea Súp, tỉnh Đắk Lắk",24211,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+064,Trung tâm GDNN-GDTX Krông Ana,"2A Nguyễn Du, tỉnh Đắk Lắk",24538,66,Đắk Lắk,gdtx,Mã xã/phường điền bổ sung 31/10/2026: Xã Krông Ana,dien-tay:Cao,0
+065,Trung tâm GDNN-GDTX Krông Bông,"Thôn 1, xã Krông Bông, tỉnh Đắk Lắk",24448,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+066,Trung Tâm GDNN-GDTX Krông Buk,"Xã Pơng Drang, tỉnh Đắk Lắk",24316,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+067,Trung tâm GDNN-GDTX Krông Năng,"51 Nguyễn Tất Thành, xã Krông Năng, tỉnh Đắk Lắk",24343,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+068,Trung tâm GDNN-GDTX Krông Pắc,"Đường Giải Phóng - xã Krông Pắc, tỉnh Đắk Lắk",24490,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+069,Trung tâm GDNN-GDTX Lắk,"Tổ dân phố 4, xã Liên Sơn Lăk, tỉnh Đắk Lắk",24580,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+070,Trung tâm GDNN-GDTX M'Drắk,"Thôn Tân Lập, xã Cư M'ta, tỉnh Đắk Lắk",24436,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+071,Trung tâm GDTX Tỉnh,"1A Lê Hồng Phong, phường Buôn Ma Thuột, tỉnh Đắk Lắk",24133,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+401,"Trường TH, THCS và THPT Hoàng Việt","42 Phạm Hùng, Phường Tân An, tỉnh Đắk Lắk",24163,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+402,"Trường TH, THCS và THPT Phú Xuân","08, Nguyễn Hữu Thọ, Phường Tân An, tỉnh Đắk Lắk",24163,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+403,"Trường TH, THCS và THPT Victory","01 Lê Hồng Phong, phường Buôn Ma Thuột, tỉnh Đắk Lắk",24133,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+404,Trường THCS và THPT Đông Du,"Hẻm 129 Nguyễn Chí Thanh, Khối 8, Phường Tân An, tỉnh Đắk Lắk",24163,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+501,Trường PTDTNT THPT Phú Yên,"60 Lê Duẩn, phường Tuy Hòa, tỉnh Đắk Lắk",22015,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+502,Trường THCS và THPT Chu Văn An,"Thôn Lãnh Trường, xã Xuân Lãnh, tỉnh Đắk Lắk",22090,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+503,Trường THCS và THPT Nguyễn Bá Ngọc,"Thôn Phong Hậu, xã Vân Hòa, tỉnh ĐắkLắk",22177,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+504,Trường THCS và THPT Nguyễn Khuyến,"Khu phố Triều Sơn Đông, Phường Xuân Đài, tỉnh Đắk Lắk",22076,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+505,Trường THCS và THPT Nguyễn Trung Trực,"Ngân Điền, xã Sơn Hòa, tỉnh Đắk Lắk",22165,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+506,Trường THCS và THPT Nguyễn Viết Xuân,"Vùng 9, thôn Trung Lương 1, xã Tuy An Tây, tỉnh Đắk Lắk",22132,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+507,Trường THCS và THPT Võ Nguyên Giáp,"Thôn Hòa Mỹ, xã Xuân Cảnh, tỉnh Đắk Lắk",22060,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+508,Trường THCS và THPT Võ Văn Kiệt,"Thôn Vạn Giang, xã Đức Bình, tỉnh Đắk Lắk",22222,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+509,Trường THPT chuyên Lương Văn Chánh,"05 Phan Lưu Thanh, Phường Tuy Hòa, tỉnh Đắk Lắk",22015,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+510,Trường THPT Lê Hồng Phong,"Thôn Phú Thứ, Xã Tây Hòa, tỉnh Đắk Lắk",22255,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+511,Trường THPT Lê Lợi,"Thôn Long Thăng, Xã Đồng Xuân, tỉnh Đắk Lắk",22081,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+512,Trường THPT Lê Thành Phương,"xã Tuy An Nam, tỉnh Đắk Lắk",22153,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+513,Trường THPT Lê Trung Kiên,"Khu phố 3, phường Đông Hòa, tỉnh Đắk Lắk",22258,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+514,Trường THPT Ngô Gia Tự,"04 Xô Viết Nghệ Tĩnh, Khu phố Phú Lâm 2, Phường Phú Yên, tỉnh Đắk Lắk",22240,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+515,Trường THPT Nguyễn Công Trứ,"Khu phố Bàn Nham Nam, Phường Đông Hòa, tỉnh Đắk Lắk",22258,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+516,Trường THPT Nguyễn Du,"Xã Sông Hinh, tỉnh Đắk Lắk",22207,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+517,Trường THPT Nguyễn Huệ,"09 Hoàng Diệu, tỉnh Đắk Lắk",22015,66,Đắk Lắk,thpt,Mã xã/phường điền bổ sung 31/10/2026: Phường Tuy Hòa,dien-tay:Cao,0
+518,Trường THPT Nguyễn Thái Bình,"Xuân Phước, tỉnh Đắk Lắk",22111,66,Đắk Lắk,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Xuân Phước,dien-tay:Cao,0
+519,Trường THPT Nguyễn Thị Minh Khai,"Thôn Phú Thuận, xã Hòa Mỹ, tỉnh Đắk Lắk",22285,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+520,Trường THPT Nguyễn Trãi,"153 Trần Phú, phường Tuy Hòa tỉnh Đắk Lắk",22015,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+521,Trường THPT Nguyễn Trường Tộ,"147 Ngô Gia Tự, phường Phú Yên, Đắk Lắk",22240,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+522,Trường THPT Nguyễn Văn Linh,"Khu Phố Phú Thọ, phường Hòa Hiệp, Tỉnh Đắk Lắk",22261,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+523,Trường THPT Phạm Văn Đồng,"Thôn Thạch Bàn, Xã Sơn Thành, Tỉnh Đắk Lắk",22250,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+524,Trường THPT Phan Bội Châu,"Thôn Trung Hoà, tỉnh Đắk Lắk",22165,66,Đắk Lắk,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Sơn Hòa - cần kiểm tra,dien-tay:Trung bình,1
+525,Trường THPT Phan Chu Trinh,"Thôn Thọ Lộc, xã Xuân Cảnh, tỉnh Đắk Lắk",22060,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+526,Trường THPT Phan Đình Phùng,"01 Phan Đình Phùng, phường Sông Cầu, tỉnh Đắk Lắk",22051,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+527,Trường THPT Tôn Đức Thắng,"thôn Tân An, xã Ea Ly, tỉnh Đắk Lắk",22237,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+528,Trường THPT Trần Bình Trọng,"thôn Định Thọ 1, Xã Phú Hòa 1, tỉnh Đắk Lắk",22319,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+529,Trường THPT Trần Phú,"Đường Trần Phú, Thôn Chí Đức, Xã Tuy An Bắc, Tỉnh Đắk Lắk",22114,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+530,Trường THPT Trần Quốc Tuấn,"Định Thành, xã Phú Hòa 1, tỉnh Đắk Lắk",22319,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+531,Trường THPT Trần Suyền,"Thôn Phụng Tường 2, xã Phú Hòa 2, tỉnh Đắk Lắk",22303,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+532,Trường THPT Võ Thị Sáu,"Diềm Điền, Tuy An Đông, tỉnh Đắk Lắk",22120,66,Đắk Lắk,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Tuy An Đông,dien-tay:Cao,0
+533,Trung tâm GDNN-GDTX Đông Hòa,"Khu Phố 4, tỉnh Đắk Lắk",22258,66,Đắk Lắk,gdtx,Mã xã/phường điền bổ sung 31/10/2026: Phường Đông Hòa - cần kiểm tra,dien-tay:Trung bình,1
+534,Trung tâm GDNN-GDTX Đồng Xuân,"Thôn Long Bình, tỉnh Đắk Lắk",22081,66,Đắk Lắk,gdtx,Mã xã/phường điền bổ sung 31/10/2026: Xã Đồng Xuân - cần kiểm tra,dien-tay:Trung bình,1
+535,Trung tâm GDNN-GDTX Phú Hòa,"Thôn Phong Niên, xã Phú Hòa 1, tỉnh Đắk Lắk",22319,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+536,Trung tâm GDNN-GDTX Phú Yên,"114 Lê Trung Kiên, tỉnh Đắk Lắk",22015,66,Đắk Lắk,gdtx,Mã xã/phường điền bổ sung 31/10/2026: Phường Tuy Hòa - cần kiểm tra,dien-tay:Trung bình,1
+537,Trung tâm GDNN-GDTX Sông Cầu,"Tổ dân phố Trung Trinh, phường Sông Cầu, tỉnh Đắk Lắk",22051,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+538,Trung tâm GDNN-GDTX Sông Hinh,"Thôn 3, tỉnh Đắk Lắk",22207,66,Đắk Lắk,gdtx,Mã xã/phường điền bổ sung 31/10/2026: Xã Sông Hinh,dien-tay:Cao,0
+539,Trung tâm GDNN-GDTX Tây Hòa,"Thôn Phước Mỹ, xã Tây Hòa, tỉnh Đắk Lắk",22255,66,Đắk Lắk,gdtx,,ghep-tu-dong,0
+540,Trung tâm GDNN-GDTX Tuy An,"310 Nguyễn Tất Thành, tỉnh Đắk Lắk",22114,66,Đắk Lắk,gdtx,Mã xã/phường điền bổ sung 31/10/2026: Xã Tuy An Bắc,dien-tay:Cao,0
+701,Trường THPT Nguyễn Bỉnh Khiêm - Tuy Hòa,"199A Nguyễn Huệ, Phường Tuy Hoà, Đắk Lắk",22015,66,Đắk Lắk,thpt,,ghep-tu-dong,0
+001,Trường PTDTNT THCS và THPT An Lão,"Số 128 Ngô Mây, thôn 6, xã An Lão, tỉnh Gia Lai",21609,52,Gia Lai,thpt,,ghep-tu-dong,0
+002,Trường PTDTNT THCS và THPT Vân Canh,"Số 609 Quang Trung, thôn Tân Thuận, xã Vân Canh, tỉnh Gia Lai",21994,52,Gia Lai,thpt,,ghep-tu-dong,0
+003,Trường PTDTNT THCS và THPT Vĩnh Thạnh,"Thôn Định Nhất, xã Vĩnh Thạnh, tỉnh Gia Lai",21786,52,Gia Lai,thpt,,ghep-tu-dong,0
+004,Trường PTDTNT THPT số 1 tỉnh Gia Lai,"Số 227 Nguyễn Thị Minh Khai, phường Quy Nhơn Nam, tỉnh Gia Lai",21592,52,Gia Lai,thpt,,ghep-tu-dong,0
+005,Trường THPT An Lão,"Xóm 4, Thôn Xuân Phong Nam, xã An Hòa, tỉnh Gia Lai",21628,52,Gia Lai,thpt,,ghep-tu-dong,0
+006,Trường THPT An Lương,"Thôn Chánh Thiện, xã An Lương, tỉnh Gia Lai",21769,52,Gia Lai,thpt,,ghep-tu-dong,0
+007,Trường THPT Bình Dương,"02 Bùi Điền, thôn Dương Liễu Tây, xã Bình Dương, tỉnh Gia Lai",21733,52,Gia Lai,thpt,,ghep-tu-dong,0
+008,Trường THPT Bùi Thị Xuân,"Lô đất CCDT-2.11, Khu quy hoạch phía tây Trường Cao đẳng Kỹ thuật Công nghệ Quy Nhơn, phường Quy Nhơn Bắc, tỉnh Gia Lai.",21553,52,Gia Lai,thpt,,ghep-tu-dong,0
+009,Trường THPT chuyên Chu Văn An,"Khu phố 5, Phường Bồng Sơn, Tỉnh Gia Lai",21640,52,Gia Lai,thpt,,ghep-tu-dong,0
+010,Trường THPT chuyên Lê Quý Đôn,"Số 02 Nguyễn Huệ, Phường Quy Nhơn, Tỉnh Gia Lai",21583,52,Gia Lai,thpt,,ghep-tu-dong,0
+011,Trường THPT Hòa Bình,"Tổ dân phố Trung Lý, Phường An Nhơn Bắc, Tỉnh Gia Lai",21925,52,Gia Lai,thpt,,ghep-tu-dong,0
+012,Trường THPT Hoài Ân,"Số 12 Chàng Lía, thôn Gia Chiểu 1, xã Hoài Ân, tỉnh Gia Lai",21688,52,Gia Lai,thpt,,ghep-tu-dong,0
+013,Trường THPT Hùng Vương,"Số 1235 Hùng Vương, Phường Quy Nhơn Bắc, Tỉnh Gia Lai",21553,52,Gia Lai,thpt,,ghep-tu-dong,0
+014,Trường THPT Lý Tự Trọng,"Khu phố Gia An, Phường Hoài Nhơn Bắc, Tỉnh Gia Lai",21655,52,Gia Lai,thpt,,ghep-tu-dong,0
+015,Trường THPT Mỹ Thọ,"Thôn Chánh Trạch 3, xã Phù Mỹ Đông, tỉnh Gia Lai",21751,52,Gia Lai,thpt,,ghep-tu-dong,0
+016,Trường THPT Ngô Lê Tân,"Thôn Phú Trung, xã Cát Tiến, tỉnh Gia Lai",21880,52,Gia Lai,thpt,,ghep-tu-dong,0
+017,Trường THPT Ngô Mây,"Số 19 Đinh Bộ Lĩnh, thôn An Phong, xã Phù Cát, tỉnh Gia Lai",21853,52,Gia Lai,thpt,,ghep-tu-dong,0
+018,Trường THPT Nguyễn Diêu,"Thôn Phụng Sơn, xã Tuy Phước Đông, tỉnh Gia Lai",21970,52,Gia Lai,thpt,,ghep-tu-dong,0
+019,Trường THPT Nguyễn Đình Chiểu,"Số 108 Nguyễn Đình Chiểu, Khu phố Minh Khai, Phường Bình Định, Tỉnh Gia Lai",21907,52,Gia Lai,thpt,,ghep-tu-dong,0
+020,Trường THPT Nguyễn Hồng Đạo,"Thôn Tân Hóa Nam, xã Hòa Hội, tỉnh Gia Lai",21871,52,Gia Lai,thpt,,ghep-tu-dong,0
+021,Trường THPT Nguyễn Hữu Quang,"Thôn Phú Hậu, xã Cát Tiến, tỉnh Gia Lai",21880,52,Gia Lai,thpt,,ghep-tu-dong,0
+022,Trường THPT Nguyễn Trân,"Số 100 Quang Trung, Khu phố 8, phường Tam Quan, tỉnh Gia Lai",21637,52,Gia Lai,thpt,,ghep-tu-dong,0
+023,Trường THPT Nguyễn Trung Trực,"Số 28 Nguyễn Văn Trỗi, thôn Trà Quang, xã Phù Mỹ, tỉnh Gia Lai",21730,52,Gia Lai,thpt,,ghep-tu-dong,0
+024,Trường THPT Quốc học Quy Nhơn,"Số 09 Trần Phú, Phường Quy Nhơn, Tỉnh Gia Lai",21583,52,Gia Lai,thpt,,ghep-tu-dong,0
+025,Trường THPT số 1 An Nhơn,"Số 89 Lê Hồng Phong, Phường Bình Định, tỉnh Gia Lai",21907,52,Gia Lai,thpt,,ghep-tu-dong,0
+026,Trường THPT số 1 Nguyễn Bỉnh Khiêm,"Số 192 Nguyễn Tất Thành, Thôn Gia Chiểu 1, xã Hoài Ân, tỉnh Gia Lai",21688,52,Gia Lai,thpt,,ghep-tu-dong,0
+027,Trường THPT số 1 Nguyễn Du,"Số 185 Bà Triệu, Tổ dân phố Thiện Đức, Phường Hoài Nhơn Đông, Tỉnh Gia Lai",21670,52,Gia Lai,thpt,,ghep-tu-dong,0
+028,Trường THPT số 1 Nguyễn Huệ,"Số 87 Phan Đình Phùng, Khối 3, xã Tây Sơn, tỉnh Gia Lai",21808,52,Gia Lai,thpt,,ghep-tu-dong,0
+029,Trường THPT số 1 Nguyễn Thái Học,"127 Nguyễn Thái Học, Phường Quy Nhơn Nam, tỉnh Gia Lai",21592,52,Gia Lai,thpt,,ghep-tu-dong,0
+030,Trường THPT số 1 Nguyễn Trường Tộ,"30 Nguyễn Trường Tộ, Phường An Nhơn, tỉnh Gia Lai",21910,52,Gia Lai,thpt,,ghep-tu-dong,0
+031,Trường THPT số 1 Phan Bội Châu,"Khu phố 5, Phường Bồng Sơn, Tỉnh Gia Lai",21640,52,Gia Lai,thpt,,ghep-tu-dong,0
+032,Trường THPT số 1 Phù Cát,"Số 10, Nguyễn Chí Thanh, xã Phù Cát, tỉnh Gia Lai",21853,52,Gia Lai,thpt,,ghep-tu-dong,0
+033,Trường THPT số 1 Phù Mỹ,"Số 700 Quang Trung, Thôn Trà Quang Nam, xã Phù Mỹ, tỉnh Gia Lai",21730,52,Gia Lai,thpt,,ghep-tu-dong,0
+034,Trường THPT số 1 Quang Trung,"Số 55 Võ Văn Dõng, xã Tây Sơn, tỉnh Gia Lai",21808,52,Gia Lai,thpt,,ghep-tu-dong,0
+035,Trường THPT số 1 Trần Cao Vân,"72A Trần Cao Vân, Phường Quy Nhơn, Tỉnh Gia Lai",21583,52,Gia Lai,thpt,,ghep-tu-dong,0
+036,Trường THPT số 1 Tuy Phước,"Số 194 Nguyễn Huệ, xã Tuy Phước, tỉnh Gia Lai",21952,52,Gia Lai,thpt,,ghep-tu-dong,0
+037,Trường THPT số 2 An Nhơn,"Số 02 Trần Quang Diệu, Phường An Nhơn, tỉnh Gia Lai",21910,52,Gia Lai,thpt,,ghep-tu-dong,0
+038,Trường THPT số 2 Phù Cát,"Thôn Xuân An, xã Đề Gi, tỉnh Gia Lai",21859,52,Gia Lai,thpt,,ghep-tu-dong,0
+039,Trường THPT số 2 Phù Mỹ,"Số 150 Võ Văn Dũng, thôn Dương Liễu Tây, xã Bình Dương, tỉnh Gia Lai",21733,52,Gia Lai,thpt,,ghep-tu-dong,0
+040,Trường THPT số 2 Tuy Phước,"Thôn Lương Quang, xã Tuy Phước Bắc, tỉnh Gia Lai",21964,52,Gia Lai,thpt,,ghep-tu-dong,0
+041,Trường THPT số 3 An Nhơn,"Tổ dân phố Thọ Lộc 1, Phường An Nhơn Nam, Tỉnh Gia Lai",21943,52,Gia Lai,thpt,,ghep-tu-dong,0
+042,Trường THPT số 3 Phù Cát,"Thôn Hưng Mỹ I, Xã Ngô Mây, Tỉnh Gia Lai",21901,52,Gia Lai,thpt,,ghep-tu-dong,0
+043,Trường THPT số 3Tuy Phước,"Thôn Kim Tây, xã Tuy Phước Đông, tỉnh Gia Lai",21970,52,Gia Lai,thpt,,ghep-tu-dong,0
+044,Trường THPT Tam Quan,"Số 152 Quang Trung, Khu phố 7, Phường Tam Quan, Tỉnh Gia Lai",21637,52,Gia Lai,thpt,,ghep-tu-dong,0
+045,Trường THPT Tăng Bạt Hổ,"Số 94 Trần Phú, Khu phố 5, Phường Bồng Sơn, Tỉnh Gia Lai",21640,52,Gia Lai,thpt,,ghep-tu-dong,0
+046,Trường THPT Tây Sơn,"Thôn Mỹ An, xã Bình An, tỉnh Gia Lai",21829,52,Gia Lai,thpt,,ghep-tu-dong,0
+047,Trường THPT Trần Quang Diệu,"Thôn Phú Khương, xã Ân Tường, tỉnh Gia Lai",21715,52,Gia Lai,thpt,,ghep-tu-dong,0
+048,Trường THPT Trưng Vương,"Số 26 Nguyễn Huệ, Phường Quy Nhơn, Tỉnh Gia Lai",21583,52,Gia Lai,thpt,,ghep-tu-dong,0
+049,Trường THPT Vân Canh,"Thôn An Long 2, xã Canh Vinh, tỉnh Gia Lai",22006,52,Gia Lai,thpt,,ghep-tu-dong,0
+050,Trường THPT Vĩnh Thạnh,"31 Nguyễn Huệ, thôn Định An, xã Vĩnh Thạnh, tỉnh Gia Lai",21786,52,Gia Lai,thpt,,ghep-tu-dong,0
+051,Trường THPT Võ Giữ,"Thôn Mỹ Thành, xã Ân Hảo, tỉnh Gia Lai",21697,52,Gia Lai,thpt,,ghep-tu-dong,0
+052,Trường THPT Võ Lai,"Thôn Thượng Giang 1, xã Bình Khê, tỉnh Gia Lai",21820,52,Gia Lai,thpt,,ghep-tu-dong,0
+053,Trường THPT Xuân Diệu,"416 Nguyễn Huệ, xã Tuy Phước, tỉnh Gia Lai",21952,52,Gia Lai,thpt,,ghep-tu-dong,0
+201,"Trường TH, THCS và THPT FPT Long Vân","Trung tâm trí tuệ nhân tạo, phường Quy Nhơn Tây, tỉnh Gia Lai",21589,52,Gia Lai,thpt,,ghep-tu-dong,0
+202,"Trường TH, THCS&THPT Ischool Quy Nhơn","Đường Thuận Ninh, Khu vực 5, Phường Quy Nhơn Bắc, Tỉnh Gia Lai",21553,52,Gia Lai,thpt,,ghep-tu-dong,0
+203,Trường THPT FPT Quy Nhơn,"Khu đô thị An Phú Thịnh, phường Quy Nhơn Đông, tỉnh Gia Lai",21601,52,Gia Lai,thpt,,ghep-tu-dong,0
+204,Trường THPT Quy Nhơn,"325 Nguyễn Thị Minh Khai, Phường Quy Nhơn Nam, Tỉnh Gia Lai",21592,52,Gia Lai,thpt,,ghep-tu-dong,0
+301,Trung tâm GDNN-GDTX An Nhơn,"31 Trần Thị Kỷ, phường Bình Định, tỉnh Gia Lai",21907,52,Gia Lai,gdtx,,ghep-tu-dong,0
+302,Trung tâm GDNN-GDTX Hoài Ân,"Số 01 Hà Huy Tập, xã Hoài Ân, Tỉnh Gia Lai",21688,52,Gia Lai,gdtx,,ghep-tu-dong,0
+303,Trung tâm GDNN-GDTX Hoài Nhơn,"Số 2326 Quang Trung - Khu phố An Dưỡng 2, Phường Hoài Nhơn Nam, Tỉnh Gia Lai",21673,52,Gia Lai,gdtx,,ghep-tu-dong,0
+304,Trung tâm GDNN-GDTX Phù Cát,"Số 47 Trần Quốc Toản, thôn An Phú, xã Phù Cát, tỉnh Gia Lai",21853,52,Gia Lai,gdtx,,ghep-tu-dong,0
+305,Trung tâm GDNN-GDTX Phù Mỹ,"Thôn Diêm Tiêu, xã Phù Mỹ, tỉnh Gia Lai",21730,52,Gia Lai,gdtx,,ghep-tu-dong,0
+306,Trung tâm GDNN-GDTX Tây Sơn,"Thôn Phú An, xã Tây Sơn, tỉnh Gia Lai",21808,52,Gia Lai,gdtx,,ghep-tu-dong,0
+307,Trung tâm GDNN-GDTX tỉnh Gia Lai,"Số 107A Thanh Niên, Quy Nhơn Nam, tỉnh Gia Lai",21592,52,Gia Lai,gdtx,Mã xã/phường điền bổ sung 31/10/2026: Phường Quy Nhơn Nam,dien-tay:Cao,0
+308,Trung tâm GDNN-GDTX Tuy Phước,"Số 418 Nguyễn Huệ, thôn Công Chánh, xã Tuy Phước, tỉnh Gia Lai",21952,52,Gia Lai,gdtx,,ghep-tu-dong,0
+350,Trung tâm GDNN-GDTX An Lão (Trước 01/01/2026),Xã An Lão,21609,52,Gia Lai,gdtx,Mã lịch sử: trước 01/01/2026; cần xác minh,ghep-tu-dong,1
+401,Trường THPT A Sanh,"Xã Ia Krái, tỉnh Gia Lai",23776,52,Gia Lai,thpt,,ghep-tu-dong,0
+402,Trường THPT Anh hùng Núp,"Làng Kgiang, xã Tơ Tung, tỉnh Gia Lai",23668,52,Gia Lai,thpt,,ghep-tu-dong,0
+403,Trường THPT Chu Văn An,"Số 70 Quang Trung, xã Phú Túc, tỉnh Gia Lai",24076,52,Gia Lai,thpt,,ghep-tu-dong,0
+404,Trường THPT chuyên Hùng Vương,"48 Hùng Vương, phường Diên Hồng, tỉnh Gia Lai",23563,52,Gia Lai,thpt,,ghep-tu-dong,0
+405,Trường THPT Đinh Tiên Hoàng,"Buôn Kơ Jing, xã Ia Dreh, tỉnh Gia Lai",24100,52,Gia Lai,thpt,,ghep-tu-dong,0
+406,Trường THPT Hà Huy Tập,"Đường Anh Hùng Núp, xã Kông Chro, tỉnh Gia Lai",23824,52,Gia Lai,thpt,,ghep-tu-dong,0
+407,Trường THPT Hoàng Hoa Thám,"95 Tôn Đức Thắng, phường Thống Nhất, tỉnh Gia Lai",23584,52,Gia Lai,thpt,,ghep-tu-dong,0
+408,Trường THPT Huỳnh Thúc Kháng,"136 Hùng Vương, tổ dân phố 7, xã Ia Grai, tỉnh Gia Lai",23764,52,Gia Lai,thpt,,ghep-tu-dong,0
+409,Trường THCS và THPT Kon Hà Nừng,"Thôn Hợp Thành, xã Sơn Lang, tỉnh Gia Lai",23647,52,Gia Lai,thpt,,ghep-tu-dong,0
+410,Trường THCS và THPT Kpă Klơng,"Làng Groi, xã Lơ Pang, tỉnh Gia Lai",23812,52,Gia Lai,thpt,,ghep-tu-dong,0
+411,Trường THPT Lê Hoàn,"Đường Trần Hưng Đạo, tổ dân phố 4, xã Đức Cơ, tỉnh Gia Lai",23857,52,Gia Lai,thpt,,ghep-tu-dong,0
+412,Trường THPT Lê Hồng Phong,"Làng Weh, xã Biển Hồ, tỉnh Gia Lai",23590,52,Gia Lai,thpt,,ghep-tu-dong,0
+413,Trường THPT Lê Lợi,"44 Lê Lợi, phường Pleiku, tỉnh Gia Lai",23575,52,Gia Lai,thpt,,ghep-tu-dong,0
+414,Trường THPT Lê Quý Đôn,"Đường Nguyễn Trãi, xã Chư Prông, tỉnh Gia Lai",23887,52,Gia Lai,thpt,,ghep-tu-dong,0
+415,Trường THPT Lê Thánh Tông,"70 Nguyễn Huệ, phường Ayun Pa, tỉnh Gia Lai",24044,52,Gia Lai,thpt,,ghep-tu-dong,0
+416,Trường THPT Lương Thế Vinh,"01 Lê Quý Đôn, xã Kbang, tỉnh Gia Lai",23638,52,Gia Lai,thpt,,ghep-tu-dong,0
+417,Trường THPT Lý Thường Kiệt,"48 Nguyễn Viết Xuân, phường Ayun Pa, tỉnh Gia Lai",24044,52,Gia Lai,thpt,,ghep-tu-dong,0
+418,Trường THPT Mạc Đĩnh Chi,"21 Quang Trung, Tổ dân phố 1, xã Chư Păh, tỉnh Gia Lai",23722,52,Gia Lai,thpt,,ghep-tu-dong,0
+419,Trường THPT số 2 Nguyễn Bỉnh Khiêm,"Đường Hai Bà Trưng, thôn 5, xã Chư sê, tỉnh Gia Lai",23941,52,Gia Lai,thpt,,ghep-tu-dong,0
+420,Trường THPT Nguyễn Chí Thanh,"138 Nguyễn Chí Thanh, tổ dân phố 4, phường Hội Phú, tỉnh Gia Lai",23586,52,Gia Lai,thpt,,ghep-tu-dong,0
+421,Trường THPT số 2 Nguyễn Du,"Thôn Hưng Phú, xã Uar, tỉnh Gia Lai",24109,52,Gia Lai,thpt,,ghep-tu-dong,0
+422,Trường THPT số 2 Nguyễn Huệ,"154 Nguyễn Huệ, Thôn 8, xã Đak Đoa, tỉnh Gia Lai",23677,52,Gia Lai,thpt,,ghep-tu-dong,0
+423,Trường THPT Nguyễn Khuyến,"Trần Quý Cáp, Tổ 3 An Phước, phường An Khê, tỉnh Gia Lai",23617,52,Gia Lai,thpt,,ghep-tu-dong,0
+424,Trường THPT Nguyễn Tất Thành,"Thôn Kim năng, xã Ia Pa, tỉnh Gia lai",24022,52,Gia Lai,thpt,,ghep-tu-dong,0
+425,Trường THPT số 2 Nguyễn Thái Học,"Thôn Hòa Tín, xã Chư Pưh, tỉnh Gia Lai",23942,52,Gia Lai,thpt,,ghep-tu-dong,0
+426,Trường THPT Nguyễn Thị Minh Khai,"Thôn Blo, xã Ia Băng, tỉnh Gia Lai",23710,52,Gia Lai,thpt,,ghep-tu-dong,0
+427,Trường THPT Nguyễn Trãi,"157 Lê Thị Hồng Gấm, tổ dân phố 3, phường An Bình, tỉnh Gia Lai",23614,52,Gia Lai,thpt,,ghep-tu-dong,0
+428,Trường THPT số 2 Nguyễn Trường Tộ,"Làng Nú, xã Ia Nan, tỉnh Gia Lai",23884,52,Gia Lai,thpt,,ghep-tu-dong,0
+429,Trường THCS và THPT Nguyễn Văn Cừ,"Thôn 16, xã Bờ Ngoong, tỉnh Gia Lai",23947,52,Gia Lai,thpt,,ghep-tu-dong,0
+430,Trường THCS và THPT Phạm Hồng Thái,"Thôn Tân Lập, xã Ia Khươl, tỉnh Gia Lai",23728,52,Gia Lai,thpt,,ghep-tu-dong,0
+431,Trường THPT Phạm Văn Đồng,"Thôn Tân Lập, xã Ia Hrung, tỉnh Gia Lai",23767,52,Gia Lai,thpt,,ghep-tu-dong,0
+432,Trường THPT số 2 Phan Bội châu,"24 Hùng Vương, phường Diên Hồng, tỉnh Gia Lai",23563,52,Gia Lai,thpt,,ghep-tu-dong,0
+433,Trường THPT Phan Chu Trinh,"Bôn Biăh B, xã Ia Tul, tỉnh Gia Lai",24028,52,Gia Lai,thpt,,ghep-tu-dong,0
+434,Trường THPT Pleiku,"163 Tô Vĩnh Diện, phường Pleiku, tỉnh Gia Lai",23575,52,Gia Lai,thpt,,ghep-tu-dong,0
+435,Trường THPT Pleime,"Làng Khôi, xã Ia Pia, tỉnh Gia Lai",23926,52,Gia Lai,thpt,,ghep-tu-dong,0
+436,Trường PTDTNT THPT Đông Gia Lai,"Đường Tôn Đức Thắng, tổ 03 An Tân, phường An Khê, tỉnh Gia Lai",23617,52,Gia Lai,thpt,,ghep-tu-dong,0
+437,Trường PTDTNT THPT số 2 tỉnh Gia Lai,"Số 729 Phạm Văn Đồng, Tổ dân phố 2, phường Thống Nhất",23584,52,Gia Lai,thpt,,ghep-tu-dong,0
+438,Trường THPT số 2 Quang Trung,"27 Chu Văn An, Tổ dân phố 1 An Phú, phường An Khê, tỉnh Gia Lai",23617,52,Gia Lai,thpt,,ghep-tu-dong,0
+439,Trường THPT Tôn Đức Thắng,"Thôn Thống nhất, xã Ia Krêl, tỉnh Gia Lai",23866,52,Gia Lai,thpt,,ghep-tu-dong,0
+440,Trường THPT số 2 Trần Cao Vân,"Làng Á, xã Ia Ko, tỉnh Gia Lai",23977,52,Gia Lai,thpt,,ghep-tu-dong,0
+441,Trường THPT Trần Hưng Đạo,"02 Trần Phú, Tổ 4, xã Mang Yang, tỉnh Gia Lai",23794,52,Gia Lai,thpt,,ghep-tu-dong,0
+442,Trường THPT Trần Phú,"Thôn 1, xã Bàu Cạn, tỉnh Gia Lai",23896,52,Gia Lai,thpt,,ghep-tu-dong,0
+443,Trường THPT Trần Quốc Tuấn,"89 Trần Hưng Đạo, xã Phú Thiện, tỉnh Gia Lai",24043,52,Gia Lai,thpt,,ghep-tu-dong,0
+444,Trường THPT Trường Chinh,"Thôn Tốt Biớch, xã Chư sê, tỉnh Gia Lai",23941,52,Gia Lai,thpt,,ghep-tu-dong,0
+445,Trường THPT Võ Nguyên Giáp,"Thôn Phú Bình, xã Ia Le, tỉnh Gia Lai",23986,52,Gia Lai,thpt,,ghep-tu-dong,0
+446,Trường THPT Võ Văn Kiệt,"Thôn Plei Rbai, xã Phú Thiện, tỉnh Gia Lai",24043,52,Gia Lai,thpt,,ghep-tu-dong,0
+447,Trường THCS và THPT Y Đôn,"94 Nguyễn Tất Thành, thôn 2, xã Đak Pơ, tỉnh Gia Lai",23995,52,Gia Lai,thpt,,ghep-tu-dong,0
+448,Trường THPT Ya Ly,"Số 96 đường Phạm Văn Đồng, Tổ dân phố 2, xã Ya Ly, tỉnh Gia Lai",23734,52,Gia Lai,thpt,Mã xã/phường điền bổ sung 31/10/2026: Xã Ia Ly,dien-tay:Cao,0
+601,Trường THPT Chi Lăng,"275 Võ Nguyên Giáp, phường Hội Phú, tỉnh Gia Lai.",23586,52,Gia Lai,thpt,,ghep-tu-dong,0
+603,"Trường Tiểu học, THCS và THPT Sao Việt","Số 18 đường Hoàng Đạo Thúy, Phường Pleiku, tỉnh Gia Lai",23575,52,Gia Lai,thpt,,ghep-tu-dong,0
+604,"Trường Tiểu học, THCS và THPT UKA Gia Lai","39 Hàn Mạc Tử, phường Hội Phú, tỉnh Gia Lai",23586,52,Gia Lai,thpt,,ghep-tu-dong,0
+701,Trung tâm GDNN-GDTX Chư Păh,"Số 05 Nguyễn Thị Minh Khai, xã Chư Păh, tỉnh Gia Lai",23722,52,Gia Lai,gdtx,,ghep-tu-dong,0
+702,Trung tâm GDNN-GDTX Chư Prông,"109 Nguyễn Trãi, xã Chư Prông, tỉnh Gia Lai",23887,52,Gia Lai,gdtx,,ghep-tu-dong,0
+703,Trung tâm GDNN-GDTX Chư Sê,"Thôn Đoàn Kết, xã Chư Sê, tỉnh Gia Lai",23941,52,Gia Lai,gdtx,,ghep-tu-dong,0
+705,Trung tâm GDNN-GDTX Đức Cơ,"178 Phạm Văn Đồng, tổ dân phố 6, xã Đức Cơ, tỉnh Gia Lai",23857,52,Gia Lai,gdtx,,ghep-tu-dong,0
+706,Trung tâm GDNN-GDTX Kbang,"Thôn 7, xã Kbang, tỉnh Gia Lai",23638,52,Gia Lai,gdtx,,ghep-tu-dong,0
+707,Trung tâm GDNN-GDTX Krông Pa,"179 Nay Der, Tổ dân phố 7, xã Phú Túc, tỉnh Gia Lai",24076,52,Gia Lai,gdtx,,ghep-tu-dong,0
+708,Trung tâm GDNN-GDTX Mang Yang,"Đường Trần Đại Nghĩa, tổ 6, xã Mang Yang, tỉnh Gia Lai",23794,52,Gia Lai,gdtx,,ghep-tu-dong,0
+709,Trung tâm GDTX tỉnh Gia Lai,"61 Lý Thái Tổ, phường Diên Hồng, tỉnh Gia Lai",23563,52,Gia Lai,gdtx,,ghep-tu-dong,0

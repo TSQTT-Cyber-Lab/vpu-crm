@@ -84,3 +84,7 @@ $mod_strings = array_merge($mod_strings, [
     'LBL_CONVERT_REQUIRED' => 'Bắt buộc',
     'LBL_ENTERDATE' => 'Ngày nhập',
 ]);
+
+$mod_strings['LBL_VPU_SCHOOL_NAME'] = 'Trường THPT (danh mục)';
+$mod_strings['LBL_VPU_SCHOOL_ID'] = 'ID trường THPT';
+$mod_strings['LBL_VPU_HIGH_SCHOOL'] = 'Trường THPT (thí sinh khai)';

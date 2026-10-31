@@ -30,5 +30,7 @@ CRM cho VPU trên SuiteCRM 7.15.2, phục vụ sinh viên và gia đình; quy tr
 - [x] T-003: theme VPU, đổi tên VPU-CRM, vi_VN, phễu tuyển sinh đa kênh (02_DESIGN/VPU_CUSTOMIZATION.md)
 - [x] T-005a: áp mã màu chính thức (#283388 / #EC1A3B)
 - [ ] T-005b: xác nhận danh mục ngành và học bổng
+- [x] T-006: module Trường THPT, import 463 trường 4 tỉnh, tự gắn thí sinh với trường
+- [ ] T-007: xác minh 33 bản ghi trường và phân hạng ưu tiên, nhập đầu mối
 - [ ] T-004: staging HTTPS và đăng ký webhook các kênh
 - [ ] Xác nhận các mục CRM_WORKFLOW §7, rồi làm T-001 (agent: cowork)

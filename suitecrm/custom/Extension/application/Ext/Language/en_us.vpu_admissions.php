@@ -30,3 +30,13 @@ $app_list_strings['vpu_scholarship_dom'] = [
     '' => '', 'none' => 'Not interested', 'merit' => 'Merit', 'entrance' => 'Entrance', 'need' => 'Need-based',
     'partner' => 'Corporate / partner', 'international' => 'International programme',
 ];
+
+$app_list_strings['moduleList']['VPU_Schools'] = 'High Schools';
+$app_list_strings['moduleListSingular']['VPU_Schools'] = 'High School';
+$app_list_strings['vpu_province_dom'] = ['' => '', '56' => 'Khanh Hoa (56)', '68' => 'Lam Dong (68)', '66' => 'Dak Lak (66)', '52' => 'Gia Lai (52)'];
+$app_list_strings['vpu_school_type_dom'] = ['thpt' => 'High school', 'gdtx' => 'Continuing education centre'];
+$app_list_strings['vpu_school_priority_dom'] = ['1' => '1 · Key', '2' => '2 · Priority', '3' => '3 · Watch'];
+$app_list_strings['vpu_outreach_status_dom'] = [
+    'not_contacted' => 'Not contacted', 'contacted' => 'Contact made', 'visited' => 'On-site session held',
+    'partner' => 'Partner school', 'inactive' => 'Inactive',
+];

@@ -78,3 +78,24 @@ $app_list_strings['lead_status_dom'] = [
     '' => '', 'New' => 'Mới', 'Assigned' => 'Đã phân công', 'In Process' => 'Đang tư vấn',
     'Converted' => 'Đã chuyển hồ sơ', 'Recycled' => 'Chăm sóc lại', 'Dead' => 'Không tiếp tục',
 ];
+
+// Module Trường THPT (VPU_Schools)
+$app_list_strings['moduleList']['VPU_Schools'] = 'Trường THPT';
+$app_list_strings['moduleListSingular']['VPU_Schools'] = 'Trường THPT';
+// Mã tỉnh tuyển sinh 2026, sau sắp xếp theo NQ 202/2025/QH15.
+$app_list_strings['vpu_province_dom'] = [
+    '' => '',
+    '56' => 'Khánh Hòa (56)',
+    '68' => 'Lâm Đồng (68)',
+    '66' => 'Đắk Lắk (66)',
+    '52' => 'Gia Lai (52)',
+];
+$app_list_strings['vpu_school_type_dom'] = ['thpt' => 'Trường có THPT', 'gdtx' => 'GDTX / GDNN-GDTX'];
+$app_list_strings['vpu_school_priority_dom'] = ['1' => '1 · Trọng điểm', '2' => '2 · Ưu tiên', '3' => '3 · Theo dõi'];
+$app_list_strings['vpu_outreach_status_dom'] = [
+    'not_contacted' => 'Chưa tiếp cận',
+    'contacted' => 'Đã liên hệ đầu mối',
+    'visited' => 'Đã tư vấn tại trường',
+    'partner' => 'Trường đối tác',
+    'inactive' => 'Tạm dừng',
+];
