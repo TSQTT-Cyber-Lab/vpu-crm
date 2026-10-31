@@ -17,6 +17,12 @@ Mã hex **đo trực tiếp** từ ảnh chụp header tbd.edu.vn ngày 31/10/20
 `#EC1A3B`). Chữ trắng trên `#EC1A3B` chỉ đạt 4.40:1, chưa tới ngưỡng WCAG AA 4.5:1 cho chữ thường. Vì vậy các thành phần
 có chữ dùng biến thể `#E91335` (giảm 2% độ sáng); hai màu gần như không phân biệt bằng mắt.
 
+**Font chủ đạo:** `font-family: Montserrat, sans-serif` cho mọi trang (cả trang đăng nhập, form đăng ký, logo). Font
+**đóng gói cục bộ** (`custom/themes/SuiteP/fonts/montserrat/`, @fontsource/montserrat 5.3.0, SIL OFL 1.1, gồm subset vietnamese +
+latin + latin-ext; độ đậm 400/500/600/700 và nghiêng 400; tổng 324 KB). Không gọi Google Fonts lúc chạy, nên vẫn chạy khi mạng
+chặn Google và không gửi IP người dùng ra ngoài. Đã kiểm qua computed style: body, ô nhập, nút, menu đều là Montserrat; font
+biểu tượng (Glyphicons, suitepicon) giữ nguyên.
+
 Cơ chế: `SugarTheme::getCSSURL()` nối `custom/themes/SuiteP/css/<Subtheme>/style.css` vào
 sau CSS lõi. Bản build ánh xạ lại bảng màu Dawn trước khi nạp biến, nên mọi biến dẫn xuất
 của Bootstrap và SuiteP đổi theo.

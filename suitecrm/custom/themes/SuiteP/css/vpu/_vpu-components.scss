@@ -1,7 +1,7 @@
 // Quy tắc bổ sung, nạp SAU toàn bộ SuiteP.
 // Logo thanh trên trang đăng nhập (core viết cứng đường dẫn p_login_logo.svg trong login.scss).
 // Ghi công "Supercharged by SuiteCRM" ở footer được giữ nguyên theo AGPLv3 §7(b).
-$vpu-login-logo: url("../../../../../custom/themes/SuiteP/images/vpu_login_logo.svg");
+$vpu-login-logo: url("../../../../../custom/themes/SuiteP/images/vpu_login_logo.png");
 div.p_login .p_login_top a {
   background-image: $vpu-login-logo;
   background-position: 0 0;
@@ -38,3 +38,13 @@ div.p_login .p_login_bottom a#powered_by {
   color: $vpu-muted;
 }
 div.p_login .p_login_bottom a#admin_options { margin-left: 0; }
+
+// Font Montserrat cho phần tử không kế thừa font (ô nhập, nút) và các chỗ core ghi cứng 'Lato'.
+// Chỉ dùng selector thẻ (độ ưu tiên thấp) -> không đè font biểu tượng (.glyphicon, .suitepicon…).
+html, body, input, button, select, textarea, optgroup, table, th, td, h1, h2, h3, h4, h5, h6, p, label, legend {
+  font-family: "Montserrat", sans-serif;
+}
+.ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button,
+.yui-skin-sam, .yui-dt, .qtip, .tooltip, .popover, .modal-content, .fc, .dashletPanel, .reportTitle {
+  font-family: "Montserrat", sans-serif;
+}

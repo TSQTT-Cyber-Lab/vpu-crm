@@ -30,3 +30,7 @@ $color-34: $vpu-blue-light;        // #A5E8D6
 $color-57: $vpu-blue-light;
 $color-44: $vpu-blue-light;
 $color-42: $vpu-blue-light;
+
+// Font chủ đạo VPU (yêu cầu 31/10/2026): Montserrat, sans-serif — đặt TRƯỚC variables để mọi biến dẫn xuất đổi theo.
+$font-family-sans-serif: "Montserrat", sans-serif;
+$font-family-base: "Montserrat", sans-serif;
