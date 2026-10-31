@@ -1,0 +1,54 @@
+<!-- VPU-CRM · Form đăng ký tư vấn tuyển sinh (Web-to-Lead) — nhúng vào tbd.edu.vn
+     Thay: CRM_URL, CAMPAIGN_ID (Campaigns > tạo chiến dịch loại "Web"), ASSIGNED_USER_ID, REDIRECT_URL.
+     Thêm host của REDIRECT_URL vào $sugar_config['WebToLead_AllowedRedirectHosts']. -->
+<form id="vpu-lead" class="vpu-form" method="post" action="https://CRM_URL/index.php?entryPoint=WebToPersonCapture" accept-charset="UTF-8">
+  <h2>Đăng ký tư vấn tuyển sinh</h2>
+  <div class="row"><label for="last_name">Họ và tên *</label><input id="last_name" name="last_name" required maxlength="100" autocomplete="name"></div>
+  <div class="row"><label for="phone_mobile">Số điện thoại / Zalo *</label><input id="phone_mobile" name="phone_mobile" type="tel" required pattern="(\+?84|0)[0-9 .]{9,12}" autocomplete="tel"></div>
+  <div class="row"><label for="email1">Email</label><input id="email1" name="email1" type="email" autocomplete="email"></div>
+  <div class="row"><label for="vpu_high_school">Trường THPT</label><input id="vpu_high_school" name="vpu_high_school" maxlength="255"></div>
+  <div class="row"><label for="vpu_province">Tỉnh/Thành phố</label><input id="vpu_province" name="vpu_province" maxlength="100"></div>
+  <div class="row"><label for="vpu_major">Ngành quan tâm</label>
+    <select id="vpu_major" name="vpu_major[]" multiple size="5">
+      <option value="it">Công nghệ thông tin</option><option value="cybersecurity">An toàn thông tin</option>
+      <option value="ai_data">Trí tuệ nhân tạo &amp; Khoa học dữ liệu</option><option value="business">Quản trị kinh doanh</option>
+      <option value="marketing">Marketing</option><option value="finance">Tài chính – Ngân hàng</option>
+      <option value="accounting">Kế toán</option><option value="logistics">Logistics &amp; Quản lý chuỗi cung ứng</option>
+      <option value="tourism">Quản trị dịch vụ du lịch &amp; lữ hành</option><option value="english">Ngôn ngữ Anh</option>
+      <option value="law">Luật</option><option value="other">Chưa xác định</option>
+    </select></div>
+  <fieldset class="row"><legend>Em quan tâm</legend>
+    <label><input type="checkbox" name="vpu_interest[]" value="admission" checked> Phương thức xét tuyển</label>
+    <label><input type="checkbox" name="vpu_interest[]" value="scholarship"> Học bổng</label>
+    <label><input type="checkbox" name="vpu_interest[]" value="tuition"> Học phí</label>
+    <label><input type="checkbox" name="vpu_interest[]" value="dormitory"> Ký túc xá</label>
+  </fieldset>
+  <div class="row"><label for="vpu_intake_year">Năm dự kiến nhập học</label><input id="vpu_intake_year" name="vpu_intake_year" type="number" min="2026" max="2030"></div>
+  <div class="row"><label for="vpu_guardian_phone">SĐT phụ huynh (nếu có)</label><input id="vpu_guardian_phone" name="vpu_guardian_phone" type="tel"></div>
+  <label class="consent"><input type="checkbox" name="vpu_consent_marketing" value="1" required>
+    Tôi đồng ý để Trường Đại học Victoria Thái Bình Dương xử lý dữ liệu cá nhân nêu trên nhằm tư vấn tuyển sinh, theo Nghị định 13/2023/NĐ-CP. *</label>
+  <!-- trường ẩn -->
+  <input type="hidden" name="campaign_id" value="CAMPAIGN_ID">
+  <input type="hidden" name="assigned_user_id" value="ASSIGNED_USER_ID">
+  <input type="hidden" name="moduleDir" value="Leads">
+  <input type="hidden" name="lead_source" value="vpu_website">
+  <input type="hidden" name="vpu_channel" value="website">
+  <input type="hidden" name="vpu_utm_source" id="vpu_utm_source">
+  <input type="hidden" name="vpu_utm_campaign" id="vpu_utm_campaign">
+  <input type="hidden" name="redirect_url" value="REDIRECT_URL">
+  <button type="submit">Gửi đăng ký</button>
+</form>
+<style>
+  .vpu-form{--b:#0B3D91;--r:#C8102E;max-width:520px;font-family:Arial,Helvetica,sans-serif;color:#13213C;background:#fff;border-top:5px solid var(--r);padding:20px;border-radius:8px;box-shadow:0 2px 10px rgba(11,61,145,.12)}
+  .vpu-form h2{color:var(--b);margin:0 0 12px}.vpu-form .row{display:flex;flex-direction:column;margin:0 0 12px;border:0;padding:0}
+  .vpu-form label{font-size:14px;margin-bottom:4px}.vpu-form input,.vpu-form select{padding:9px;border:1px solid #D5DDEB;border-radius:6px;font-size:15px}
+  .vpu-form input:focus,.vpu-form select:focus,.vpu-form button:focus{outline:3px solid rgba(11,61,145,.35);outline-offset:1px}
+  .vpu-form fieldset label{display:inline-flex;gap:6px;margin-right:12px}.vpu-form .consent{display:flex;gap:8px;font-size:13px;margin:8px 0 14px}
+  .vpu-form button{background:var(--r);color:#fff;border:0;border-radius:6px;padding:12px 20px;font-size:16px;font-weight:700;cursor:pointer}
+  .vpu-form button:hover{background:#A50D26}
+</style>
+<script>
+  (function(){var q=new URLSearchParams(location.search);
+   document.getElementById('vpu_utm_source').value=(q.get('utm_source')||document.referrer.split('/')[2]||'').slice(0,100);
+   document.getElementById('vpu_utm_campaign').value=(q.get('utm_campaign')||'').slice(0,100);})();
+</script>

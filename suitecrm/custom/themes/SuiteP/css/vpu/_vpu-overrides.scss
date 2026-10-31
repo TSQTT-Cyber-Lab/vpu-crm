@@ -1,0 +1,78 @@
+// Gán lại biến SuiteP sau khi Dawn/variables đã nạp (biến SuiteP không có !default).
+$main-bg: $vpu-bg;
+$main-alternate-bg: $vpu-white;
+$primary: $vpu-blue;
+$danger: $vpu-red;
+$danger-hover: $vpu-red-dark;
+$selection-color: $vpu-white;
+$selection-bg: $vpu-red;
+
+$brand-primary: $vpu-blue;
+$brand-danger:  $vpu-red;
+$link-color: $vpu-blue;
+$link-color-hover: $vpu-red;
+$link-hover-color: $vpu-red;
+$component-active-bg: $vpu-blue;
+$btn-primary-bg: $vpu-blue;
+$btn-primary-border: $vpu-blue;
+$btn-danger-bg: $vpu-red;
+$btn-danger-border: $vpu-red;
+
+$main-font-color: $vpu-ink;
+$main-header-font-color: $vpu-blue;
+$scroll-bar-thumb-color: $vpu-line;
+$login-top-bar-bg: $vpu-blue;
+
+$default-btn-bg: $vpu-blue;
+$default-btn-bg-hover: $vpu-blue-dark;
+$primary-btn-bg: $vpu-blue;
+$primary-btn-bg-hover: $vpu-blue-dark;
+$danger-btn-bg: $vpu-red;
+$danger-btn-bg-hover: $vpu-red-dark;
+
+$navbar-bg: $vpu-blue;
+$navbar-inverse-bg: $vpu-blue;
+$navbar-link-color: $vpu-white;
+$navbar-link-color-hover: #FFD3D9;
+$navbar-main-menu-bg: $vpu-blue-dark;
+$navbar-menu-link-color: $vpu-white;
+$navbar-menu-link-color-hover: #FFD3D9;
+$navbar-menu-separator: lighten($vpu-blue, 10%);
+$navbar-menu-current-separator: $vpu-red;
+$navbar-menu-seperator: $navbar-menu-separator;
+$navbar-menu-current-seperator: $navbar-menu-current-separator;
+$navbar-home-color: $navbar-link-color;
+$navbar-home-color-hover: $navbar-link-color-hover;
+$navbar-search-bg: $vpu-blue-dark;
+$navbar-search-btn-bg: $vpu-red;
+$navbar-search-text-color: $vpu-white;
+$navbar-search-btn-color: $vpu-white;
+$navbar-search-query-btn-color: $vpu-white;
+$navbar-quick-create-mobile-btn-bg: $vpu-red;
+$navbar-quick-create-btn-bg: $vpu-red;
+$navbar-quick-create-menu-bg: $vpu-red;
+$navbar-quick-create-btn-bg-hover: $vpu-red-dark;
+$navbar-quick-create-menu-separator: $vpu-red-dark;
+$navbar-quick-create-menu-seperator: $vpu-red-dark;
+$navbar-alert-title-bg: $vpu-blue-light;
+$navbar-alert-count-bg: $vpu-red;
+$navbar-alert-color: $navbar-link-color;
+$navbar-alert-color-hover: $navbar-link-color-hover;
+$navbar-user-color: $navbar-link-color;
+$navbar-user-color-hover: $navbar-link-color-hover;
+$nav-selection-color: $vpu-blue;
+$mobile-navbar-toolbar-bg: $vpu-red;
+
+$sidebar-bg: $vpu-blue;
+$sidebar-btn-bg: $vpu-blue-dark;
+$sidebar-btn-bg-hover: $vpu-red;
+$side-bar-link-color-hover: $vpu-blue-light;
+
+$active-tab-bg: $vpu-blue;
+$active-tab-bg-hover: $vpu-blue-dark;
+$default-tab-bg: #8A9BBB;
+$default-tab-bg-hover: $vpu-blue;
+$action-tab-bg: $vpu-red;
+$action-tab-bg-hover: $vpu-red-dark;
+$action-tab-separator: lighten($vpu-red, 12%);
+$action-tab-seperator: $action-tab-separator;

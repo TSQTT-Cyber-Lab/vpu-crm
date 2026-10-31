@@ -55,12 +55,12 @@ Nguồn: `ui-ux-pro-max` (kiểu Flat Design), điều chỉnh theo tham chiếu
 
 | Token | Giá trị đề xuất | Ghi chú |
 |---|---|---|
-| Primary | `#2563EB`, chữ trắng | **Tạm thời**, thay bằng màu nhận diện VPU khi có |
-| Accent | `#059669`, chữ đen | Dùng cho hành động chính |
+| Primary | `#0B3D91` (xanh VPU), chữ trắng | Đã áp dụng, xem `VPU_CUSTOMIZATION.md` §1 |
+| Accent | `#C8102E` (đỏ VPU), chữ trắng | Hành động chính |
 | Nền / chữ | `#F8FAFC` / `#0F172A` | |
 | Muted foreground | `#475569` | |
 | Viền | `#E4ECFC` | |
-| Lỗi | `#DC2626`, chữ trắng | |
+| Lỗi | `#C8102E`, chữ trắng | Trùng đỏ VPU |
 | Font | Fira Sans | Kiểm tra dấu tiếng Việt trước khi chốt |
 
 Yêu cầu: tương phản chữ tối thiểu 4.5:1, mọi ô nhập có nhãn, có focus bàn phím, thao tác

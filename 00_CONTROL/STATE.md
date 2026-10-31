@@ -13,7 +13,7 @@ CRM cho VPU trên SuiteCRM 7.15.2, phục vụ sinh viên và gia đình; quy tr
 ## 5. Trạng thái stage
 | Stage | Agent | Trạng thái | Ghi chú |
 |-------|-------|-----------|---------|
-| S0 khởi tạo        | cowork | done | |
+| S0 khởi tạo        | cowork | done | CRM giai đoạn 3 (T-003) xong 2026-10-31 |
 | S1 lit review      | cowork | todo | |
 | S2 gap+RQ (G1)     | cowork | todo | |
 | S3 protocol (G2)   | cowork | todo | |
@@ -27,4 +27,7 @@ CRM cho VPU trên SuiteCRM 7.15.2, phục vụ sinh viên và gia đình; quy tr
 ## 6. Số liệu chính thức → 05_RESULTS/RESULTS_LOG.md
 ## 7. Danh sách CẤM → PROJECT.md §6
 ## 8. Việc kế tiếp
+- [x] T-003: theme VPU, đổi tên VPU-CRM, vi_VN, phễu tuyển sinh đa kênh (02_DESIGN/VPU_CUSTOMIZATION.md)
+- [ ] T-005: xác nhận mã màu chính thức, danh mục ngành và học bổng
+- [ ] T-004: staging HTTPS và đăng ký webhook các kênh
 - [ ] Xác nhận các mục CRM_WORKFLOW §7, rồi làm T-001 (agent: cowork)

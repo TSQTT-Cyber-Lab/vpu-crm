@@ -1,0 +1,34 @@
+<?php
+/**
+ * VPU-CRM — mẫu config_override.php (file thật bị .gitignore vì chứa bí mật).
+ * cp config_override.php.example config_override.php  rồi điền khoá thật.
+ */
+$sugar_config['system_name'] = 'VPU-CRM';
+$sugar_config['default_language'] = 'vi_VN';
+$sugar_config['languages'] = ['vi_VN' => 'Tiếng Việt', 'en_us' => 'English (US)'];
+$sugar_config['default_theme'] = 'SuiteP';
+$sugar_config['default_subtheme'] = 'Dawn';
+$sugar_config['default_currency_iso4217'] = 'VND';
+$sugar_config['default_currency_name'] = 'Việt Nam Đồng';
+$sugar_config['default_currency_symbol'] = '₫';
+$sugar_config['default_date_format'] = 'd/m/Y';
+$sugar_config['default_time_format'] = 'H:i';
+$sugar_config['datef'] = 'd/m/Y';
+$sugar_config['timef'] = 'H:i';
+$sugar_config['default_decimal_seperator'] = ',';
+$sugar_config['default_number_grouping_seperator'] = '.';
+
+// Phễu tuyển sinh đa kênh: index.php?entryPoint=vpuInbound&channel=<kênh>
+$sugar_config['vpu_omnichannel'] = [
+    'assigned_user_id' => '1',          // người nhận lead mặc định (id user Tuyển sinh)
+    'facebook' => [                      // Messenger + Instagram (Meta webhook)
+        'verify_token' => 'DOI_CHUOI_NAY',
+        'app_secret'   => '',            // để kiểm X-Hub-Signature-256
+    ],
+    'zalo' => [                          // Zalo Official Account webhook
+        'app_id'     => '',
+        'oa_secret'  => '',              // để kiểm X-ZEvent-Signature
+    ],
+    'telegram' => ['secret_token' => ''],// X-Telegram-Bot-Api-Secret-Token
+    'generic'  => ['api_key' => ''],     // SMS gateway, TikTok, n8n/Make…: header X-VPU-Key
+];

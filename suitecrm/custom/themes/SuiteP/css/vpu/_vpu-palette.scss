@@ -1,0 +1,32 @@
+// Ánh xạ lại bảng màu Dawn TRƯỚC khi nạp variables để mọi biến dẫn xuất (Bootstrap + SuiteP)
+// tự đổi theo nhận diện VPU. Nhóm màu gốc -> vai trò:
+// xám-xanh (primary, header panel, nút)   -> xanh VPU
+$color-20: $vpu-blue;              // #778591 primary
+$color-14: $vpu-blue;              // #677785 panel heading / sidebar hover
+$color-24: lighten($vpu-blue, 8%); // #8499AB
+$color-27: #8A9BBB;                // #93A0AB
+$color-28: $vpu-blue;              // #94A6B5 nút mặc định
+$color-23: $vpu-red;               // #829EB5 nút tìm kiếm navbar
+$color-22: #6B7A99;
+$color-39: #8A9BBB;                // tab thường
+$color-36: #C9D6EE;
+// tím-xám navbar                          -> navy
+$color-7:  $vpu-blue;              // #534D64 navbar / login top bar
+$color-9:  $vpu-blue-dark;         // #5D5670 main menu
+$color-11: $vpu-blue-dark;         // #65697A ô tìm kiếm
+$color-15: $vpu-blue-dark;
+$color-18: lighten($vpu-blue, 10%);// vạch ngăn menu
+$color-59: #C9D6EE;
+// cam-hồng (accent/danger)               -> đỏ VPU
+$color-50: $vpu-red;               // #F08377
+$color-43: $vpu-red-dark;          // #D66C60
+$color-46: $vpu-red;               // #E56455
+$color-53: lighten($vpu-red, 15%); // #FA988D
+$color-70: $vpu-red;
+$color-56: #F6C4CC;
+// xanh bạc hà (mũi tên select, thanh cuộn) -> xanh nhạt
+$color-33: $vpu-red;               // #A2B2BF nút "Tạo"
+$color-34: $vpu-blue-light;        // #A5E8D6
+$color-57: $vpu-blue-light;
+$color-44: $vpu-blue-light;
+$color-42: $vpu-blue-light;

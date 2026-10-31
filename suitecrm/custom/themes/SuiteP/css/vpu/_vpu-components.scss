@@ -1,0 +1,22 @@
+// Quy tắc bổ sung, nạp SAU toàn bộ SuiteP.
+// Logo thanh trên trang đăng nhập (core viết cứng đường dẫn p_login_logo.svg trong login.scss).
+// Ghi công "Supercharged by SuiteCRM" ở footer được giữ nguyên theo AGPLv3 §7(b).
+$vpu-login-logo: url("../../../../../custom/themes/SuiteP/images/vpu_login_logo.svg");
+div.p_login .p_login_top a {
+  background-image: $vpu-login-logo;
+  background-position: 0 0;
+  background-size: auto 40px;
+  width: 190px;
+}
+@media (max-width: 750px) {
+  div.p_login .p_login_top a { background-position: 0 0; background-size: auto 30px; width: 150px; }
+}
+
+// Tab đang chọn: chữ trắng + gạch đỏ (đỏ trên navy chỉ 2.0:1, không đạt WCAG).
+.navbar-inverse .nav > .topnav > span.currentTab > a,
+.navbar-inverse .nav > .topnav .currentTab a { color: $vpu-white; }
+// Header panel chi tiết/chỉnh sửa.
+.panel-default > .panel-heading,
+.panel-default > .panel-heading > a,
+.panel-default > .panel-heading > a > div { background-color: $vpu-blue; color: $vpu-white; }
+.sub-panel > .panel-heading, .panel-default.sub-panel > .panel-heading > a { background-color: lighten($vpu-blue, 6%); color: $vpu-white; }

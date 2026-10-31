@@ -1,0 +1,14 @@
+// VPU-CRM — token nhận diện Victoria Pacific University (đỏ · trắng · xanh dương).
+// Mã hex là bản đề xuất theo 3 màu chủ đạo của tbd.edu.vn; khi có brand guide chính
+// thức chỉ cần sửa 3 dòng dưới đây rồi chạy ../../build_vpu_theme.sh.
+$vpu-blue:  #0B3D91;   // xanh dương chủ đạo — nền navbar, sidebar, nút chính (trắng/xanh 10.5:1)
+$vpu-red:   #C8102E;   // đỏ nhấn — hành động, tab đang chọn, cảnh báo (trắng/đỏ 5.9:1)
+$vpu-white: #FFFFFF;
+
+$vpu-blue-dark:  darken($vpu-blue, 8%);
+$vpu-blue-light: #E8EEF8;
+$vpu-red-dark:   darken($vpu-red, 8%);
+$vpu-ink:        #13213C;  // chữ chính trên nền trắng
+$vpu-muted:      #5A6478;
+$vpu-line:       #D5DDEB;
+$vpu-bg:         #F5F7FB;
