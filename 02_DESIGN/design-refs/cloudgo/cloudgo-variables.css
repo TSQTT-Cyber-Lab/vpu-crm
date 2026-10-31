@@ -1,0 +1,209 @@
+:root {
+  /* Colors — Primary */
+  --color-primary: #1b74e4;
+  --color-secondary: #ffd700;
+  --color-accent: #cb2134;
+
+  /* Ramp — primary (base is 500) */
+  --color-primary-50: #c5f9ff;
+  --color-primary-100: #b4edff;
+  --color-primary-200: #9ddbff;
+  --color-primary-300: #7ac1ff;
+  --color-primary-400: #4e9fff;
+  --color-primary-500: #1b74e4;
+  --color-primary-600: #1168d1;
+  --color-primary-700: #0052b0;
+  --color-primary-800: #004295;
+  --color-primary-900: #00347d;
+  --color-primary-950: #001b4d;
+
+  /* Ramp — secondary (base is 200) */
+  --color-secondary-50: #fff69f;
+  --color-secondary-100: #ffea89;
+  --color-secondary-200: #ffd700;
+  --color-secondary-300: #dfbe2c;
+  --color-secondary-400: #c29c00;
+  --color-secondary-500: #a47d00;
+  --color-secondary-600: #8c6700;
+  --color-secondary-700: #735200;
+  --color-secondary-800: #5f4200;
+  --color-secondary-900: #4e3400;
+  --color-secondary-950: #2d1b00;
+
+  /* Ramp — accent (base is 600) */
+  --color-accent-50: #ffd5d0;
+  --color-accent-100: #ffc6c1;
+  --color-accent-200: #ffafab;
+  --color-accent-300: #ff8e8c;
+  --color-accent-400: #ff6366;
+  --color-accent-500: #e13c46;
+  --color-accent-600: #cb2134;
+  --color-accent-700: #a30c23;
+  --color-accent-800: #890019;
+  --color-accent-900: #720010;
+  --color-accent-950: #450004;
+
+  /* Ramp — neutral (base is 200) */
+  --color-neutral-50: #f5f5f5;
+  --color-neutral-100: #eaeaea;
+  --color-neutral-200: #d9d9d9;
+  --color-neutral-300: #c0c0c0;
+  --color-neutral-400: #9f9f9f;
+  --color-neutral-500: #828282;
+  --color-neutral-600: #6c6c6c;
+  --color-neutral-700: #575757;
+  --color-neutral-800: #464646;
+  --color-neutral-900: #393939;
+  --color-neutral-950: #1f1f1f;
+
+  /* Colors — Neutrals */
+  --color-neutral-50: #ffffff;
+  --color-neutral-100: #d9d9d9;
+  --color-neutral-200: #6b6e71;
+  --color-neutral-300: #000000;
+  --color-neutral-400: #4a4a4a;
+  --color-neutral-500: #777777;
+  --color-neutral-600: #222222;
+  --color-neutral-700: #e3e6eb;
+  --color-neutral-800: #545b64;
+  --color-neutral-900: #b9b9b9;
+
+  /* Colors — Backgrounds */
+  --color-bg: #ffffff;
+  --color-bg-1: #e5f1ff;
+  --color-bg-2: #cee4ff;
+  --color-bg-3: #1b74e4;
+
+  /* Colors — Text */
+  --color-text: #273444;
+  --color-text-1: #000000;
+  --color-text-2: #ffffff;
+  --color-text-3: #1b74e4;
+  --color-text-4: #808080;
+
+  /* Semantic pairs */
+  --surface-page-bg: #ffffff;
+  --surface-page-fg: #000000; /* 21:1 AAA */
+  --surface-raised-bg: #e5f1ff;
+  --surface-raised-fg: #000000; /* 18.36:1 AAA */
+  --action-primary-bg: #1b74e4;
+  --action-primary-fg: #000000; /* 4.67:1 AA */
+  --action-secondary-bg: #ffd700;
+  --action-secondary-fg: #000000; /* 14.97:1 AAA */
+  --action-accent-bg: #cb2134;
+  --action-accent-fg: #ffffff; /* 5.52:1 AA */
+
+  /* Typography — Families */
+  --font-sans: 'Roboto', sans-serif;
+  --font-heading: 'Inter', sans-serif;
+
+  /* Typography — Named scale */
+  --font-size-h1: 42px;
+  --font-size-h2: 38px;
+  --font-size-title-1: 36px;
+  --font-size-title-2: 35px;
+  --font-size-title-3: 34px;
+  --font-size-title-4: 32px;
+  --font-size-title-5: 30px;
+  --font-size-title-6: 28.8px;
+  --font-size-h3: 28px;
+  --font-size-title-7: 26px;
+  --font-size-title-8: 24px;
+  --font-size-title-9: 23px;
+  --font-size-title-10: 22px;
+  --font-size-title-11: 21px;
+
+  /* Layout */
+  --container-width: 1200px;
+  --container-gutter: 15px;
+  --section-rhythm: 40px;
+  --grid-columns: 4;
+
+  /* Spacing */
+  --spacing-1: 1px;
+  --spacing-38: 38px;
+  --spacing-43: 43px;
+  --spacing-48: 48px;
+  --spacing-60: 60px;
+  --spacing-65: 65px;
+  --spacing-70: 70px;
+  --spacing-73: 73px;
+  --spacing-80: 80px;
+  --spacing-83: 83px;
+  --spacing-86: 86px;
+  --spacing-90: 90px;
+  --spacing-100: 100px;
+  --spacing-150: 150px;
+  --spacing-214: 214px;
+
+  /* Border Radius */
+  --radius-sm: 3px;
+  --radius-md: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-xl: 24px;
+  --radius-full: 30px;
+  --radius-full: 33px;
+  --radius-full: 48px;
+  --radius-full: 64px;
+  --radius-full: 100px;
+
+  /* Box Shadows */
+  --shadow-xs: rgba(102, 98, 98, 0.4) 0px 1px 4px 0px;
+  --shadow-sm: rgb(82, 159, 255) 0px 0px 8px 0px;
+  --shadow-md: rgba(27, 116, 228, 0.15) 0px 0px 16px 0px;
+  --shadow-lg: rgba(0, 0, 0, 0.3) 0px 4px 20px 0px;
+  --shadow-xl: rgba(0, 0, 0, 0.2) 0px 10px 30px 0px;
+  --shadow-2xl: rgba(0, 0, 0, 0.35) 0px 24px 70px 0px;
+
+  /* Original Site Variables */
+  /* — colors — */
+  --primary: #1b74e4;
+  --secondary: #676767;
+  --primary-highlight: #fff5f6;
+  /* — spacing — */
+  --font-family-monospace: SFMono-Regular,Menlo,Monaco,Consolas,"Liberation Mono","Courier New",monospace;
+  /* — typography — */
+  --font-family-sans-serif: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+  --fa-font-light: normal 300 1em/1 "Font Awesome 6 Pro";
+  --fa-font-regular: normal 400 1em/1 "Font Awesome 6 Pro";
+  --fa-font-duotone: normal 900 1em/1 "Font Awesome 6 Duotone";
+  --fa-font-thin: normal 100 1em/1 "Font Awesome 6 Pro";
+  --fa-font-brands: normal 400 1em/1 "Font Awesome 6 Brands";
+  --fa-font-solid: normal 900 1em/1 "Font Awesome 6 Pro";
+  /* — other — */
+  --blue: #007bff;
+  --indigo: #6610f2;
+  --purple: #6f42c1;
+  --pink: #e83e8c;
+  --red: #dc3545;
+  --orange: #fd7e14;
+  --yellow: #ffc107;
+  --green: #28a745;
+  --teal: #20c997;
+  --cyan: #17a2b8;
+  --gray: #C0CCDA;
+  --gray-dark: #3C4858;
+  --success: #41D600;
+  --info: #057bc4;
+  --warning: #fccb54;
+  --danger: #C80017;
+  --light: #EFF2F7;
+  --dark: #273444;
+  --default: #dedede;
+  --white: #FFF;
+  --lighter: #f3f3f3;
+  --f1f5fb: #f1f5fb;
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  /* — semantic — */
+  success: [object Object];
+  warning: [object Object];
+  error: [object Object];
+  info: [object Object];
+
+}

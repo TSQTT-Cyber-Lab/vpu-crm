@@ -7,3 +7,13 @@ __pycache__/
 .env
 01_LITERATURE/.doi_cache.json
 .claude/settings.local.json
+.runtime/
+suitecrm/config.php
+suitecrm/config_override.php
+suitecrm/config_si.php
+suitecrm/suitecrm.log
+suitecrm/install.log
+suitecrm/cache/*
+!suitecrm/cache/include/
+suitecrm/upload/*
+!suitecrm/upload/index.html

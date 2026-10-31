@@ -28,7 +28,6 @@ RULES: list[tuple[str, frozenset[str]]] = [
     ("04_CODE/**", frozenset({"codex"})),
     ("05_RESULTS/RESULTS_LOG.md", frozenset({"cowork"})),
     ("05_RESULTS/**", frozenset({"codex"})),
-    ("06_MANUSCRIPT/**", frozenset({"cowork"})),
     ("07_REVIEW/number_check.md", frozenset({"cowork", "codex"})),  # sinh bởi check_evidence.py
     ("07_REVIEW/**", frozenset({"cowork"})),
     ("08_SUBMISSION/**", frozenset({"cowork"})),

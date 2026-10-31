@@ -1,0 +1,19 @@
+/* shadcn/ui Theme — extracted from https://app-na2.hubspot.com/contacts/247852479/objects/0-1/views/all/list */
+/* Paste into your globals.css */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 0%;
+    --primary: 60 100% 50%;
+    --primary-foreground: 0 0% 0%;
+    --secondary: 348 100% 43%;
+    --secondary-foreground: 0 0% 100%;
+    --accent: 181 100% 19%;
+    --accent-foreground: 0 0% 100%;
+    --muted: 0 0% 96%;
+    --muted-foreground: 0 0% 20%;
+    --border: 9 76% 95%;
+    --radius: 6px;
+  }
+}

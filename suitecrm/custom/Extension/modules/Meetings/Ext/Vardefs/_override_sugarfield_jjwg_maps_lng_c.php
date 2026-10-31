@@ -1,0 +1,5 @@
+<?php
+ // created: 2026-10-31 15:59:14
+$dictionary['Meeting']['fields']['jjwg_maps_lng_c']['inline_edit']=1;
+
+ ?>

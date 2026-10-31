@@ -2,6 +2,7 @@
 Cập nhật: 2026-10-31 · Bởi: cowork · Stage hiện tại: S0
 
 ## 1. Một câu về dự án
+CRM cho VPU trên SuiteCRM 7.15.2, phục vụ sinh viên và gia đình; quy trình tại 02_DESIGN/CRM_WORKFLOW.md (thay các stage nghiên cứu bên dưới).
 ## 2. Câu hỏi nghiên cứu (đã khoá)
 ## 3. Đóng góp tuyên bố
 1.
@@ -12,7 +13,7 @@ Cập nhật: 2026-10-31 · Bởi: cowork · Stage hiện tại: S0
 ## 5. Trạng thái stage
 | Stage | Agent | Trạng thái | Ghi chú |
 |-------|-------|-----------|---------|
-| S0 khởi tạo        | cowork | wip  | |
+| S0 khởi tạo        | cowork | done | |
 | S1 lit review      | cowork | todo | |
 | S2 gap+RQ (G1)     | cowork | todo | |
 | S3 protocol (G2)   | cowork | todo | |
@@ -26,4 +27,4 @@ Cập nhật: 2026-10-31 · Bởi: cowork · Stage hiện tại: S0
 ## 6. Số liệu chính thức → 05_RESULTS/RESULTS_LOG.md
 ## 7. Danh sách CẤM → PROJECT.md §6
 ## 8. Việc kế tiếp
-- [ ] (agent: )
+- [ ] Xác nhận các mục CRM_WORKFLOW §7, rồi làm T-001 (agent: cowork)

@@ -1,0 +1,19 @@
+/* shadcn/ui Theme — extracted from https://www.classe365.com/ */
+/* Paste into your globals.css */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 212 6% 46%;
+    --primary: 220 75% 25%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 235 71% 65%;
+    --secondary-foreground: 0 0% 100%;
+    --accent: 7 55% 61%;
+    --accent-foreground: 0 0% 100%;
+    --muted: 235 17% 43%;
+    --muted-foreground: 0 0% 0%;
+    --border: 210 25% 58%;
+    --radius: 6px;
+  }
+}

@@ -1,0 +1,19 @@
+/* shadcn/ui Theme — extracted from https://cloudgo.vn/ */
+/* Paste into your globals.css */
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 213 27% 21%;
+    --primary: 213 79% 50%;
+    --primary-foreground: 0 0% 100%;
+    --secondary: 51 100% 50%;
+    --secondary-foreground: 0 0% 0%;
+    --accent: 353 72% 46%;
+    --accent-foreground: 0 0% 100%;
+    --muted: 216 8% 76%;
+    --muted-foreground: 0 0% 100%;
+    --border: 0 0% 29%;
+    --radius: 6px;
+  }
+}
