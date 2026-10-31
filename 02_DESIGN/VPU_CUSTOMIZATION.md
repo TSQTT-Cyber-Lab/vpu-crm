@@ -88,12 +88,25 @@ suy ra kênh từ Lead Source hoặc Campaign, ghi `vpu_consent_at`, và chuẩn
 | `facebook`, `instagram` | HMAC `X-Hub-Signature-256` (app secret), GET `hub.challenge` | Meta Messenger Platform |
 | `zalo` | `X-ZEvent-Signature = mac=sha256(app_id+body+timestamp+oa_secret)` | Zalo OA, có sự kiện `user_submit_info` để lấy tên và SĐT |
 | `telegram` | `X-Telegram-Bot-Api-Secret-Token` | |
-| `sms`, `tiktok`, `whatsapp`, `website`… | `X-VPU-Key` | JSON phẳng `{from/phone,user_id,name,email,text,message_id,major,consent,…}`, nhận cả form-urlencoded; dùng cho cổng SMS (eSMS, SpeedSMS…), n8n/Make |
+| `whatsapp` | WhatsApp Cloud API: `X-Hub-Signature-256` (app secret riêng hoặc dùng chung app Facebook), GET `hub.challenge`; qua n8n/BSP: `X-VPU-Key` | payload Meta `whatsapp_business_account` |
+| `fb_leadads` | `X-Hub-Signature-256` (app Facebook) → gọi Graph API `GET /{leadgen_id}` bằng Page token (`leads_retrieval`) | form quảng cáo Facebook/Instagram; câu hỏi tiếng Việt nhận diện theo từ khoá |
+| `google_form` | `X-VPU-Key` | gửi tức thời bằng Apps Script `custom/include/VPU/integrations/google_forms_to_vpucrm.gs` |
+| `sms`, `tiktok`, `website`, `event`… | `X-VPU-Key` | JSON phẳng `{from/phone,user_id,name,email,text,message_id,major,consent,…}`, nhận cả form-urlencoded; dùng cho cổng SMS (eSMS, SpeedSMS…), n8n/Make |
 
 Luồng xử lý: kiểm chữ ký (thiếu khoá thì từ chối, 401) → chuẩn hoá tin → tìm Lead theo
 (kênh, ID), rồi theo SĐT, rồi theo email → tạo Lead mới nếu chưa có → ghi hội thoại thành **Note** gắn vào Lead
 (bỏ qua tin trùng `message_id`) → phân loại từ khoá tiếng Việt, có hoặc không dấu, để điền ngành, mối quan tâm, học bổng
 và bắt SĐT/email trong tin nhắn. Hệ thống chỉ **bổ sung** dữ liệu, không ghi đè thông tin tư vấn viên đã nhập.
+
+### 3.2b Nhập lô từ Excel/CSV
+
+`php custom/include/VPU/Import/import_leads.php --file=<.xlsx|.csv> --channel=event --campaign="Ngày hội …" [--dry-run]`
+— dùng cho danh sách ngày hội tư vấn, danh sách trường THPT gửi, file xuất Google Forms/Microsoft Forms.
+- Đọc `.xlsx` (sheet đầu, không cần PhpSpreadsheet) và `.csv` (tự nhận `,` `;` tab, bỏ BOM, chuyển CSV "ANSI" Windows-1258 sang UTF-8).
+- Nhận cột theo tiêu đề tiếng Việt có/không dấu: Họ tên, SĐT/Zalo, Email, Trường THPT, Tỉnh, Ngành, Học bổng, Câu hỏi/Ghi chú,
+  SĐT phụ huynh, Năm nhập học, Đồng ý, Dấu thời gian. SĐT Excel mất số 0 đầu (912345678) được sửa.
+- Mỗi dòng đi qua LeadRouter như webhook: gộp theo SĐT/email, gắn trường THPT, phân loại ngành/học bổng, ghi chú vào lịch sử.
+  `message_id` ổn định theo file + dòng, nên chạy lại không tạo trùng. File mẫu: `09_DEMO/seed/samples/`.
 
 ### 3.3 Form đăng ký trên website
 
@@ -223,7 +236,8 @@ nhập sai mật khẩu bị từ chối, quyền khớp bảng trên (kiểm tr
 
 ## 4. Kết quả kiểm thử (31/10/2026)
 
-- `php custom/include/VPU/Omnichannel/tests/run_tests.php` → **OK 28 tests** (chữ ký, parser 4 kênh, chuẩn hoá SĐT, phân loại).
+- `php custom/include/VPU/Omnichannel/tests/run_tests.php` → **OK 55 tests** (chữ ký, parser Messenger/Instagram/Zalo/Telegram/WhatsApp/Lead Ads/generic, SĐT, phân loại).
+- `php custom/include/VPU/Import/tests/run_tests.php` → **OK 21 tests** (đọc xlsx/csv thật, ANSI, tiêu đề tiếng Việt).
 - `php custom/include/VPU/Schools/tests/run_tests.php` → **OK 41 tests** (ghép tên trường trên 463 bản ghi thật, 0 gắn sai).
 - Import vào bản cài thật: tạo 463 bản ghi, không lỗi. Chạy lại: 463 không đổi. Dữ liệu tác nghiệp được giữ nguyên. Gắn thí sinh qua webhook đúng 6/6 tình huống (gồm tình huống mơ hồ, kết quả để trống).
 - Bản cài thật: Quick Repair tạo đủ 16 cột `vpu_*` và 2 index. Đã gửi webhook thật cho Messenger, Zalo, Telegram và SMS: tạo Lead đúng kênh,

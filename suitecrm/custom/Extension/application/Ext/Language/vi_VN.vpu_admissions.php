@@ -17,6 +17,8 @@ $app_list_strings['vpu_channel_dom'] = [
     'email' => 'Email',
     'event' => 'Ngày hội / tư vấn trực tiếp',
     'referral' => 'Giới thiệu',
+    'fb_leadads' => 'Form quảng cáo Facebook/Instagram',
+    'google_form' => 'Google Forms',
 ];
 foreach ($app_list_strings['vpu_channel_dom'] as $k => $v) {
     if ($k !== '') {

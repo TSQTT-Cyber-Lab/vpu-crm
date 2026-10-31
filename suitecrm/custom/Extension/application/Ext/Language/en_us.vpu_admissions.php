@@ -6,6 +6,7 @@ $app_list_strings['vpu_channel_dom'] = [
     '' => '', 'website' => 'Website / sign-up form', 'facebook' => 'Facebook Messenger', 'instagram' => 'Instagram',
     'zalo' => 'Zalo OA', 'tiktok' => 'TikTok', 'telegram' => 'Telegram', 'whatsapp' => 'WhatsApp', 'sms' => 'SMS',
     'hotline' => 'Hotline', 'email' => 'Email', 'event' => 'Open day / in person', 'referral' => 'Referral',
+    'fb_leadads' => 'Facebook/Instagram Lead Ads', 'google_form' => 'Google Forms',
 ];
 foreach ($app_list_strings['vpu_channel_dom'] as $k => $v) {
     if ($k !== '') {

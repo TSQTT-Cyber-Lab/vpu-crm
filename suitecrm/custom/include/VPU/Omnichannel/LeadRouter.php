@@ -18,6 +18,7 @@ final class LeadRouter
     private const LABEL = [
         'facebook' => 'Messenger', 'instagram' => 'Instagram', 'zalo' => 'Zalo', 'telegram' => 'Telegram',
         'sms' => 'SMS', 'tiktok' => 'TikTok', 'whatsapp' => 'WhatsApp', 'website' => 'Web',
+        'fb_leadads' => 'Lead Ads', 'google_form' => 'Google Forms', 'event' => 'Ngày hội', 'hotline' => 'Hotline', 'email' => 'Email', 'referral' => 'Giới thiệu',
     ];
 
     /** @return array{lead_id:string,created:bool,duplicate:bool} */

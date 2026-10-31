@@ -21,9 +21,15 @@ $sugar_config['default_number_grouping_seperator'] = '.';
 // Phễu tuyển sinh đa kênh: index.php?entryPoint=vpuInbound&channel=<kênh>
 $sugar_config['vpu_omnichannel'] = [
     'assigned_user_id' => '1',          // người nhận lead mặc định (id user Tuyển sinh)
-    'facebook' => [                      // Messenger + Instagram (Meta webhook)
+    'facebook' => [                      // Messenger + Instagram + Lead Ads (Meta webhook)
         'verify_token' => 'DOI_CHUOI_NAY',
         'app_secret'   => '',            // để kiểm X-Hub-Signature-256
+        'page_access_token' => '',       // Lead Ads: token Trang, quyền leads_retrieval (lấy nội dung form)
+        'graph_version' => 'v21.0',
+    ],
+    'whatsapp' => [                      // WhatsApp Cloud API; để trống app_secret = dùng chung app Facebook
+        'verify_token' => '',
+        'app_secret'   => '',
     ],
     'zalo' => [                          // Zalo Official Account webhook
         'app_id'     => '',

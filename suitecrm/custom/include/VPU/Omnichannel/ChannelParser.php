@@ -9,7 +9,7 @@ namespace VPU\Omnichannel;
 
 final class ChannelParser
 {
-    public const CHANNELS = ['facebook', 'instagram', 'zalo', 'telegram', 'sms', 'tiktok', 'whatsapp', 'website', 'email', 'hotline', 'event', 'referral'];
+    public const CHANNELS = ['facebook', 'instagram', 'zalo', 'telegram', 'sms', 'tiktok', 'whatsapp', 'website', 'email', 'hotline', 'event', 'referral', 'fb_leadads', 'google_form'];
 
     // ---------- Xác thực (fail-closed: thiếu bí mật = từ chối) ----------
 
@@ -53,6 +53,9 @@ final class ChannelParser
                 return self::parseZalo($p);
             case 'telegram':
                 return self::parseTelegram($p);
+            case 'whatsapp':
+                // WhatsApp Cloud API (Meta) gửi thẳng; nếu đi qua n8n/Make/BSP thì là JSON phẳng -> generic.
+                return ($p['object'] ?? '') === 'whatsapp_business_account' ? self::parseWhatsApp($p) : self::parseGeneric('whatsapp', $p);
             default:
                 return self::parseGeneric($channel, $p);
         }
@@ -76,6 +79,112 @@ final class ChannelParser
             }
         }
         return $out;
+    }
+
+    /** WhatsApp Cloud API: entry[].changes[] (field=messages) -> value.contacts[] + value.messages[]. */
+    private static function parseWhatsApp(array $p): array
+    {
+        $out = [];
+        foreach ($p['entry'] ?? [] as $entry) {
+            foreach ($entry['changes'] ?? [] as $ch) {
+                if (($ch['field'] ?? '') !== 'messages') {
+                    continue;
+                }
+                $v = $ch['value'] ?? [];
+                $names = [];
+                foreach ($v['contacts'] ?? [] as $c) {
+                    if (isset($c['wa_id'])) {
+                        $names[(string)$c['wa_id']] = $c['profile']['name'] ?? null;
+                    }
+                }
+                foreach ($v['messages'] ?? [] as $m) {
+                    if (!isset($m['from'])) {
+                        continue;
+                    }
+                    $type = $m['type'] ?? 'text';
+                    $text = $m['text']['body'] ?? ($m['button']['text'] ?? ($m['interactive']['button_reply']['title']
+                        ?? ($m['interactive']['list_reply']['title'] ?? ('[' . $type . ']'))));
+                    $from = (string)$m['from'];
+                    $out[] = self::msg('whatsapp', $from, $names[$from] ?? null, $from, null, (string)$text,
+                        $m['id'] ?? null, isset($m['timestamp']) ? (int)$m['timestamp'] : null);
+                }
+            }
+        }
+        return $out;
+    }
+
+    /**
+     * Meta Lead Ads (form quảng cáo Facebook/Instagram): webhook chỉ báo leadgen_id; nội dung phải lấy qua Graph API.
+     * @return array<int,array{leadgen_id:string,form_id:?string,page_id:?string,ad_id:?string}>
+     */
+    public static function parseLeadgenRefs(array $p): array
+    {
+        $out = [];
+        foreach ($p['entry'] ?? [] as $entry) {
+            foreach ($entry['changes'] ?? [] as $ch) {
+                if (($ch['field'] ?? '') === 'leadgen' && !empty($ch['value']['leadgen_id'])) {
+                    $v = $ch['value'];
+                    $out[] = ['leadgen_id' => (string)$v['leadgen_id'], 'form_id' => isset($v['form_id']) ? (string)$v['form_id'] : null,
+                        'page_id' => isset($v['page_id']) ? (string)$v['page_id'] : null, 'ad_id' => isset($v['ad_id']) ? (string)$v['ad_id'] : null];
+                }
+            }
+        }
+        return $out;
+    }
+
+    /**
+     * Graph API GET /{leadgen_id} -> tin nhắn chuẩn. field_data: [{name, values[]}]; tên câu hỏi do người lập form đặt,
+     * nên nhận diện theo từ khoá (không dấu). Mọi câu trả lời được ghép vào text để bộ phân loại ngành/học bổng dùng.
+     */
+    public static function leadFromGraph(array $g, ?string $adName = null): ?array
+    {
+        $f = [];
+        $lines = [];
+        foreach ($g['field_data'] ?? [] as $fd) {
+            $name = (string)($fd['name'] ?? '');
+            $val = trim(implode(', ', array_map('strval', (array)($fd['values'] ?? []))));
+            if ($name === '' || $val === '') {
+                continue;
+            }
+            $k = self::fold(str_replace('_', ' ', $name));
+            $map = [
+                'name' => '/^(full name|name|ho ten|ho va ten|ten)$/',
+                'phone' => '/(phone|so dien thoai|dien thoai|sdt|zalo)/',
+                'email' => '/(email|e mail|thu dien tu)/',
+                'guardian_phone' => '/(phu huynh|bo me|guardian).*(dien thoai|sdt|phone)|(dien thoai|sdt|phone).*(phu huynh|bo me|guardian)/',
+                'high_school' => '/(truong|thpt|school)/',
+                'province' => '/(tinh|thanh pho|province|city)/',
+            ];
+            $hit = null;
+            foreach (['guardian_phone', 'name', 'phone', 'email', 'high_school', 'province'] as $key) {
+                if (!isset($f[$key]) && preg_match($map[$key], $k)) {
+                    $hit = $key;
+                    break;
+                }
+            }
+            if ($hit) {
+                $f[$hit] = $val;
+            }
+            $lines[] = $name . ': ' . $val;
+        }
+        $phone = $f['phone'] ?? null;
+        $email = $f['email'] ?? null;
+        if (!$phone && !$email) {
+            return null;
+        }
+        $m = self::msg('fb_leadads', $phone ? self::normalizePhone($phone) : strtolower($email), $f['name'] ?? null, $phone, $email,
+            trim(($adName ? '[Quảng cáo: ' . $adName . '] ' : '') . implode(' · ', $lines)), $g['id'] ?? null,
+            isset($g['created_time']) ? strtotime((string)$g['created_time']) : null);
+        foreach (['high_school', 'province', 'guardian_phone'] as $k) {
+            if (isset($f[$k])) {
+                $m['extra'][$k] = $f[$k];
+            }
+        }
+        $m['extra']['utm_source'] = 'facebook_leadads';
+        if ($adName) {
+            $m['extra']['utm_campaign'] = mb_substr($adName, 0, 100);
+        }
+        return $m;
     }
 
     private static function parseZalo(array $p): array
@@ -152,6 +261,8 @@ final class ChannelParser
         $d = preg_replace('/\D+/', '', $raw);
         if (strpos($d, '84') === 0 && strlen($d) >= 11) {
             $d = '0' . substr($d, 2);
+        } elseif (strlen($d) === 9 && strpos('35789', $d[0]) !== false) {
+            $d = '0' . $d;                               // Excel lưu SĐT dạng số -> mất số 0 đầu (912345678)
         }
         return $d;
     }

@@ -13,3 +13,4 @@
 | 2026-10-31 | CRM-G7 | Claude Opus 5.5 | Sửa lỗi "mật khẩu tvts không đúng": mật khẩu an toàn với Unikey/EVKey (không nguyên âm/d/w), -Accounts, -ResetPasswords | 18 test Setup (2000 mẫu mật khẩu); Docker: nâng cấp + reset và cài sạch, đăng nhập thật 4/4 tài khoản |
 | 2026-10-31 | CRM-G7 | Claude Opus 5.5 | Đổi Accounts thành "Gia đình" đồng bộ toàn hệ thống | 14 test FamilyRelabel; kiểm trên demo Docker: menu, danh sách, form, chuyển hồ sơ, ô Liên quan đến |
 | 2026-10-31 | CRM-G7 | Claude Opus 5.5 | Font Montserrat đóng gói cục bộ cho theme, logo, form | Kiểm computed style + tải font 200 + font biểu tượng không đổi trên demo Docker |
+| 2026-10-31 | CRM-G6 | Claude Opus 5.5 | Thêm nguồn WhatsApp Cloud API, Meta Lead Ads, Google Forms (Apps Script), nhập lô Excel/CSV | Tra tài liệu hiện hành (Meta/Telegram xác nhận; công thức Zalo từ cộng đồng); 76 test; e2e Docker |
