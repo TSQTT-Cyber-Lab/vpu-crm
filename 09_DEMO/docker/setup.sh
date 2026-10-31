@@ -19,6 +19,18 @@ link_state() {
   ln -sf "$STATE/config_override.php" "$APP/config_override.php"
 }
 
+# Địa chỉ site theo cổng HIỆN TẠI (có thể khác lần cài đầu nếu đổi DEMO_PORT) — ghi đè qua config_override.
+set_site_url() {
+  local f="$STATE/config_override.php"
+  sed -i "/^\$sugar_config\['site_url'\]/d" "$f"
+  echo "\$sugar_config['site_url'] = '$SITE_URL';" >> "$f"
+  if [ -f "$STATE/demo-accounts.txt" ]; then
+    local old; old=$(sed -n '1s/^VPU-CRM demo — //p' "$STATE/demo-accounts.txt")
+    [ -n "$old" ] && [ "$old" != "$SITE_URL" ] && sed -i "s#$old#$SITE_URL#g" "$STATE/demo-accounts.txt"
+  fi
+  chown www-data:www-data "$f"
+}
+
 log "chờ MariaDB ($DB_HOST)…"
 for i in $(seq 1 90); do
   mariadb -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" -e 'SELECT 1' "$DB_NAME" >/dev/null 2>&1 && break
@@ -30,6 +42,7 @@ for i in $(seq 1 30); do curl -fsS -o /dev/null http://localhost/robots.txt && b
 if [ -f "$STATE/config.php" ]; then
   log "đã cài trước đó — gắn lại cấu hình, đồng bộ build"
   link_state
+  set_site_url
   as_www php custom/include/VPU/Setup/post_deploy.php >/dev/null || true
   touch "$STATE/.ready"; chown www-data:www-data "$STATE/.ready"
   log "SẴN SÀNG: $SITE_URL  (tài khoản: cat /state/demo-accounts.txt)"
@@ -89,6 +102,7 @@ $sugar_config['WebToLead_AllowedRedirectHosts'] = ['localhost', '127.0.0.1'];
 PHP
 chown www-data:www-data "$STATE"/config*.php
 link_state
+set_site_url
 chown -R www-data:www-data "$APP/cache" "$APP/custom" "$APP/modules"
 
 log "biên dịch tùy biến VPU + nạp danh mục 463 trường THPT…"

@@ -18,13 +18,15 @@ cd 09_DEMO
 .\start-demo.ps1
 ```
 Lần đầu mất khoảng 5–10 phút để tải image và build, sau đó khoảng 40 giây để tự cài. Khi xong, script in danh sách tài khoản và mở
-http://localhost:8080.
+trình duyệt. Script **tự chọn cổng trống**: ưu tiên 8080, nếu cổng đang bị chương trình khác dùng thì thử 8081, 8090, 8180…
+Cổng đã chọn được lưu vào `09_DEMO\.env` để các lần sau dùng lại.
 
 Nếu PowerShell chặn script: `Set-ExecutionPolicy -Scope Process Bypass`, rồi chạy lại.
 
 | Lệnh | Tác dụng |
 |---|---|
 | `.\start-demo.ps1` | Dựng hoặc khởi động, chờ sẵn sàng, in tài khoản, mở trình duyệt |
+| `.\start-demo.ps1 -Port 8090` | Dùng cổng chỉ định |
 | `.\start-demo.ps1 -Stop` | Dừng, giữ dữ liệu |
 | `.\start-demo.ps1 -Reset` | **Xoá sạch** dữ liệu demo rồi dựng lại (mật khẩu mới) |
 | `docker compose exec app cat /state/demo-accounts.txt` | Xem lại tài khoản |
@@ -67,13 +69,23 @@ Tư vấn viên xem và sửa được Thí sinh và Trường THPT, nhưng khô
 | `seed/seed_demo_leads.php` | 24 thí sinh giả, đi qua đúng luồng webhook (phân loại, ghép trường) |
 | `start-demo.ps1` | Script tiện dụng cho Windows |
 
-Đổi cổng: tạo file `.env` trong thư mục này với nội dung `DEMO_PORT=8090` và `DEMO_SITE_URL=http://localhost:8090`.
+Đổi cổng khi không dùng script: tạo file `.env` trong thư mục này với nội dung `DEMO_PORT=8090` và `DEMO_SITE_URL=http://localhost:8090`.
+Đổi cổng sau khi đã cài vẫn giữ nguyên dữ liệu; lúc khởi động, địa chỉ site được cập nhật theo cổng mới.
+
+## Xử lý sự cố
+| Thông báo | Nguyên nhân / cách xử lý |
+|---|---|
+| `ports are not available … bind: Only one usage of each socket address` | Cổng đang bị chương trình khác dùng (IIS, XAMPP, Tomcat, Jenkins, container cũ…). Chạy lại `.\start-demo.ps1` để script tự chọn cổng khác, hoặc dùng `-Port 8090`. Xem chương trình nào đang giữ cổng: `Get-NetTCPConnection -LocalPort 8080 -State Listen \| % { Get-Process -Id $_.OwningProcess }` |
+| `Docker Desktop chưa chạy` | Mở Docker Desktop, chờ biểu tượng chuyển sang "Running" |
+| Trạng thái mãi `starting` | `docker compose logs app` rồi gửi log cho nhóm phát triển |
+| `database đã có dữ liệu nhưng thiếu /state/config.php` | Volume bị lệch; chạy `.\start-demo.ps1 -Reset` |
 
 ## 6. Đã kiểm thử (31/10/2026, Docker 29, trên Linux)
 - Dựng sạch: sẵn sàng sau 31–40 giây. 463 trường, 24 thí sinh mẫu (17 thí sinh tự gắn được trường), 4 tài khoản.
 - Đăng nhập `admin` và `tvts01` qua http://localhost:8080; footer bản quyền VPU hiển thị.
 - Webhook SMS nhận tin (khoá đúng) và trả 401 (khoá sai).
 - `docker compose down` rồi `up`: dữ liệu và mật khẩu còn nguyên.
+- Cổng 8080 bị chương trình khác chiếm: tái hiện được lỗi `bind`. Chuyển sang 8090 trên dữ liệu đã cài thì địa chỉ site và file tài khoản tự cập nhật, đăng nhập bình thường.
 
 **Chưa kiểm thử trực tiếp trên Windows/Docker Desktop.** Các điểm đã tính trước cho Windows:
 - file `.sh` được chuẩn hoá về LF khi build, nên cấu hình `autocrlf` của git không làm hỏng;
