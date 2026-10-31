@@ -5,7 +5,7 @@
  *   cd suitecrm
  *   php custom/include/VPU/Setup/setup_counselors.php --demo [--demo-assign]
  *   php custom/include/VPU/Setup/setup_counselors.php --users="tvts04:Phạm|Văn An,tvts05:Võ|Thị Bích"
- *        [--reset-password]
+ *        [--reset-password] [--reset-admin]
  *
  * Mật khẩu sinh ngẫu nhiên, IN MỘT LẦN ra stdout, không lưu ở đâu khác — giao cho nhân viên rồi
  * yêu cầu đổi. --demo-assign (chỉ dùng cho bản demo): chia trường THPT theo tỉnh và thí sinh cho 3 tài khoản demo.
@@ -19,7 +19,7 @@ require_once 'include/entryPoint.php';
 require_once 'modules/ACLRoles/ACLRole.php';
 require_once 'modules/ACLActions/ACLAction.php';
 
-$opt = getopt('', ['demo', 'demo-assign', 'users::', 'reset-password', 'email-domain::']);
+$opt = getopt('', ['demo', 'demo-assign', 'users::', 'reset-password', 'reset-admin', 'email-domain::']);
 global $current_user;
 $current_user = BeanFactory::getBean('Users', '1');
 $db = DBManagerFactory::getInstance();
@@ -83,14 +83,9 @@ if (!empty($opt['users'])) {
     }
 }
 
-$genPassword = static function (): string {
-    $alpha = 'ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwxyz23456789';
-    $p = '';
-    for ($i = 0; $i < 10; $i++) {
-        $p .= $alpha[random_int(0, strlen($alpha) - 1)];
-    }
-    return $p . '@' . random_int(10, 99);   // đủ hoa/thường/số/ký tự đặc biệt
-};
+require_once 'custom/include/VPU/Setup/Password.php';
+// Mật khẩu không có nguyên âm/d/w -> gõ bằng Unikey/EVKey (Telex, VNI) vẫn đúng. Xem Password.php.
+$genPassword = [\VPU\Setup\Password::class, 'generate'];
 
 $created = [];
 foreach ($users as [$uname, $last, $first]) {
@@ -127,6 +122,13 @@ foreach ($users as [$uname, $last, $first]) {
         $u->setNewPassword($pwd, '0');
     }
     $created[] = [$uname, trim("$last $first"), $u->id, $pwd];
+}
+
+if (isset($opt['reset-admin'])) {
+    $admin = BeanFactory::getBean('Users', '1');
+    $apw = $genPassword();
+    $admin->setNewPassword($apw, '0');
+    $created[] = ['admin', 'Quản trị', '1', $apw];
 }
 
 if ($created) {

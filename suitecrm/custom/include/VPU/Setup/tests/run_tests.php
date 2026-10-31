@@ -2,7 +2,9 @@
 // php custom/include/VPU/Setup/tests/run_tests.php  (không cần DB)
 define('sugarEntry', true);
 require __DIR__ . '/../BuildGuard.php';
+require __DIR__ . '/../Password.php';
 use VPU\Setup\BuildGuard as G;
+use VPU\Setup\Password as PW;
 
 $fail = 0; $n = 0;
 $eq = function ($exp, $got, string $name) use (&$fail, &$n) {
@@ -51,6 +53,21 @@ $eq(["ALTER TABLE t ADD COLUMN `note,x` varchar(10) DEFAULT 'x,y'"], $s, 'commas
 
 [$s, $p] = G::classify('');
 $eq([[], []], [$s, $p], 'empty');
+
+// Mật khẩu an toàn với bộ gõ tiếng Việt
+$bad = 0; $fmt = 0; $cls = 0;
+for ($i = 0; $i < 2000; $i++) {
+    $p = PW::generate();
+    $bad += PW::isImeSafe($p) ? 0 : 1;
+    $fmt += preg_match('/^[A-Za-z2-9]{4}-[A-Za-z2-9]{4}@[2-9]{2}$/', $p) ? 0 : 1;
+    $cls += (preg_match('/[A-Z]/', $p) && preg_match('/[a-z]/', $p) && preg_match('/[0-9]/', $p)) ? 0 : 1;
+}
+$eq(0, $bad, 'password: no vowels / d / w in 2000 samples (Telex/VNI safe)');
+$eq(0, $fmt, 'password: format XXXX-XXXX@NN');
+$eq(0, $cls, 'password: has upper + lower + digit');
+$eq(false, PW::isImeSafe('7LbaFfeJ9u@37'), 'old style password flagged unsafe (aF -> à)');
+$eq(false, PW::isImeSafe('r82mQzcBe9@12'), 'VNI e9 -> ẹ flagged');
+echo "  ví dụ: " . PW::generate() . "  " . PW::generate() . "\n";
 
 echo ($fail ? "FAILED $fail/$n\n" : "OK $n tests\n");
 exit($fail ? 1 : 0);

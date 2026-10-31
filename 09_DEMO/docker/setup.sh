@@ -8,11 +8,6 @@ SITE_URL="${SITE_URL:-http://localhost:8080}"
 log() { echo "[vpu-demo] $*"; }
 cd "$APP"
 as_www() { runuser -u www-data -- "$@"; }
-rm -f "$STATE/.ready"
-mkdir -p "$STATE/upload"
-[ -f "$STATE/upload/index.html" ] || cp "$APP/upload/index.html" "$STATE/upload/index.html" 2>/dev/null || true
-rm -rf "$APP/upload" && ln -s "$STATE/upload" "$APP/upload"
-chown -R www-data:www-data "$STATE"
 
 link_state() {
   ln -sf "$STATE/config.php" "$APP/config.php"
@@ -30,6 +25,42 @@ set_site_url() {
   fi
   chown www-data:www-data "$f"
 }
+
+# Mật khẩu an toàn với bộ gõ tiếng Việt (custom/include/VPU/Setup/Password.php)
+gen_password() { php -r 'require "/var/www/html/custom/include/VPU/Setup/Password.php"; echo VPU\Setup\Password::generate();'; }
+
+# Ghi /state/demo-accounts.txt từ đầu ra của setup_counselors.php (dòng "  <user>  <mật khẩu>  <tên>")
+write_accounts() {
+  local accounts="$1"
+  {
+    echo "VPU-CRM demo — $SITE_URL"
+    echo "Cập nhật: $(date '+%d/%m/%Y %H:%M') — DỮ LIỆU GIẢ, chỉ dùng thử nghiệm"
+    echo "Mật khẩu không chứa nguyên âm: gõ được cả khi đang bật Unikey/EVKey."
+    echo
+    echo "$accounts" | sed -n '/^  admin /p' | awk '{printf "Quản trị:  %-8s  %s\n", $1, $2}'
+    echo "$accounts" | sed -n '/^  tvts/p' | sed 's/^  /Tư vấn:    /'
+    echo
+    echo "Webhook (khoá trong /state/config_override.php):"
+    echo "  $SITE_URL/index.php?entryPoint=vpuInbound&channel=sms   (header X-VPU-Key)"
+  } > "$STATE/demo-accounts.txt"
+  chmod 600 "$STATE/demo-accounts.txt"
+}
+
+# Chế độ đặt lại mật khẩu (start-demo.ps1 -ResetPasswords): admin + 3 tài khoản tư vấn
+if [ "${1:-}" = "reset-passwords" ]; then
+  [ -f "$STATE/config.php" ] || { log "Chưa cài xong — chạy start-demo.ps1 trước."; exit 1; }
+  ACCOUNTS=$(as_www php custom/include/VPU/Setup/setup_counselors.php --demo --reset-password --reset-admin)
+  write_accounts "$ACCOUNTS"
+  cat "$STATE/demo-accounts.txt"
+  exit 0
+fi
+
+# Khởi động bình thường (không phải chế độ reset): chuẩn bị volume /state
+rm -f "$STATE/.ready"
+mkdir -p "$STATE/upload"
+[ -f "$STATE/upload/index.html" ] || cp "$APP/upload/index.html" "$STATE/upload/index.html" 2>/dev/null || true
+rm -rf "$APP/upload" && ln -s "$STATE/upload" "$APP/upload"
+chown -R www-data:www-data "$STATE"
 
 log "chờ MariaDB ($DB_HOST)…"
 for i in $(seq 1 90); do
@@ -54,7 +85,7 @@ if [ "$(mariadb -N -h "$DB_HOST" -u "$DB_USER" -p"$DB_PASSWORD" "$DB_NAME" -e "S
   exit 1
 fi
 
-ADMIN_PW="Vpu-$(head -c 9 /dev/urandom | base64 | tr -dc 'A-Za-z0-9' | head -c 10)"
+ADMIN_PW=$(gen_password)
 log "cài SuiteCRM (silent install)…"
 cat > config_si.php <<PHP
 <?php
@@ -113,17 +144,7 @@ log "tạo vai trò + 3 tài khoản tư vấn viên…"
 ACCOUNTS=$(as_www php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign)
 as_www php custom/include/VPU/Import/import_schools.php --link-leads >/dev/null
 
-{
-  echo "VPU-CRM demo — $SITE_URL"
-  echo "Tạo lúc: $(date '+%d/%m/%Y %H:%M') — DỮ LIỆU GIẢ, chỉ dùng thử nghiệm"
-  echo
-  echo "Quản trị:  admin     $ADMIN_PW"
-  echo "$ACCOUNTS" | sed -n '/^  tvts/p' | sed 's/^  /Tư vấn:    /'
-  echo
-  echo "Webhook (khoá trong /state/config_override.php):"
-  echo "  $SITE_URL/index.php?entryPoint=vpuInbound&channel=sms   (header X-VPU-Key)"
-} > "$STATE/demo-accounts.txt"
-chmod 600 "$STATE/demo-accounts.txt"
+write_accounts "$(printf '  admin     %s  Quản trị\n%s\n' "$ADMIN_PW" "$ACCOUNTS")"
 touch "$STATE/.ready"; chown www-data:www-data "$STATE/.ready"
 log "=============================================="
 cat "$STATE/demo-accounts.txt" | sed 's/^/[vpu-demo] /'

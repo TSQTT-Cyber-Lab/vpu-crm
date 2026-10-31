@@ -4,9 +4,11 @@
     .\start-demo.ps1 -Port 8090   dùng cổng chỉ định
     .\start-demo.ps1 -Reset       xoá sạch dữ liệu demo rồi dựng lại từ đầu
     .\start-demo.ps1 -Stop        dừng demo (giữ dữ liệu)
+    .\start-demo.ps1 -Accounts    xem tài khoản và mật khẩu hiện tại
+    .\start-demo.ps1 -ResetPasswords   đặt lại mật khẩu admin + tvts01..03 (demo phải đang chạy)
   Cổng đã chọn được lưu trong .env (cùng thư mục) để các lần sau dùng lại.
 #>
-param([switch]$Reset, [switch]$Stop, [int]$Port = 0)
+param([switch]$Reset, [switch]$Stop, [switch]$Accounts, [switch]$ResetPasswords, [int]$Port = 0)
 # 'Continue' (không phải 'Stop'): trên Windows PowerShell 5.1, chuyển hướng stderr của lệnh ngoài (docker … 2>$null)
 # với 'Stop' bị coi là lỗi dừng script. Lỗi của docker được kiểm tra qua $LASTEXITCODE.
 $ErrorActionPreference = 'Continue'
@@ -21,6 +23,17 @@ if ($LASTEXITCODE -ne 0) {
     Write-Host 'Docker Desktop chưa chạy. Mở Docker Desktop rồi chạy lại script.' -ForegroundColor Red; exit 1
 }
 if ($Stop) { docker compose stop; exit 0 }
+if ($Accounts -or $ResetPasswords) {
+    $state = docker inspect -f '{{.State.Health.Status}}' vpu-demo-app 2>$null
+    if ($LASTEXITCODE -ne 0 -or $state -ne 'healthy') {
+        Write-Host 'Demo chưa chạy. Chạy .\start-demo.ps1 trước.' -ForegroundColor Red; exit 1
+    }
+    if ($ResetPasswords) { docker compose exec -T app /opt/vpu-demo/setup.sh reset-passwords }
+    else { docker compose exec -T app cat /state/demo-accounts.txt }
+    Write-Host ''
+    Write-Host 'Mật khẩu không có nguyên âm nên gõ được cả khi đang bật Unikey/EVKey. Không có khoảng trắng ở đầu/cuối.' -ForegroundColor DarkGray
+    exit 0
+}
 if ($Reset) { Write-Host 'Xoá dữ liệu demo cũ…' -ForegroundColor Yellow; docker compose down -v }
 
 function Test-PortFree([int]$p) {

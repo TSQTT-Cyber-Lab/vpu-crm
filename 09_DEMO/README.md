@@ -29,13 +29,16 @@ Nếu PowerShell chặn script: `Set-ExecutionPolicy -Scope Process Bypass`, r�
 | `.\start-demo.ps1 -Port 8090` | Dùng cổng chỉ định |
 | `.\start-demo.ps1 -Stop` | Dừng, giữ dữ liệu |
 | `.\start-demo.ps1 -Reset` | **Xoá sạch** dữ liệu demo rồi dựng lại (mật khẩu mới) |
-| `docker compose exec app cat /state/demo-accounts.txt` | Xem lại tài khoản |
+| `.\start-demo.ps1 -Accounts` | Xem lại tài khoản và mật khẩu |
+| `.\start-demo.ps1 -ResetPasswords` | Đặt lại mật khẩu `admin` và `tvts01..03` |
 | `docker compose logs -f app` | Xem log |
 
 Không dùng PowerShell thì chạy `docker compose up -d --build` trong thư mục này.
 
 ## 3. Tài khoản
-Mật khẩu **sinh ngẫu nhiên ở lần cài đầu**, không có sẵn trong repo; xem bằng lệnh ở bảng trên.
+Mật khẩu **sinh ngẫu nhiên ở lần cài đầu trên chính máy của bạn**, không có sẵn trong repo và khác với mọi mật khẩu gửi qua chat.
+Xem bằng `.\start-demo.ps1 -Accounts`. Mật khẩu có dạng `Kt7m-Pq3H@48`, **không chứa nguyên âm, d, w**, nên gõ đúng
+cả khi đang bật Unikey/EVKey (Telex, VNI).
 
 | Tài khoản | Vai trò | Dữ liệu được chia |
 |---|---|---|
@@ -76,6 +79,7 @@ Tư vấn viên xem và sửa được Thí sinh và Trường THPT, nhưng khô
 | Thông báo | Nguyên nhân / cách xử lý |
 |---|---|
 | `ports are not available … bind: Only one usage of each socket address` | Cổng đang bị chương trình khác dùng (IIS, XAMPP, Tomcat, Jenkins, container cũ…). Chạy lại `.\start-demo.ps1` để script tự chọn cổng khác, hoặc dùng `-Port 8090`. Xem chương trình nào đang giữ cổng: `Get-NetTCPConnection -LocalPort 8080 -State Listen \| % { Get-Process -Id $_.OwningProcess }` |
+| Đăng nhập báo sai mật khẩu | (1) Dùng mật khẩu của **bản demo trên máy mình** (`.\start-demo.ps1 -Accounts`), không dùng mật khẩu gửi qua chat. (2) Bản cũ (trước 31/10/2026) sinh mật khẩu có nguyên âm, Unikey/EVKey sẽ biến đổi khi gõ (vd. "aF" thành "à"): chạy `git pull`, `.\start-demo.ps1`, rồi `.\start-demo.ps1 -ResetPasswords` |
 | `Docker Desktop chưa chạy` | Mở Docker Desktop, chờ biểu tượng chuyển sang "Running" |
 | Trạng thái mãi `starting` | `docker compose logs app` rồi gửi log cho nhóm phát triển |
 | `database đã có dữ liệu nhưng thiếu /state/config.php` | Volume bị lệch; chạy `.\start-demo.ps1 -Reset` |
