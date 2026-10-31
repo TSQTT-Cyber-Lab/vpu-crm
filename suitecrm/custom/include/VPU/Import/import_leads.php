@@ -83,8 +83,13 @@ for ($i = 1, $n = count($rows); $i < $n; $i++) {
         }
     }
 }
-printf("%s%s: tạo mới %d · gộp vào thí sinh đã có %d · đã nhập trước đó %d · bỏ qua (thiếu SĐT/email) %d · lỗi %d\n",
-    $dry ? '[DRY-RUN] ' : '', basename($file), $st['created'], $st['merged'], $st['duplicate'], $st['skipped'], $st['error']);
+if ($dry) {
+    printf("[DRY-RUN] %s: sẽ xử lý %d dòng (chưa ghi gì; trùng SĐT/email được gộp khi chạy thật) · bỏ qua (thiếu SĐT/email) %d\n",
+        basename($file), $st['created'], $st['skipped']);
+} else {
+    printf("%s: tạo mới %d · gộp vào thí sinh đã có %d · đã nhập trước đó %d · bỏ qua (thiếu SĐT/email) %d · lỗi %d\n",
+        basename($file), $st['created'], $st['merged'], $st['duplicate'], $st['skipped'], $st['error']);
+}
 if ($skippedLines) {
     echo '  Dòng bỏ qua: ' . implode(', ', array_slice($skippedLines, 0, 30)) . (count($skippedLines) > 30 ? '…' : '') . "\n";
 }

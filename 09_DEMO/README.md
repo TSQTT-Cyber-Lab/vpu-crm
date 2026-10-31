@@ -63,6 +63,16 @@ Tư vấn viên xem và sửa được Thí sinh và Trường THPT, nhưng khô
    ```
    Thí sinh mới xuất hiện với ngành Logistics, học bổng Công dân toàn cầu, và được gắn với trường THPT Lý Tự Trọng.
 
+## 4b. Kết nối kênh thật và nhập danh sách
+- **Hướng dẫn cấu hình tài khoản** Facebook/Messenger, Instagram, form quảng cáo (Lead Ads), WhatsApp, Zalo OA, Telegram, SMS,
+  Google Forms, TikTok, email…: [`02_DESIGN/KET_NOI_KENH.md`](../02_DESIGN/KET_NOI_KENH.md). Để thử với bản demo trên máy, mở
+  tạm ra Internet bằng `cloudflared tunnel --url http://localhost:8080` (mục 0.2 của hướng dẫn).
+- **Nhập danh sách Excel/CSV**, có 2 file mẫu trong `seed\samples\`:
+  ```powershell
+  docker compose cp .\seed\samples\mau_danh_sach_ngay_hoi.xlsx app:/tmp/ds.xlsx
+  docker compose exec -u www-data -w /var/www/html app php custom/include/VPU/Import/import_leads.php --file=/tmp/ds.xlsx --channel=event --campaign="Ngày hội thử"
+  ```
+
 ## 5. Cấu trúc
 | File | Vai trò |
 |---|---|
@@ -70,6 +80,7 @@ Tư vấn viên xem và sửa được Thí sinh và Trường THPT, nhưng khô
 | `Dockerfile`, `Dockerfile.dockerignore` | Image ứng dụng, lấy mã từ `suitecrm/` của repo; chỉ gửi `suitecrm/` và `09_DEMO/` vào build |
 | `docker/setup.sh` | Lần đầu: silent install, tùy biến VPU (`post_deploy.php --seed`), thí sinh mẫu, tài khoản. Các lần sau: gắn lại cấu hình trong `/state` |
 | `seed/seed_demo_leads.php` | 24 thí sinh giả, đi qua đúng luồng webhook (phân loại, ghép trường) |
+| `seed/samples/` | File Excel/CSV mẫu (dữ liệu giả) để thử nhập lô |
 | `start-demo.ps1` | Script tiện dụng cho Windows |
 
 Đổi cổng khi không dùng script: tạo file `.env` trong thư mục này với nội dung `DEMO_PORT=8090` và `DEMO_SITE_URL=http://localhost:8090`.

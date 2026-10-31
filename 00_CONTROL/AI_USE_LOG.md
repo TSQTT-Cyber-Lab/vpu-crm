@@ -14,3 +14,4 @@
 | 2026-10-31 | CRM-G7 | Claude Opus 5.5 | Đổi Accounts thành "Gia đình" đồng bộ toàn hệ thống | 14 test FamilyRelabel; kiểm trên demo Docker: menu, danh sách, form, chuyển hồ sơ, ô Liên quan đến |
 | 2026-10-31 | CRM-G7 | Claude Opus 5.5 | Font Montserrat đóng gói cục bộ cho theme, logo, form | Kiểm computed style + tải font 200 + font biểu tượng không đổi trên demo Docker |
 | 2026-10-31 | CRM-G6 | Claude Opus 5.5 | Thêm nguồn WhatsApp Cloud API, Meta Lead Ads, Google Forms (Apps Script), nhập lô Excel/CSV | Tra tài liệu hiện hành (Meta/Telegram xác nhận; công thức Zalo từ cộng đồng); 76 test; e2e Docker |
+| 2026-10-31 | CRM-G6 | Claude Opus 5.5 | Viết hướng dẫn kết nối kênh KET_NOI_KENH.md | Đối chiếu tài liệu Meta/Telegram/Instagram qua tìm kiếm; Zalo đánh dấu ⚠; chạy thử lệnh demo; chưa kết nối tài khoản thật |

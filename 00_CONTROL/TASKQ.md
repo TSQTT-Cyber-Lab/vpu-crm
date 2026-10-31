@@ -20,3 +20,5 @@ Codex ghi câu hỏi vào cột Kết quả và để trạng thái = blocked.
 | T-012 | cowork | Đổi "Hộ gia đình" thành "Gia đình", đồng bộ mọi nhãn trỏ tới Accounts | Không đổi tài khoản người dùng/email | done | 23 module + 10 danh sách chọn + form gia đình gọn; 14 test |
 | T-013 | cowork | Font chủ đạo Montserrat, sans-serif cho mọi trang | Đóng gói cục bộ, có dấu tiếng Việt | done | theme + logo + form web; kiểm computed style trên demo |
 | T-014 | cowork | Đổ dữ liệu đa nguồn: WhatsApp Cloud API, Lead Ads, Google Forms, nhập lô Excel/CSV | Cùng luồng LeadRouter; chống trùng; không lộ khoá | done | 55 + 21 test; e2e trên demo (WhatsApp, Lead Ads với Graph giả lập, Google Forms, xlsx/csv chạy lại không trùng) |
+| T-015 | cowork | Hướng dẫn tạo/cấu hình tài khoản các kênh (Meta, WhatsApp, Zalo OA, Telegram, SMS, Google Forms, TikTok…) | Đối chiếu tài liệu hiện hành; đánh dấu điểm chưa có nguồn chính thức | done | 02_DESIGN/KET_NOI_KENH.md; lệnh demo đã chạy thử |
+| T-016 | cowork | Kết nối thật từng kênh trên staging + kiểm chứng chữ ký Zalo bằng sự kiện thật; nộp App Review Meta | Cần tài khoản/khoá của trường | todo | |

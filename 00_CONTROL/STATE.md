@@ -34,6 +34,8 @@ CRM cho VPU trên SuiteCRM 7.15.2, phục vụ sinh viên và gia đình; quy tr
 - [x] T-009: footer bản quyền VPU (giữ ghi công AGPL)
 - [x] T-010: BuildGuard — triển khai không cần Quick Repair thủ công
 - [x] T-011: bản demo Docker trong 09_DEMO (chờ thử trên Windows)
+- [x] T-012..T-015: Gia đình, font Montserrat, đa nguồn (WhatsApp/Lead Ads/Google Forms/Excel), hướng dẫn kết nối kênh
+- [ ] T-016: kết nối thật các kênh trên staging (cần tài khoản của trường)
 - [x] T-006: module Trường THPT, import 463 trường 4 tỉnh, tự gắn thí sinh với trường
 - [ ] T-007: xác minh 33 bản ghi trường và phân hạng ưu tiên, nhập đầu mối
 - [ ] T-004: staging HTTPS và đăng ký webhook các kênh

@@ -252,7 +252,7 @@ nhập sai mật khẩu bị từ chối, quyền khớp bảng trên (kiểm tr
    `php custom/include/VPU/Setup/post_deploy.php --seed` (biên dịch, đồng bộ schema, nạp danh mục trường), sau đó
    `import_schools.php --link-leads` (§3.4) và `setup_counselors.php` (§3.5).
 3. Admin → Languages: bật Tiếng Việt. Người dùng chọn subtheme bất kỳ, tất cả đều đã mang màu VPU.
-4. Đăng ký webhook (yêu cầu HTTPS):
+4. Đăng ký webhook (yêu cầu HTTPS). **Hướng dẫn từng nền tảng: `02_DESIGN/KET_NOI_KENH.md`.** Tóm tắt:
    - Meta: Callback URL `https://<crm>/index.php?entryPoint=vpuInbound&channel=facebook`, Verify token = `verify_token`, subscribe `messages`, `messaging_postbacks`.
    - Zalo OA: Webhook URL `…&channel=zalo`, bật `user_send_text`, `user_submit_info`, `follow`.
    - Telegram: `setWebhook?url=…&channel=telegram&secret_token=<secret_token>`.
