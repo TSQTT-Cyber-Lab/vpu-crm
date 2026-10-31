@@ -25,3 +25,5 @@ $mod_strings['LBL_VPU_SCHOOL_NAME'] = 'High school (directory)';
 $mod_strings['LBL_VPU_SCHOOL_ID'] = 'High school ID';
 $mod_strings['LBL_VPU_HIGH_SCHOOL'] = 'High school (as entered)';
 $mod_strings['LBL_VPU_PROGRAM'] = 'Programme of interest (tuition)';
+$mod_strings['LBL_ACCOUNT_NAME'] = 'Family:';
+$mod_strings['LBL_LIST_ACCOUNT_NAME'] = 'Family';

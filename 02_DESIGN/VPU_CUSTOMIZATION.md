@@ -48,7 +48,11 @@ Build lại: `suitecrm/custom/themes/SuiteP/build_vpu_theme.sh` (cần Node; scr
 - Gói `vi_VN` chính thức của cộng đồng (Crowdin), bản `7.15-26.10` lấy từ SourceForge
   `suitecrmtranslations/7.15`, khoảng 72% chuỗi đã dịch. Đã quét tĩnh: chỉ có mảng chuỗi, không có code thực thi.
 - Bổ sung các nhãn Leads còn tiếng Anh và đổi tên module theo nghiệp vụ: Leads → **Thí sinh**,
-  Opportunities → **Hồ sơ xét tuyển**, Accounts → **Hộ gia đình**.
+  Opportunities → **Hồ sơ xét tuyển**, Accounts → **Gia đình**.
+- **Gia đình (Accounts):** gom thí sinh + cha mẹ/người giám hộ + anh chị em thành một hồ sơ (lịch sử liên lạc chung,
+  người đóng học phí, đồng ý theo gia đình). Đổi đồng bộ mọi nhãn "Tài khoản/Khách hàng/Account" trỏ tới module này ở ~23 module
+  và 10 danh sách chọn (`custom/include/VPU/Language/FamilyRelabel.php`, `custom/include/language/*.lang.php`); giữ nguyên
+  tài khoản người dùng/email/lịch/cổng. Form gia đình bỏ Website, Fax và panel kinh doanh (ngành nghề, doanh thu, số nhân viên).
 - `config_override.php.example` đặt `vi_VN` làm ngôn ngữ mặc định, tiền tệ VND, ngày `d/m/Y`.
 
 ## 3. Phễu tuyển sinh đa kênh
@@ -200,7 +204,7 @@ php custom/include/VPU/Setup/setup_counselors.php --users="tvts04:Phạm|Văn An
 |---|---|---|---|---|---|
 | Thí sinh (Leads), Trường THPT | tất cả | tất cả | không | không | không |
 | Cuộc gọi, Lịch hẹn, Công việc, Ghi chú | tất cả | của mình | của mình | không | không |
-| Liên hệ, Hộ gia đình, Hồ sơ xét tuyển | tất cả | của mình | không | không | không |
+| Liên hệ, Gia đình, Hồ sơ xét tuyển | tất cả | của mình | không | không | không |
 | Chiến dịch | tất cả | không | không | không | không |
 
 Không có quyền quản trị; nếu tư vấn viên vào trang Quản trị, SuiteCRM sẽ huỷ phiên đăng nhập. Không cho phép xuất dữ liệu

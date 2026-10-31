@@ -75,3 +75,5 @@ $app_list_strings['vpu_program_dom'] = [
     'lien_thong_vb2' => 'Bridging / second degree',
     'thac_si' => 'Master (Law, MBA) — VND 1,000,000/credit',
 ];
+$app_list_strings['moduleList']['Accounts'] = 'Families';
+$app_list_strings['moduleListSingular']['Accounts'] = 'Family';

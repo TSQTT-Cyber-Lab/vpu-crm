@@ -23,5 +23,13 @@ if (isset($app_strings) && is_array($app_strings)) {
     // Ghi công bắt buộc AGPLv3 §7(b): giữ NGUYÊN VĂN (gói vi_VN dịch sai thành "Được nén bởi…", "Được tài trợ bởi…").
     $app_strings['LBL_SUITE_SUPERCHARGED'] = 'Supercharged by SuiteCRM';
     $app_strings['LBL_SUITE_POWERED_BY'] = 'Powered by SugarCRM';
+    // Module Accounts = "Gia đình" (D-007). Không đổi các nhãn tài khoản email / đăng nhập.
+    $app_strings['LBL_ACCOUNT'] = 'Gia đình';
+    $app_strings['LBL_ACCOUNTS'] = 'Gia đình';
+    $app_strings['LBL_LIST_ACCOUNT_NAME'] = 'Gia đình';
+    $app_strings['LBL_ACCESSKEY_SELECT_ACCOUNTS_TITLE'] = 'Chọn gia đình';
+    $app_strings['LBL_ACCESSKEY_SELECT_ACCOUNTS_LABEL'] = 'Chọn gia đình';
+    $app_strings['LBL_ACCESSKEY_CLEAR_ACCOUNTS_TITLE'] = 'Bỏ chọn gia đình';
+    $app_strings['LBL_ACCESSKEY_CLEAR_ACCOUNTS_LABEL'] = 'Bỏ chọn gia đình';
 }
 unset($vpuKeep, $vpuKey, $vpuVal);

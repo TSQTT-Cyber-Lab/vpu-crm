@@ -45,3 +45,9 @@
 - **Lý do:** (a), (b), (c) vẫn phụ thuộc vào việc người hoặc máy nhớ chạy, và không bắt được trường hợp rsync ghi đè. (d) tự sửa bất kể cách triển khai, chi phí khoảng 0,7 ms mỗi request.
 - **Đánh đổi:** Request đầu tiên sau deploy chậm khoảng 1 giây. Hook nằm trong `custom/modules/logic_hooks.php`; nếu ModuleInstaller viết lại file này thì vẫn giữ mục hook nhưng mất comment.
 - **Người quyết:** (tác giả xác nhận)
+
+## D-007 · 2026-10-31 · Module Accounts mang tên "Gia đình"
+- **Bối cảnh:** Menu ghi "Hộ gia đình" nhưng trong module vẫn "Tài khoản/Khách hàng/Account"; "hộ" gợi hộ khẩu, khó hiểu với tư vấn viên.
+- **Phương án:** (A) "Gia đình" — giữ chức năng nhóm gia đình; (B) "Đối tác & tổ chức" — dùng cho doanh nghiệp/đại lý.
+- **Quyết định:** A (tác giả chọn). Đổi đồng bộ mọi nhãn trỏ tới Accounts; giữ nhãn tài khoản người dùng/email/lịch/cổng.
+- **Người quyết:** tác giả

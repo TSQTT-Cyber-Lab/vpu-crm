@@ -15,7 +15,7 @@ các mục ở §7.
 | Tốt nghiệp – cựu SV | Việc làm, sự kiện | — | Quan hệ doanh nghiệp | Events, Campaigns |
 
 Quy ước dữ liệu: `Contacts` là một người (sinh viên hoặc người thân), `Accounts` là một
-hộ gia đình, quan hệ Contact–Contact ghi vai (cha, mẹ, người giám hộ) và phạm vi đồng ý
+gia đình (menu "Gia đình"), quan hệ Contact–Contact ghi vai (cha, mẹ, người giám hộ) và phạm vi đồng ý
 chia sẻ. Lead chuyển thành Contact khi có hồ sơ; mã sinh viên là khóa duy nhất.
 
 ## 2. Quy trình phát triển

@@ -87,8 +87,8 @@ $app_list_strings['moduleList']['Leads'] = 'Thí sinh';
 $app_list_strings['moduleListSingular']['Leads'] = 'Thí sinh';
 $app_list_strings['moduleList']['Opportunities'] = 'Hồ sơ xét tuyển';
 $app_list_strings['moduleListSingular']['Opportunities'] = 'Hồ sơ xét tuyển';
-$app_list_strings['moduleList']['Accounts'] = 'Hộ gia đình';
-$app_list_strings['moduleListSingular']['Accounts'] = 'Hộ gia đình';
+$app_list_strings['moduleList']['Accounts'] = 'Gia đình';
+$app_list_strings['moduleListSingular']['Accounts'] = 'Gia đình';
 $app_list_strings['lead_status_dom'] = [
     '' => '', 'New' => 'Mới', 'Assigned' => 'Đã phân công', 'In Process' => 'Đang tư vấn',
     'Converted' => 'Đã chuyển hồ sơ', 'Recycled' => 'Chăm sóc lại', 'Dead' => 'Không tiếp tục',
