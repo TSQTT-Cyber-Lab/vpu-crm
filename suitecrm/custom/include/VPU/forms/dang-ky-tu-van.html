@@ -8,14 +8,26 @@
   <div class="row"><label for="email1">Email</label><input id="email1" name="email1" type="email" autocomplete="email"></div>
   <div class="row"><label for="vpu_high_school">Trường THPT</label><input id="vpu_high_school" name="vpu_high_school" maxlength="255"></div>
   <div class="row"><label for="vpu_province">Tỉnh/Thành phố</label><input id="vpu_province" name="vpu_province" maxlength="100"></div>
-  <div class="row"><label for="vpu_major">Ngành quan tâm</label>
-    <select id="vpu_major" name="vpu_major[]" multiple size="5">
-      <option value="it">Công nghệ thông tin</option><option value="cybersecurity">An toàn thông tin</option>
-      <option value="ai_data">Trí tuệ nhân tạo &amp; Khoa học dữ liệu</option><option value="business">Quản trị kinh doanh</option>
-      <option value="marketing">Marketing</option><option value="finance">Tài chính – Ngân hàng</option>
-      <option value="accounting">Kế toán</option><option value="logistics">Logistics &amp; Quản lý chuỗi cung ứng</option>
-      <option value="tourism">Quản trị dịch vụ du lịch &amp; lữ hành</option><option value="english">Ngôn ngữ Anh</option>
-      <option value="law">Luật</option><option value="other">Chưa xác định</option>
+  <div class="row"><label for="vpu_major">Ngành quan tâm (giữ Ctrl để chọn nhiều)</label>
+    <select id="vpu_major" name="vpu_major[]" multiple size="8">
+      <optgroup label="Công nghệ & Kỹ thuật"><option value="7480201">Công nghệ thông tin</option><option value="7480103">Kỹ thuật phần mềm</option><option value="7480207">Trí tuệ nhân tạo</option><option value="7520114">Kỹ thuật cơ điện tử</option></optgroup>
+      <optgroup label="Kinh tế & Quản trị"><option value="7340101">Quản trị kinh doanh</option><option value="7340115">Marketing</option><option value="7340201">Tài chính – Ngân hàng</option><option value="7510605">Logistics và Quản lý chuỗi cung ứng</option><option value="7340301">Kế toán</option></optgroup>
+      <optgroup label="Du lịch & Khách sạn"><option value="7810201">Quản trị khách sạn</option><option value="7810101">Du lịch</option></optgroup>
+      <optgroup label="Truyền thông & Thiết kế"><option value="7320104">Truyền thông đa phương tiện</option><option value="7210403">Thiết kế đồ họa</option></optgroup>
+      <optgroup label="Ngôn ngữ & Xã hội"><option value="7220201">Ngôn ngữ Anh</option><option value="7310608">Đông phương học</option><option value="7310401">Tâm lý học</option><option value="7229042">Quản lý văn hóa</option><option value="7310205">Quản lý nhà nước</option></optgroup>
+      <optgroup label="Luật"><option value="7380101">Luật</option><option value="7380107">Luật kinh tế</option></optgroup>
+      <optgroup label="Sức khỏe"><option value="7420204">Khoa học y sinh</option><option value="7720301">Điều dưỡng</option></optgroup>
+      <option value="other">Chưa xác định</option>
+    </select></div>
+  <div class="row"><label for="vpu_program">Chương trình</label>
+    <select id="vpu_program" name="vpu_program">
+      <option value="">— Chọn —</option><option value="tieu_chuan">Tiêu chuẩn</option><option value="chat_luong_cao">Chất lượng cao (100% tiếng Anh)</option>
+      <option value="cu_nhan_tai_nang">Cử nhân Tài năng</option><option value="lien_thong_vb2">Liên thông / Văn bằng 2</option><option value="thac_si">Thạc sĩ</option>
+    </select></div>
+  <div class="row"><label for="vpu_scholarship">Học bổng quan tâm</label>
+    <select id="vpu_scholarship" name="vpu_scholarship">
+      <option value="">— Chọn —</option><option value="hieu_truong">Hiệu trưởng</option><option value="tai_nang">Tài năng</option>
+      <option value="cong_dan_toan_cau">Công dân toàn cầu</option><option value="kh_future_leader">Khánh Hòa Future Leader</option><option value="tiep_suc">Tiếp sức</option>
     </select></div>
   <fieldset class="row"><legend>Em quan tâm</legend>
     <label><input type="checkbox" name="vpu_interest[]" value="admission" checked> Phương thức xét tuyển</label>

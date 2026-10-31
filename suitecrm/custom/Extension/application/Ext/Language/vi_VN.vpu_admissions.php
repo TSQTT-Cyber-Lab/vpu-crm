@@ -42,29 +42,44 @@ $app_list_strings['vpu_interest_dom'] = [
     'career' => 'Việc làm sau tốt nghiệp',
     'international' => 'Liên kết quốc tế',
 ];
-// DANH MỤC TẠM — Phòng Tuyển sinh xác nhận lại theo đề án tuyển sinh chính thức.
+// Ngành tuyển sinh 2026 — khoá là MÃ NGÀNH Bộ GD&ĐT. Nguồn: tbd.edu.vn "Thông tin tuyển sinh đại học hệ chính quy
+// năm 2026" (21 ngành) + Điều dưỡng (bài "06 ngành đào tạo mới", chưa có trong bảng chỉ tiêu). Xem 02_DESIGN/VPU_ADMISSIONS_2026.md.
 $app_list_strings['vpu_major_dom'] = [
-    'it' => 'Công nghệ thông tin',
-    'cybersecurity' => 'An toàn thông tin',
-    'ai_data' => 'Trí tuệ nhân tạo & Khoa học dữ liệu',
-    'business' => 'Quản trị kinh doanh',
-    'marketing' => 'Marketing',
-    'finance' => 'Tài chính – Ngân hàng',
-    'accounting' => 'Kế toán',
-    'logistics' => 'Logistics & Quản lý chuỗi cung ứng',
-    'tourism' => 'Quản trị dịch vụ du lịch & lữ hành',
-    'english' => 'Ngôn ngữ Anh',
-    'law' => 'Luật',
+    '7480201' => 'Công nghệ thông tin (7480201)',
+    '7480103' => 'Kỹ thuật phần mềm (7480103)',
+    '7480207' => 'Trí tuệ nhân tạo (7480207)',
+    '7210403' => 'Thiết kế đồ họa (7210403)',
+    '7320104' => 'Truyền thông đa phương tiện (7320104)',
+    '7340101' => 'Quản trị kinh doanh (7340101)',
+    '7340115' => 'Marketing (7340115)',
+    '7340201' => 'Tài chính – Ngân hàng (7340201)',
+    '7510605' => 'Logistics và Quản lý chuỗi cung ứng (7510605)',
+    '7340301' => 'Kế toán (7340301)',
+    '7810201' => 'Quản trị khách sạn (7810201)',
+    '7810101' => 'Du lịch (7810101)',
+    '7220201' => 'Ngôn ngữ Anh (7220201)',
+    '7310608' => 'Đông phương học (7310608)',
+    '7380101' => 'Luật (7380101)',
+    '7380107' => 'Luật kinh tế (7380107)',
+    '7310205' => 'Quản lý nhà nước (7310205)',
+    '7310401' => 'Tâm lý học (7310401)',
+    '7229042' => 'Quản lý văn hóa (7229042)',
+    '7520114' => 'Kỹ thuật cơ điện tử (7520114)',
+    '7420204' => 'Khoa học y sinh (7420204)',
+    '7720301' => 'Điều dưỡng (7720301) — cần xác nhận',
     'other' => 'Khác / chưa xác định',
 ];
+// Học bổng tuyển sinh 2026 (hơn 400 suất; đăng ký tối đa 3 loại). Nguồn: tuyensinh.tbd.edu.vn.
 $app_list_strings['vpu_scholarship_dom'] = [
     '' => '',
     'none' => 'Chưa quan tâm',
-    'merit' => 'Học bổng tài năng / thủ khoa',
-    'entrance' => 'Học bổng đầu vào',
-    'need' => 'Học bổng hỗ trợ hoàn cảnh',
-    'partner' => 'Học bổng doanh nghiệp / đối tác',
-    'international' => 'Học bổng chương trình quốc tế',
+    'hieu_truong' => 'Hiệu trưởng — 75–100% học phí toàn khóa, Cử nhân Tài năng',
+    'tai_nang' => 'Tài năng — 25/75/100% học phí năm nhất, CT Tiêu chuẩn',
+    'cong_dan_toan_cau' => 'Công dân toàn cầu — 100% học phí CT Chất lượng cao (IELTS ≥ 6.0)',
+    'kh_future_leader' => 'Khánh Hòa Future Leader — 25–100% toàn khóa, thí sinh Khánh Hòa, CT Tài năng/CLC',
+    'tiep_suc' => 'Tiếp sức — 50% (đặc biệt đến 100%) học phí, hoàn cảnh khó khăn',
+    'doanh_nghiep' => 'Học bổng doanh nghiệp / tổ chức tài trợ',
+    'uu_dai_nhap_hoc' => 'Ưu đãi nhập học — laptop 10 triệu hoặc 5 triệu đồng (TBD trong 3 nguyện vọng đầu)',
 ];
 
 // Tên module theo nghiệp vụ tuyển sinh (CRM_WORKFLOW §1).
@@ -98,4 +113,16 @@ $app_list_strings['vpu_outreach_status_dom'] = [
     'visited' => 'Đã tư vấn tại trường',
     'partner' => 'Trường đối tác',
     'inactive' => 'Tạm dừng',
+];
+
+// Chương trình quan tâm + học phí năm học 2026–2027 (cam kết cố định toàn khóa).
+// Nguồn: tbd.edu.vn "Thông báo mức thu học phí, lệ phí … áp dụng từ năm học 2026-2027".
+$app_list_strings['vpu_program_dom'] = [
+    '' => '',
+    'tieu_chuan' => 'Tiêu chuẩn — 740.000 đ/TC (cử nhân 130 TC ≈ 96,2 tr; Luật 140 TC ≈ 103,6 tr; kỹ sư 160 TC ≈ 118,4 tr)',
+    'chat_luong_cao' => 'Chất lượng cao, 100% tiếng Anh — 1.400.000 đ/TC (130 TC ≈ 182 tr) — cần xác nhận',
+    'cu_nhan_tai_nang' => 'Cử nhân Tài năng — học phí cần xác nhận',
+    'dieu_duong' => 'Điều dưỡng — 1.250.000 đ/TC (≈ 175 tr toàn khóa)',
+    'lien_thong_vb2' => 'Liên thông / Văn bằng 2',
+    'thac_si' => 'Thạc sĩ (Luật, QTKD) — 1.000.000 đ/TC (≈ 60 tr)',
 ];

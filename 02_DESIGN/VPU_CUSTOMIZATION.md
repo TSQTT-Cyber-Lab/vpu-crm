@@ -55,8 +55,9 @@ Build lại: `suitecrm/custom/themes/SuiteP/build_vpu_theme.sh` (cần Node; scr
 | `vpu_funnel_stage` | enum | Mới → Đã liên hệ → Đang tư vấn → Đủ điều kiện → Đã nộp hồ sơ → Trúng tuyển → Nhập học / Không tiếp tục |
 | `vpu_channel`, `vpu_channel_user_id` | enum, varchar | kênh và ID người dùng trên kênh (PSID, Zalo UID…), có index |
 | `vpu_interest` | multienum | tuyển sinh, ngành, học bổng, học phí, KTX, việc làm, quốc tế |
-| `vpu_major` | multienum | ngành quan tâm (**danh mục tạm, chờ Phòng Tuyển sinh xác nhận**) |
-| `vpu_scholarship` | enum | loại học bổng quan tâm |
+| `vpu_major` | multienum | ngành quan tâm, khoá = mã ngành Bộ GD&ĐT (22 ngành 2026, xem `VPU_ADMISSIONS_2026.md`) |
+| `vpu_scholarship` | enum | loại học bổng 2026 (Hiệu trưởng, Tài năng, Công dân toàn cầu, Khánh Hòa Future Leader, Tiếp sức…) |
+| `vpu_program` | enum | chương trình quan tâm; nhãn ghi đơn giá học phí 2026–2027 |
 | `vpu_intake_year`, `vpu_high_school`, `vpu_province` | | thông tin thí sinh |
 | `vpu_guardian_name`, `vpu_guardian_phone` | | phụ huynh |
 | `vpu_consent_marketing`, `vpu_consent_at` | bool, datetime (audited) | đồng ý theo NĐ 13/2023, có ghi thời điểm |
@@ -178,6 +179,33 @@ Xem trong CRM: Trường THPT → Tìm nâng cao → "Cần xác minh dữ liệ
 Lỗi core đã gặp và cách xử lý: `ListViewData` gọi `htmlentities()` lên ô enum ở tìm kiếm cơ bản nếu searchdefs không khai
 `'type' => 'enum'`, gây TypeError trên PHP 8. Tôi xử lý trong `searchdefs.php` của module, không sửa core.
 
+### 3.5 Vai trò "Tư vấn tuyển sinh" và tài khoản nhân viên
+
+Script `custom/include/VPU/Setup/setup_counselors.php` chạy lại an toàn. Nó tạo vai trò ACL, tạo tài khoản và gán vai trò
+cho từng tài khoản. Mật khẩu sinh ngẫu nhiên, **in ra màn hình một lần** và không lưu ở bất kỳ đâu. Chạy lại thì giữ
+nguyên mật khẩu cũ, trừ khi thêm `--reset-password`.
+
+```bash
+cd suitecrm
+php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign          # 3 tài khoản demo tvts01..03
+php custom/include/VPU/Setup/setup_counselors.php --users="tvts04:Phạm|Văn An"  # tài khoản thật (họ|tên)
+```
+
+| Module | Xem / danh sách | Sửa | Xoá | Nhập | Xuất |
+|---|---|---|---|---|---|
+| Thí sinh (Leads), Trường THPT | tất cả | tất cả | không | không | không |
+| Cuộc gọi, Lịch hẹn, Công việc, Ghi chú | tất cả | của mình | của mình | không | không |
+| Liên hệ, Hộ gia đình, Hồ sơ xét tuyển | tất cả | của mình | không | không | không |
+| Chiến dịch | tất cả | không | không | không | không |
+
+Không có quyền quản trị; nếu tư vấn viên vào trang Quản trị, SuiteCRM sẽ huỷ phiên đăng nhập. Không cho phép xuất dữ liệu
+vì Thí sinh chứa dữ liệu cá nhân, có cả người chưa thành niên (NĐ 13/2023).
+
+Tài khoản demo (chỉ dùng cho bản demo, mật khẩu được giao riêng): `tvts01` Nguyễn Thu Hà phụ trách Khánh Hòa,
+`tvts02` Trần Minh Quân phụ trách Lâm Đồng, `tvts03` Lê Ngọc Ánh phụ trách Đắk Lắk và Gia Lai. Khi chạy với `--demo-assign`,
+mỗi người được chia trường THPT theo tỉnh và thí sinh theo tỉnh của trường đã gắn. Đã kiểm thử: cả 3 đăng nhập được,
+nhập sai mật khẩu bị từ chối, quyền khớp bảng trên (kiểm tra qua `ACLController::checkAccess`).
+
 ## 4. Kết quả kiểm thử (31/10/2026)
 
 - `php custom/include/VPU/Omnichannel/tests/run_tests.php` → **OK 28 tests** (chữ ký, parser 4 kênh, chuẩn hoá SĐT, phân loại).
@@ -192,7 +220,9 @@ Lỗi core đã gặp và cách xử lý: `ListViewData` gọi `htmlentities()` 
 
 1. `cp suitecrm/config_override.php.example suitecrm/config_override.php`, điền khoá của từng kênh và `assigned_user_id`.
 2. Admin → Repair → **Quick Repair and Rebuild** → bấm *Execute* để tạo cột và bảng `vpu_schools`.
-   Sau đó chạy `php custom/include/VPU/Import/import_schools.php --link-leads` (§3.4).
+   Sau đó chạy `php custom/include/VPU/Import/import_schools.php --link-leads` (§3.4) và `setup_counselors.php` (§3.5).
+   **Bắt buộc chạy Quick Repair sau mỗi lần triển khai code:** các file `custom/**/Ext/*.ext.php` trong repo là bản biên dịch
+   gốc của SuiteCRM; nếu không chạy, các trường `vpu_*` sẽ biến mất khỏi giao diện.
 3. Admin → Languages: bật Tiếng Việt. Người dùng chọn subtheme bất kỳ, tất cả đều đã mang màu VPU.
 4. Đăng ký webhook (yêu cầu HTTPS):
    - Meta: Callback URL `https://<crm>/index.php?entryPoint=vpuInbound&channel=facebook`, Verify token = `verify_token`, subscribe `messages`, `messaging_postbacks`.

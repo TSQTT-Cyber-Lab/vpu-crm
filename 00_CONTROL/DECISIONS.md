@@ -24,3 +24,10 @@
 - **Lý do:** Accounts đã dùng cho "Hộ gia đình" (D-002, CRM_WORKFLOW §1). Dropdown 463 mục không chứa được đầu mối và tình trạng tiếp cận. Gắn nhầm trường làm sai báo cáo nguồn tuyển, tệ hơn để trống.
 - **Đánh đổi:** Khoảng 9% tên chuẩn (40/463) không tự gắn được vì mơ hồ, tư vấn viên phải chọn tay. Dữ liệu nguồn là VietJack, chưa phải công bố chính thức (T-007).
 - **Người quyết:** (tác giả xác nhận)
+
+## D-004 · 2026-10-31 · Khoá ngành là mã Bộ GD&ĐT; tư vấn viên không được xuất dữ liệu
+- **Bối cảnh:** T-005 thay danh mục tạm bằng dữ liệu tuyển sinh 2026 của trường; cần tài khoản cho nhân viên tư vấn.
+- **Quyết định:** (1) `vpu_major_dom` dùng mã ngành 7 chữ số của Bộ GD&ĐT, vì mã này ổn định khi đổi tên ngành và khớp với hồ sơ xét tuyển. (2) Bỏ "An toàn thông tin" (trường không đào tạo), quy các từ khoá liên quan về CNTT. (3) Loại học bổng chỉ được gán khi tin nhắn nêu dấu hiệu cụ thể. (4) Vai trò Tư vấn tuyển sinh: sửa chung Thí sinh và Trường THPT; không xoá/nhập/xuất.
+- **Lý do:** Mã ngành là định danh chính thức. Dữ liệu cá nhân của thí sinh (có người chưa thành niên) không nên cho phép xuất hàng loạt (NĐ 13/2023).
+- **Đánh đổi:** Nguồn ngành/học phí/học bổng lấy qua tìm kiếm, chưa đối chiếu văn bản gốc (proxy chặn tbd.edu.vn). Còn 4 điểm mâu thuẫn chờ trường xác nhận.
+- **Người quyết:** (tác giả xác nhận)

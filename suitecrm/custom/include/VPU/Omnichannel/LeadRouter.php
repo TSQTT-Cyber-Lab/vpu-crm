@@ -58,9 +58,12 @@ final class LeadRouter
         if ($cls['scholarship'] && empty($lead->vpu_scholarship)) {
             $lead->vpu_scholarship = $cls['scholarship'];
         }
+        if ($cls['program'] && empty($lead->vpu_program)) {
+            $lead->vpu_program = $cls['program'];
+        }
         $map = ['scholarship' => 'vpu_scholarship', 'intake_year' => 'vpu_intake_year', 'high_school' => 'vpu_high_school',
             'province' => 'vpu_province', 'guardian_name' => 'vpu_guardian_name', 'guardian_phone' => 'vpu_guardian_phone',
-            'utm_source' => 'vpu_utm_source', 'utm_campaign' => 'vpu_utm_campaign'];
+            'utm_source' => 'vpu_utm_source', 'utm_campaign' => 'vpu_utm_campaign', 'program' => 'vpu_program'];
         foreach ($map as $k => $field) {
             if (isset($msg['extra'][$k]) && empty($lead->$field)) {
                 $lead->$field = is_array($msg['extra'][$k]) ? reset($msg['extra'][$k]) : $msg['extra'][$k];

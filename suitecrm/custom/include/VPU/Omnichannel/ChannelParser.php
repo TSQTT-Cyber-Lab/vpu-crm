@@ -121,7 +121,7 @@ final class ChannelParser
         }
         $m = self::msg($channel, (string)$uid, $p['name'] ?? null, $phone, $p['email'] ?? null,
             (string)($p['text'] ?? ($p['message'] ?? '')), $p['message_id'] ?? null, $p['timestamp'] ?? null);
-        foreach (['major', 'scholarship', 'intake_year', 'high_school', 'province', 'guardian_name', 'guardian_phone', 'utm_source', 'utm_campaign', 'consent'] as $k) {
+        foreach (['major', 'scholarship', 'program', 'intake_year', 'high_school', 'province', 'guardian_name', 'guardian_phone', 'utm_source', 'utm_campaign', 'consent'] as $k) {
             if (isset($p[$k]) && $p[$k] !== '') {
                 $m['extra'][$k] = $p[$k];
             }
@@ -184,34 +184,69 @@ final class ChannelParser
                 'career' => 'viec lam|co hoi nghe|ra truong',
                 'international' => 'quoc te|du hoc|lien ket',
             ],
+            // Khoá = mã ngành Bộ GD&ĐT (vpu_major_dom). Thứ tự quan trọng: cụm cụ thể trước cụm chung.
             'major' => [
-                'cybersecurity' => 'an toan thong tin|an ninh mang|bao mat|cyber',
-                'ai_data' => 'tri tue nhan tao|\bai\b|khoa hoc du lieu|data',
-                'it' => 'cong nghe thong tin|\bcntt\b|\bit\b|lap trinh|phan mem',
-                'business' => 'quan tri kinh doanh|\bqtkd\b|kinh doanh',
-                'marketing' => 'marketing|tiep thi',
-                'finance' => 'tai chinh|ngan hang',
-                'accounting' => 'ke toan|kiem toan',
-                'logistics' => 'logistics|chuoi cung ung|xuat nhap khau',
-                'tourism' => 'du lich|lu hanh|khach san',
-                'english' => 'ngon ngu anh|tieng anh',
-                'law' => '\bluat\b',
+                '7380107' => 'luat kinh te',
+                '7380101' => '\\bluat\\b(?! kinh te)',
+                '7480207' => 'tri tue nhan tao|\\bai\\b',
+                '7480103' => 'ky thuat phan mem|phan mem|lap trinh',
+                '7480201' => 'cong nghe thong tin|\\bcntt\\b|\\bit\\b|an toan thong tin|an ninh mang|bao mat|cyber',
+                '7210403' => 'thiet ke do hoa|do hoa|graphic',
+                '7320104' => 'truyen thong da phuong tien|da phuong tien|multimedia',
+                '7810201' => 'quan tri khach san|khach san|nha hang',
+                '7810101' => 'du lich|lu hanh',
+                '7340101' => 'quan tri kinh doanh|\\bqtkd\\b|kinh doanh',
+                '7340115' => 'marketing|tiep thi',
+                '7340201' => 'tai chinh|ngan hang',
+                '7510605' => 'logistics|chuoi cung ung|xuat nhap khau',
+                '7340301' => 'ke toan|kiem toan',
+                '7220201' => 'ngon ngu anh|tieng anh',
+                '7310608' => 'dong phuong hoc|tieng nhat|tieng han|tieng trung|nhat ban|han quoc',
+                '7310205' => 'quan ly nha nuoc|hanh chinh cong|quan tri cong',
+                '7310401' => 'tam ly',
+                '7229042' => 'quan ly van hoa',
+                '7520114' => 'co dien tu|robot',
+                '7420204' => 'y sinh|xet nghiem',
+                '7720301' => 'dieu duong',
             ],
         ];
-        $res = ['interest' => [], 'major' => [], 'scholarship' => null, 'phone' => null, 'email' => null];
+        $res = ['interest' => [], 'major' => [], 'scholarship' => null, 'program' => null, 'phone' => null, 'email' => null];
         foreach ($rules as $field => $set) {
             foreach ($set as $key => $re) {
                 if (preg_match('/' . $re . '/u', $t)) {
-                    $res[$field][] = $key;
+                    $res[$field][] = (string)$key;   // mã ngành số bị PHP đổi thành int khi làm khoá mảng
                 }
             }
         }
         if ($res['major'] && !in_array('major', $res['interest'], true)) {
             $res['interest'][] = 'major';
         }
-        if (in_array('scholarship', $res['interest'], true)) {
-            $res['scholarship'] = preg_match('/thu khoa|tai nang|xuat sac/u', $t) ? 'merit'
-                : (preg_match('/hoan canh|kho khan/u', $t) ? 'need' : 'entrance');
+        // Loại học bổng (vpu_scholarship_dom) — chỉ gán khi tin nhắn nêu dấu hiệu cụ thể; "học bổng" chung chung thì để trống.
+        foreach ([
+            'kh_future_leader' => 'future leader|lanh dao',
+            'cong_dan_toan_cau' => 'cong dan toan cau|ielts|toefl|chat luong cao',
+            'tiep_suc' => 'tiep suc|hoan canh|kho khan|ho ngheo|can ngheo|thien tai',
+            'hieu_truong' => 'hieu truong|thu khoa|hoc sinh gioi|giai (nhat|nhi|ba|khuyen khich)|cu nhan tai nang',
+            'tai_nang' => 'tai nang|xuat sac',
+            'uu_dai_nhap_hoc' => 'laptop|may tinh xach tay',
+        ] as $key => $re) {
+            if (in_array('scholarship', $res['interest'], true) && preg_match('/' . $re . '/u', $t)) {
+                $res['scholarship'] = $key;
+                break;
+            }
+        }
+        // Chương trình quan tâm (vpu_program_dom).
+        foreach ([
+            'thac_si' => 'thac si|cao hoc',
+            'lien_thong_vb2' => 'lien thong|van bang 2|bang hai',
+            'chat_luong_cao' => 'chat luong cao|\\bclc\\b|100% tieng anh',
+            'cu_nhan_tai_nang' => 'cu nhan tai nang|chuong trinh tai nang',
+            'dieu_duong' => 'dieu duong',
+        ] as $key => $re) {
+            if (preg_match('/' . $re . '/u', $t)) {
+                $res['program'] = $key;
+                break;
+            }
         }
         if (preg_match('/(?:\+?84|0)(?:[\s.\-]?\d){9}\b/', $text, $m)) {
             $res['phone'] = self::normalizePhone($m[0]);

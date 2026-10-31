@@ -24,3 +24,4 @@ $mod_strings['LBL_VPU_LAST_MESSAGE_AT'] = 'Last message';
 $mod_strings['LBL_VPU_SCHOOL_NAME'] = 'High school (directory)';
 $mod_strings['LBL_VPU_SCHOOL_ID'] = 'High school ID';
 $mod_strings['LBL_VPU_HIGH_SCHOOL'] = 'High school (as entered)';
+$mod_strings['LBL_VPU_PROGRAM'] = 'Programme of interest (tuition)';

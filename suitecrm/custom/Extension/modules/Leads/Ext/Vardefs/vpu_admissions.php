@@ -15,6 +15,7 @@ $vpuFields = [
     'vpu_interest'          => ['type' => 'multienum', 'options' => 'vpu_interest_dom', 'isMultiSelect' => true],
     'vpu_major'             => ['type' => 'multienum', 'options' => 'vpu_major_dom', 'isMultiSelect' => true, 'audited' => true],
     'vpu_scholarship'       => ['type' => 'enum', 'options' => 'vpu_scholarship_dom', 'len' => 32],
+    'vpu_program'           => ['type' => 'enum', 'options' => 'vpu_program_dom', 'len' => 32, 'massupdate' => true],
     'vpu_intake_year'       => ['type' => 'int', 'len' => 4],
     'vpu_high_school'       => ['type' => 'varchar', 'len' => 255],
     'vpu_province'          => ['type' => 'varchar', 'len' => 100],
