@@ -55,12 +55,12 @@ Nguồn: `ui-ux-pro-max` (kiểu Flat Design), điều chỉnh theo tham chiếu
 
 | Token | Giá trị đề xuất | Ghi chú |
 |---|---|---|
-| Primary | `#0B3D91` (xanh VPU), chữ trắng | Đã áp dụng, xem `VPU_CUSTOMIZATION.md` §1 |
-| Accent | `#C8102E` (đỏ VPU), chữ trắng | Hành động chính |
+| Primary | `#283388` (xanh tbd.edu.vn), chữ trắng | Đã áp dụng, xem `VPU_CUSTOMIZATION.md` §1 |
+| Accent | `#EC1A3B` (đỏ tbd.edu.vn); `#E91335` khi có chữ trắng (AA) | Hành động chính |
 | Nền / chữ | `#F8FAFC` / `#0F172A` | |
 | Muted foreground | `#475569` | |
 | Viền | `#E4ECFC` | |
-| Lỗi | `#C8102E`, chữ trắng | Trùng đỏ VPU |
+| Lỗi | `#E91335`, chữ trắng | Trùng đỏ AA |
 | Font | Fira Sans | Kiểm tra dấu tiếng Việt trước khi chốt |
 
 Yêu cầu: tương phản chữ tối thiểu 4.5:1, mọi ô nhập có nhãn, có focus bàn phím, thao tác

@@ -13,5 +13,6 @@
 - **Phương án đã cân nhắc:** (a) theme mới viết từ đầu; (b) ghi đè CSS thủ công; (c) build lại SCSS SuiteP với bảng màu VPU, nạp qua custom/. Hội thoại: (a) Chatwoot + đồng bộ; (b) module riêng; (c) webhook vào Leads + Notes.
 - **Quyết định:** Theme (c); gói vi_VN chính thức của cộng đồng; webhook `vpuInbound` ghi vào Leads + Notes.
 - **Lý do:** Không sửa core, nâng cấp an toàn; ít thành phần vận hành; dùng được báo cáo sẵn có của SuiteCRM.
-- **Đánh đổi:** Chưa có hộp thư hai chiều như Chatwoot; phân loại bằng từ khoá. Mã hex màu và danh mục ngành là tạm thời (T-005).
+- **Đánh đổi:** Chưa có hộp thư hai chiều như Chatwoot; phân loại bằng từ khoá. Danh mục ngành là tạm thời (T-005).
+- **Cập nhật 2026-10-31:** màu chốt theo ảnh chụp tbd.edu.vn: xanh `#283388`, đỏ `#EC1A3B`. Nền có chữ trắng dùng `#E91335` để đạt WCAG AA.
 - **Người quyết:** (tác giả xác nhận)

@@ -8,13 +8,14 @@ Bản tùy biến cho Trường Đại học Victoria Thái Bình Dương (VPU).
 
 | Token | Giá trị | Dùng cho | Tương phản với chữ trắng |
 |---|---|---|---|
-| Xanh VPU | `#0B3D91` | navbar, sidebar, header panel, nút chính, link | 10.5:1 |
-| Đỏ VPU | `#C8102E` | nút hành động ("Tạo", "Đăng nhập"), gạch tab đang chọn, cảnh báo | 5.9:1 |
+| Xanh thương hiệu | `#283388` | navbar, sidebar, header panel, link | 10.9:1 |
+| Đỏ thương hiệu | `#EC1A3B` | mảng nhận diện không mang chữ nhỏ: gạch tab đang chọn, logo, viền | 4.40:1 (chỉ đạt cho chữ lớn) |
+| Đỏ AA (`$vpu-red`) | `#E91335` | nền nút/tab/badge có chữ trắng, chữ đỏ trên nền trắng | 4.56:1 |
 | Trắng | `#FFFFFF` | nền panel, chữ trên nền màu | — |
 
-Ba màu lấy theo nhận diện của tbd.edu.vn (đỏ, trắng, xanh dương). **Mã hex là đề xuất**, vì
-proxy của phiên làm việc chặn tbd.edu.vn nên chưa đo được trực tiếp. Khi có brand guide,
-sửa 2 dòng trong `_vpu-tokens.scss` rồi build lại.
+Mã hex **đo trực tiếp** từ ảnh chụp header tbd.edu.vn ngày 31/10/2026 (thanh trên `#283388`, thanh chính
+`#EC1A3B`). Chữ trắng trên `#EC1A3B` chỉ đạt 4.40:1, chưa tới ngưỡng WCAG AA 4.5:1 cho chữ thường. Vì vậy các thành phần
+có chữ dùng biến thể `#E91335` (giảm 2% độ sáng); hai màu gần như không phân biệt bằng mắt.
 
 Cơ chế: `SugarTheme::getCSSURL()` nối `custom/themes/SuiteP/css/<Subtheme>/style.css` vào
 sau CSS lõi. Bản build ánh xạ lại bảng màu Dawn trước khi nạp biến, nên mọi biến dẫn xuất
@@ -23,7 +24,7 @@ của Bootstrap và SuiteP đổi theo.
 ```
 suitecrm/custom/themes/SuiteP/
 ├── build_vpu_theme.sh            # biên dịch + chép vào Dawn/Day/Dusk/Night/Noon
-├── css/vpu/_vpu-tokens.scss      # 3 màu thương hiệu  ← sửa ở đây
+├── css/vpu/_vpu-tokens.scss      # màu thương hiệu  ← sửa ở đây
 ├── css/vpu/_vpu-palette.scss     # ánh xạ bảng màu Dawn -> VPU
 ├── css/vpu/_vpu-overrides.scss   # biến SuiteP (navbar, tab, nút…)
 ├── css/vpu/_vpu-components.scss  # logo đăng nhập, tab đang chọn, header panel
@@ -89,7 +90,7 @@ checkbox đồng ý bắt buộc và tự lấy UTM. Các trường nội bộ (
 - `php custom/include/VPU/Omnichannel/tests/run_tests.php` → **OK 28 tests** (chữ ký, parser 4 kênh, chuẩn hoá SĐT, phân loại).
 - Bản cài thật: Quick Repair tạo đủ 16 cột `vpu_*` và 2 index. Đã gửi webhook thật cho Messenger, Zalo, Telegram và SMS: tạo Lead đúng kênh,
   tin trùng trả `duplicate:true`, sai chữ ký trả 401, kênh lạ trả 404. Tin SMS đến từ SĐT đã chat Messenger được gộp vào cùng Lead.
-- Ảnh giao diện: `screenshots/vpu-login.png`, `vpu-leads-list.png`, `vpu-lead-detail.png`.
+- Ảnh giao diện: `screenshots/vpu-login.png`, `vpu-leads-list.png`, `vpu-lead-detail.png`, `vpu-form-dang-ky.png`.
 
 ## 5. Triển khai
 

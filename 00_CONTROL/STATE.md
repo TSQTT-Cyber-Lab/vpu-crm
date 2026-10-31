@@ -28,6 +28,7 @@ CRM cho VPU trên SuiteCRM 7.15.2, phục vụ sinh viên và gia đình; quy tr
 ## 7. Danh sách CẤM → PROJECT.md §6
 ## 8. Việc kế tiếp
 - [x] T-003: theme VPU, đổi tên VPU-CRM, vi_VN, phễu tuyển sinh đa kênh (02_DESIGN/VPU_CUSTOMIZATION.md)
-- [ ] T-005: xác nhận mã màu chính thức, danh mục ngành và học bổng
+- [x] T-005a: áp mã màu chính thức (#283388 / #EC1A3B)
+- [ ] T-005b: xác nhận danh mục ngành và học bổng
 - [ ] T-004: staging HTTPS và đăng ký webhook các kênh
 - [ ] Xác nhận các mục CRM_WORKFLOW §7, rồi làm T-001 (agent: cowork)

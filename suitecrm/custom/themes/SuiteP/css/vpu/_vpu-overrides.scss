@@ -38,7 +38,7 @@ $navbar-main-menu-bg: $vpu-blue-dark;
 $navbar-menu-link-color: $vpu-white;
 $navbar-menu-link-color-hover: #FFD3D9;
 $navbar-menu-separator: lighten($vpu-blue, 10%);
-$navbar-menu-current-separator: $vpu-red;
+$navbar-menu-current-separator: $vpu-red-brand; // gạch trang trí, không mang chữ
 $navbar-menu-seperator: $navbar-menu-separator;
 $navbar-menu-current-seperator: $navbar-menu-current-separator;
 $navbar-home-color: $navbar-link-color;
