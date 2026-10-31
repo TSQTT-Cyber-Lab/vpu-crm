@@ -1,0 +1,28 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-settings.json",
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          { "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/tools/hooks/session_brief.py\"", "timeout": 10 }
+        ]
+      }
+    ],
+    "PreToolUse": [
+      {
+        "matcher": "Write|Edit|MultiEdit|NotebookEdit",
+        "hooks": [
+          { "type": "command", "command": "python \"$CLAUDE_PROJECT_DIR/tools/hooks/guard_write.py\"", "timeout": 10 }
+        ]
+      }
+    ]
+  },
+  "permissions": {
+    "deny": [
+      "Read(./03_DATA/raw/**)",
+      "Read(./03_DATA/interim/**)",
+      "Read(./04_CODE/RUNS/**/checkpoints/**)",
+      "Read(./99_ARCHIVE/**)"
+    ]
+  }
+}

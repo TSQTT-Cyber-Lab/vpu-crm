@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+# Chặn commit trái chủ quyền thư mục (lớp bảo vệ 2, sau hook Claude Code).
+# Cài một lần:  git config core.hooksPath tools/git-hooks   (init_workspace_v3.sh tự làm)
+# Vai: NCKH_ROLE nếu có; nếu không: nhánh exp/* → codex, còn lại → cowork.
+# Tác giả cố ý vượt rào: git commit --no-verify, rồi ghi lý do vào 00_CONTROL/DEVIATION_LOG.md.
+set -euo pipefail
+ROOT="$(git rev-parse --show-toplevel)"
+BRANCH="$(git symbolic-ref --short -q HEAD || echo detached)"
+ROLE="${NCKH_ROLE:-}"
+if [[ -z "$ROLE" ]]; then
+  if [[ "$BRANCH" == exp/* ]]; then ROLE=codex; else ROLE=cowork; fi
+fi
+PY=""; for c in python python3 py; do if command -v "$c" >/dev/null 2>&1 && "$c" -c "import sys; sys.exit(sys.version_info < (3, 10))" >/dev/null 2>&1; then PY="$c"; break; fi; done
+if [[ -z "$PY" ]]; then
+  echo "[NCKH pre-commit] không tìm thấy python; bỏ qua kiểm tra chủ quyền" >&2
+  exit 0
+fi
+git diff --cached --name-only --diff-filter=ACMRD -z \
+  | NCKH_ROLE="$ROLE" "$PY" -I "$ROOT/tools/hooks/precommit_check.py" "$ROOT"

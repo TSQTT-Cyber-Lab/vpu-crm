@@ -1,0 +1,9 @@
+03_DATA/raw/*
+03_DATA/interim/*
+01_LITERATURE/raw/*.pdf
+04_CODE/RUNS/*/checkpoints/
+__pycache__/
+*.pyc
+.env
+01_LITERATURE/.doi_cache.json
+.claude/settings.local.json
