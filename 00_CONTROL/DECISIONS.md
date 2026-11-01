@@ -70,3 +70,9 @@
 - **Quyết định:** Mục chuyển ngôn ngữ trong menu người dùng (lưu tuỳ chọn người dùng). Phiên tiếng Anh dùng en_us làm tầng dự phòng cho riêng request đó. Giữ vi_VN là mặc định của hệ thống. Thuật ngữ: Department = Đơn vị, Employees = Nhân viên, Lead = thí sinh, Meetings = Lịch hẹn, About = Giới thiệu. Không đổi tên pháp nhân "SuiteCRM Ltd".
 - **Đánh đổi:** Dữ liệu người dùng nhập (tên vai trò, chức danh) không dịch. Cache ngôn ngữ ngoài (nếu bật) phải xoá khi triển khai — BuildGuard đã làm.
 - **Người quyết:** tác giả (yêu cầu thuật ngữ)
+
+## D-011 · 2026-11-01 · Hai gói triển khai; phần VPU tự cấu hình ở lần tải trang đầu
+- **Bối cảnh:** Cần triển khai được trên hosting PHP thông thường (thường không có SSH) và chạy được bằng Docker.
+- **Quyết định:** (1) Gói zip từ `git archive` (chỉ nội dung đã commit, bỏ test) + hướng dẫn cPanel. (2) Docker production riêng (không dùng ảnh demo): db/app/cron + Caddy HTTPS tuỳ chọn, cấu hình qua `.env`, trạng thái trong volume `/state`, sao lưu/khôi phục bằng script. (3) Mọi bước VPU trước đây cần CLI (vai trò, nạp trường, config_override) chuyển vào BuildGuard, chạy theo phiên bản, nạp tiếp được khi bị ngắt. (4) Admin của bản Docker bắt buộc đổi mật khẩu lần đầu. (5) Gắn dấu build vào `?v=` của CSS/JS để trình duyệt không giữ giao diện cũ.
+- **Đánh đổi:** Lần tải trang đầu sau cài trên hosting mất khoảng 10–60 giây. Studio trên production bị ghi đè khi cập nhật (tuỳ biến đi qua repo). Script PowerShell chưa thử trên Windows.
+- **Người quyết:** tác giả (yêu cầu đóng gói hosting + Docker)

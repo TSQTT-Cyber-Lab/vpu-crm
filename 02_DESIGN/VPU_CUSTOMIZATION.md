@@ -49,6 +49,15 @@ Build lại: `suitecrm/custom/themes/SuiteP/build_vpu_theme.sh` (cần Node; scr
 - Họ tên, chức vụ và đơn vị hiển thị trên một dòng; ngày giờ, điện thoại, email và trạng thái không xuống dòng.
 - Đã đo: không còn cuộn ngang ở 1366px và 1280px.
 
+**Tên người dùng góc phải:** đặt bên trái biểu tượng, cùng hàng, rộng tới 180px. Gốc của SuiteP đặt tên dưới biểu tượng,
+canh trái trong nút 48px, nên tên tràn quá mép màn hình và bị cắt. **Trang tạo chiến dịch:** ô chọn loại xếp dọc (biểu tượng
+rồi chữ); gốc là biểu tượng 64px trong dòng cao 20px nên đè lên chữ.
+
+**Cache CSS của trình duyệt:**
+- `.htaccess` của SuiteCRM cho trình duyệt giữ CSS 1 năm, mà `?v=` lại chỉ tính từ phiên bản SuiteCRM. Vì vậy sau khi VPU cập nhật
+  giao diện, người dùng vẫn thấy bản cũ (font Lato, chữ 13px…).
+- BuildGuard nay gắn dấu vân tay build vào `js_version_key`, nên đường dẫn CSS/JS đổi mỗi khi code VPU đổi.
+
 **Viền focus:**
 - Bootstrap 3 đặt `outline: 5px auto` khi `:focus`, nên Chrome vẽ **khung đen** mỗi lần bấm chuột vào nút hay biểu tượng.
 - Nay bấm chuột không vẽ viền (`:focus:not(:focus-visible)`).
@@ -352,6 +361,14 @@ php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts0
 
 - `php custom/include/VPU/Omnichannel/tests/run_tests.php` → **OK 55 tests** (chữ ký, parser Messenger/Instagram/Zalo/Telegram/WhatsApp/Lead Ads/generic, SĐT, phân loại).
 - `php custom/include/VPU/Import/tests/run_tests.php` → **OK 21 tests** (đọc xlsx/csv thật, ANSI, tiêu đề tiếng Việt).
+- **01/11/2026, đóng gói triển khai:**
+  - *Docker production* (cài mới, cổng riêng): không có dữ liệu giả; admin bị bắt đổi mật khẩu; webhook SMS đúng khoá tạo thí sinh,
+    sai khoá trả 401; Messenger khi chưa có `app_secret` trả 401; cron chạy 8 tác vụ; file nhạy cảm trả 403.
+    Đã thử nâng cấp image giữ dữ liệu, sao lưu → khôi phục trọn vòng, và Caddyfile hợp lệ. E2E 6/6.
+  - *Gói hosting* (54 MB, 17.057 file): giải nén vào Apache/PHP thuần, cài qua HTTP, chỉ tải trang (không CLI). Sau lần tải đầu
+    (khoảng 10 giây) đã có menu, 2 vai trò, 463 trường và `config_override.php` (ghép với file rỗng của trình cài đặt).
+    Cron theo kiểu cPanel chạy được. Nạp trường bị ngắt (còn 263) thì lần tải sau nạp đủ 463. E2E 5/5.
+  - Demo cài mới vẫn đạt 37/37.
 - **01/11/2026, menu · quyền · ngôn ngữ · giao diện (demo Docker, cả cài mới lẫn nâng cấp volume cũ):**
   - E2E 37/37. Menu theo nghiệp vụ cho cả 3 loại tài khoản, không còn "Trang chủ" bị chèn.
   - Tư vấn viên bị chặn Hỗ trợ khách hàng, Hóa đơn, Báo giá, Dự án, vẫn sửa và lưu thí sinh được. Quản lý bị chặn Hóa đơn, vào được Báo cáo.
@@ -377,6 +394,15 @@ php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts0
 
 ## 5. Triển khai
 
+**Gói triển khai: `10_DEPLOY/`** (xem `10_DEPLOY/README.md`).
+- **Hosting PHP** (cPanel/DirectAdmin, không SSH): `10_DEPLOY/hosting/build_package.sh` (hoặc `.ps1`) tạo
+  `vpu-crm-<phiên bản>-hosting.zip` từ nội dung đã commit; cài bằng `install.php`. Hướng dẫn: `HUONG_DAN_HOSTING.md`.
+- **Docker production** (máy chủ Linux): `10_DEPLOY/docker`, gồm `db`, `app`, `cron` và Caddy HTTPS tuỳ chọn; cấu hình qua `.env`;
+  có `backup.sh`/`restore.sh`. Hướng dẫn: `HUONG_DAN_DOCKER.md`.
+- Hai cách đều tự hoàn tất phần VPU ở lần tải trang đầu (BuildGuard, §7): menu, vai trò, 463 trường, `config_override.php`.
+  Các bước thủ công bên dưới chỉ cần khi triển khai theo cách riêng.
+
+
 1. `cp suitecrm/config_override.php.example suitecrm/config_override.php`, điền khoá của từng kênh và `assigned_user_id`.
 2. **Không cần Quick Repair thủ công** (§7). Request đầu tiên sau khi triển khai tự biên dịch và tạo cột/bảng. Trong pipeline nên chạy
    `php custom/include/VPU/Setup/post_deploy.php --seed` (biên dịch, đồng bộ schema, nạp danh mục trường), sau đó
@@ -396,6 +422,7 @@ php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts0
 - TikTok và WhatsApp chưa có adapter riêng, đang đi qua cổng generic (n8n/Make hoặc nhà cung cấp BSP).
 - Mũi tên ô chọn ngôn ngữ ở trang đăng nhập vẫn màu bạc hà của core (đặt cứng trong CSS lõi), lỗi thẩm mỹ nhỏ.
 - Dữ liệu do người nhập (tên thí sinh, chức danh, tên vai trò "Tư vấn tuyển sinh"…) không được dịch khi chuyển sang English.
+- `10_DEPLOY/hosting/build_package.ps1` (Windows) chưa chạy thử trên Windows; bản `.sh` đã kiểm thử.
 - Chuyển ngôn ngữ đặt `default_language = en_us` cho request của phiên tiếng Anh. Nếu bật cache ngoài (APCu/Redis) thì xoá cache
   ngôn ngữ sau khi triển khai; BuildGuard đã tự làm việc này khi code đổi.
 
@@ -418,7 +445,11 @@ php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts0
   1. biên dịch Extension, rồi xoá cache vardefs, ngôn ngữ, template, theme và JS;
   2. đồng bộ schema **chỉ theo kiểu cộng thêm**: tự chạy CREATE TABLE và các mệnh đề ADD COLUMN/INDEX. Các lệnh MODIFY/CHANGE/DROP,
      ADD PRIMARY KEY và lệnh lạ **không bao giờ tự chạy**; chúng được ghi vào `cache/vpu_schema_pending.sql` để người duyệt;
-  3. áp cấu hình lưu trong DB đi kèm code, mỗi phiên bản một lần: menu (`MenuSetup::VERSION`) và vai trò ACL (`AccountService::ACL_VERSION`);
+  3. áp cấu hình đi kèm code, mỗi phiên bản một lần:
+     - menu (`MenuSetup::VERSION`) và vai trò ACL (`AccountService::ACL_VERSION`; tạo vai trò nếu chưa có);
+     - nạp 463 trường THPT (`SEED_VERSION`; đánh dấu `running` để nạp tiếp phần thiếu nếu lần trước bị ngắt);
+     - tạo `config_override.php` từ mẫu với khoá webhook ngẫu nhiên. Nếu file đã có nhưng thiếu khối VPU (trình cài đặt
+       SuiteCRM tạo sẵn file rỗng), ghi khối VPU lên đầu và giữ nội dung cũ. Nhờ vậy **hosting không có SSH vẫn được cấu hình đủ**;
   4. lưu dấu mới, tính sau khi biên dịch. Nhờ vậy, nếu ai đó ghi đè file biên dịch bằng bản cũ, request kế tiếp sẽ phát hiện.
   Mọi lỗi trong guard đều được ghi log và không làm hỏng request.
 - CLI `custom/include/VPU/Setup/post_deploy.php` dùng cho pipeline:

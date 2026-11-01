@@ -1,5 +1,7 @@
 # VPU-CRM — Bản demo chạy trên máy (Docker)
 
+> Bản này chỉ để **chạy thử trên máy cá nhân** (dữ liệu giả). Triển khai thật: xem [`10_DEPLOY/`](../10_DEPLOY/README.md) (hosting PHP hoặc Docker production).
+
 Bản demo đầy đủ của VPU-CRM: theme VPU, tiếng Việt, phễu tuyển sinh đa kênh, 463 trường THPT/GDTX thuộc 4 tỉnh,
 24 thí sinh mẫu, 1 tài khoản quản lý và 3 tài khoản tư vấn viên. **Toàn bộ thí sinh là dữ liệu giả.** Bản demo chỉ mở ở `localhost`,
 không lộ ra mạng LAN.
