@@ -4,7 +4,8 @@
  * Cho hosting không có SSH: tiếng Việt mặc định, họ tên kiểu Việt, chính sách mật khẩu, khung cấu hình kênh.
  * Khoá webhook tự sinh ngẫu nhiên (verify_token Meta, secret_token Telegram, api_key cổng chung); khoá do nền tảng
  * cấp (app_secret Meta, oa_secret Zalo) để TRỐNG -> kênh đó từ chối mọi yêu cầu cho tới khi admin điền khoá thật.
- * File đã có thì KHÔNG đụng tới.
+ * File đã có khối VPU (vpu_omnichannel) thì KHÔNG đụng tới. Trình cài đặt SuiteCRM tạo sẵn một file rỗng
+ * (chỉ có cặp dấu CONFIGURATOR) -> ghi cấu hình VPU lên đầu, GIỮ NGUYÊN nội dung cũ phía sau (giá trị cũ được ưu tiên).
  */
 namespace VPU\Setup;
 
@@ -40,20 +41,33 @@ final class ConfigDefaults
         return preg_replace('/^<\?php\s*\/\*\*.*?\*\/\s*/s', $head, $out, 1);
     }
 
+    /** Ghép cấu hình VPU (đầu file) với nội dung đã có (sau, nên được ưu tiên). Hàm thuần. */
+    public static function merge(string $vpu, string $existing): string
+    {
+        $rest = trim((string)preg_replace('/^\s*<\?php\s*/', '', $existing));
+        return $rest === '' ? $vpu
+            : rtrim($vpu) . "\n\n// --- Cấu hình có trước (trình cài đặt / Quản trị) — giữ nguyên, ưu tiên hơn mặc định VPU ở trên ---\n" . $rest . "\n";
+    }
+
     /** @return array{override: string} */
     public static function ensureOverride(): array
     {
-        if (is_file(self::TARGET) || is_link(self::TARGET)) {
+        $exists = is_file(self::TARGET);
+        $current = $exists ? (string)@file_get_contents(self::TARGET) : '';
+        if ($exists && strpos($current, 'vpu_omnichannel') !== false) {
             return ['override' => 'exists'];
         }
         if (!is_file(self::EXAMPLE)) {
             return ['override' => 'no example'];
         }
         $content = self::fromExample((string)file_get_contents(self::EXAMPLE), [self::class, 'randomToken']);
+        if ($exists) {
+            $content = self::merge($content, $current);
+        }
         if (@file_put_contents(self::TARGET, $content, LOCK_EX) === false) {
             return ['override' => 'not writable'];
         }
         @chmod(self::TARGET, 0640);
-        return ['override' => 'created'];
+        return ['override' => $exists ? 'merged' : 'created'];
     }
 }

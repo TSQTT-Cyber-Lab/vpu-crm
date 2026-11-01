@@ -158,6 +158,12 @@ $eq(0, (function () use ($tmp) { exec(escapeshellarg(PHP_BINARY) . ' -l ' . esca
 $sugar_config = []; include $tmp; unlink($tmp);
 $eq(['vi_VN', 's l f', '0'], [$sugar_config['default_language'], $sugar_config['default_locale_name_format'], $sugar_config['passwordsetting']['systexpiration']], 'override: tiếng Việt, họ tên kiểu Việt, tắt luồng hết hạn lỗi');
 $eq(32, strlen(\VPU\Setup\ConfigDefaults::randomToken()), 'override: khoá ngẫu nhiên 32 ký tự');
+$stub = "<?php\n/***CONFIGURATOR***/\n/***CONFIGURATOR***/";      // file rỗng do trình cài đặt SuiteCRM tạo
+$m = \VPU\Setup\ConfigDefaults::merge($co, $stub);
+$eq(true, strpos($m, 'vpu_omnichannel') !== false && substr_count($m, '<?php') === 1, 'override: ghép với file rỗng của trình cài đặt');
+$m2 = \VPU\Setup\ConfigDefaults::merge($co, "<?php\n\$sugar_config['default_language'] = 'en_us';\n");
+$tmp = tempnam(sys_get_temp_dir(), 'co'); file_put_contents($tmp, $m2); $sugar_config = []; include $tmp; unlink($tmp);
+$eq(['en_us', 's l f'], [$sugar_config['default_language'], $sugar_config['default_locale_name_format']], 'override: giá trị có trước được ưu tiên, mặc định VPU bổ sung phần thiếu');
 
 echo ($fail ? "FAILED $fail/$n\n" : "OK $n tests\n");
 exit($fail ? 1 : 0);
