@@ -26,6 +26,15 @@ set_site_url() {
   chown www-data:www-data "$f"
 }
 
+# Chính sách mật khẩu: mật khẩu do Quản trị đặt kèm "bắt đổi" phải đổi ở lần đăng nhập kế tiếp (bổ sung cho volume cũ).
+ensure_password_policy() {
+  local f="$STATE/config_override.php"
+  # bản cũ từng bật luồng hết hạn của SuiteCRM (lỗi) -> gỡ, VPU-CRM tự xử lý bắt đổi mật khẩu
+  sed -i "/passwordsetting'\]\['systexpiration/d; /Mật khẩu do Quản trị đặt kèm/d" "$f"
+  grep -q "\['minpwdlength'\]" "$f" 2>/dev/null || echo "\$sugar_config['passwordsetting']['minpwdlength'] = '8';" >> "$f"
+  echo "\$sugar_config['passwordsetting']['systexpiration'] = '0';   // bắt đổi mật khẩu: VPU-CRM tự xử lý" >> "$f"
+}
+
 # Mật khẩu an toàn với bộ gõ tiếng Việt (custom/include/VPU/Setup/Password.php)
 gen_password() { php -r 'require "/var/www/html/custom/include/VPU/Setup/Password.php"; echo VPU\Setup\Password::generate();'; }
 
@@ -38,6 +47,7 @@ write_accounts() {
     echo "Mật khẩu không chứa nguyên âm: gõ được cả khi đang bật Unikey/EVKey."
     echo
     echo "$accounts" | sed -n '/^  admin /p' | awk '{printf "Quản trị:  %-8s  %s\n", $1, $2}'
+    echo "$accounts" | sed -n '/^  qlts/p' | sed 's/^  /Quản lý:   /'
     echo "$accounts" | sed -n '/^  tvts/p' | sed 's/^  /Tư vấn:    /'
     echo
     echo "Webhook (khoá trong /state/config_override.php):"
@@ -46,7 +56,7 @@ write_accounts() {
   chmod 600 "$STATE/demo-accounts.txt"
 }
 
-# Chế độ đặt lại mật khẩu (start-demo.ps1 -ResetPasswords): admin + 3 tài khoản tư vấn
+# Chế độ đặt lại mật khẩu (start-demo.ps1 -ResetPasswords): admin + qlts01 + tvts01..03
 if [ "${1:-}" = "reset-passwords" ]; then
   [ -f "$STATE/config.php" ] || { log "Chưa cài xong — chạy start-demo.ps1 trước."; exit 1; }
   ACCOUNTS=$(as_www php custom/include/VPU/Setup/setup_counselors.php --demo --reset-password --reset-admin)
@@ -74,7 +84,15 @@ if [ -f "$STATE/config.php" ]; then
   log "đã cài trước đó — gắn lại cấu hình, đồng bộ build"
   link_state
   set_site_url
+  ensure_password_policy
   as_www php custom/include/VPU/Setup/post_deploy.php >/dev/null || true
+  # Bổ sung vai trò/tài khoản demo mới có ở bản cập nhật (vd. qlts01 — Quản lý tuyển sinh); tài khoản cũ giữ mật khẩu.
+  NEWACC=$(as_www php custom/include/VPU/Setup/setup_counselors.php --demo 2>/dev/null | awk '/^  (qlts|tvts)/ && $2 != "-"')
+  if [ -n "$NEWACC" ]; then
+    echo "$NEWACC" | sed -n '/^  qlts/p' | sed 's/^  /Quản lý:   /' >> "$STATE/demo-accounts.txt"
+    echo "$NEWACC" | sed -n '/^  tvts/p' | sed 's/^  /Tư vấn:    /' >> "$STATE/demo-accounts.txt"
+    log "đã thêm tài khoản demo mới: $(echo "$NEWACC" | awk '{print $1}' | tr '\n' ' ')"
+  fi
   touch "$STATE/.ready"; chown www-data:www-data "$STATE/.ready"
   log "SẴN SÀNG: $SITE_URL  (tài khoản: cat /state/demo-accounts.txt)"
   exit 0
@@ -134,6 +152,7 @@ PHP
 chown www-data:www-data "$STATE"/config*.php
 link_state
 set_site_url
+ensure_password_policy
 chown -R www-data:www-data "$APP/cache" "$APP/custom" "$APP/modules"
 
 log "biên dịch tùy biến VPU + nạp danh mục 463 trường THPT…"

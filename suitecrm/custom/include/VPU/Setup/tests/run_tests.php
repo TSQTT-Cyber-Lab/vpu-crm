@@ -3,8 +3,10 @@
 define('sugarEntry', true);
 require __DIR__ . '/../BuildGuard.php';
 require __DIR__ . '/../Password.php';
+require __DIR__ . '/../AccountService.php';
 use VPU\Setup\BuildGuard as G;
 use VPU\Setup\Password as PW;
+use VPU\Setup\AccountService as AS2;
 
 $fail = 0; $n = 0;
 $eq = function ($exp, $got, string $name) use (&$fail, &$n) {
@@ -68,6 +70,21 @@ $eq(0, $cls, 'password: has upper + lower + digit');
 $eq(false, PW::isImeSafe('7LbaFfeJ9u@37'), 'old style password flagged unsafe (aF -> à)');
 $eq(false, PW::isImeSafe('r82mQzcBe9@12'), 'VNI e9 -> ẹ flagged');
 echo "  ví dụ: " . PW::generate() . "  " . PW::generate() . "\n";
+
+
+// Chính sách tài khoản (trang Quản trị > Tài khoản & mật khẩu)
+$eq(null, AS2::validateUserName('tvts04'), 'username ok');
+$eq(null, AS2::validateUserName('an.nv_2'), 'username dot/underscore ok');
+$eq(true, AS2::validateUserName('An') !== null, 'username too short / uppercase rejected');
+$eq(true, AS2::validateUserName('nguyễn') !== null, 'username with diacritics rejected');
+$eq(true, AS2::validateUserName('a b c') !== null, 'username with space rejected');
+$eq(null, AS2::validatePassword('Kt7m-Pq3H@48', 'tvts04'), 'password ok');
+$eq('Mật khẩu tối thiểu 8 ký tự.', AS2::validatePassword('Ab1', 'x'), 'password too short');
+$eq('Mật khẩu phải có chữ hoa, chữ thường và chữ số.', AS2::validatePassword('abcdefgh1', 'x'), 'password needs upper');
+$eq('Mật khẩu không được chứa tên đăng nhập.', AS2::validatePassword('Tvts04abcX1', 'tvts04'), 'password contains username');
+$eq('Mật khẩu không được có khoảng trắng.', AS2::validatePassword('Abc def 123', 'x'), 'password whitespace');
+$eq(null, AS2::validatePassword(AS2::generatePassword(), 'tvts04'), 'generated password passes policy');
+$eq(['admin', 'manager', 'counselor'], array_keys(AS2::TYPES), 'account types');
 
 echo ($fail ? "FAILED $fail/$n\n" : "OK $n tests\n");
 exit($fail ? 1 : 0);

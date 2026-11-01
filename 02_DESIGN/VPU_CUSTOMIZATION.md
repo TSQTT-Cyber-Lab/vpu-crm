@@ -51,6 +51,14 @@ Build lại: `suitecrm/custom/themes/SuiteP/build_vpu_theme.sh` (cần Node; scr
   cho phần tùy biến và nội dung của trường; mã SuiteCRM vẫn theo AGPLv3. Gói `vi_VN` dịch sai hai dòng này ("Được nén bởi…",
   "Được tài trợ bởi…"); đã trả về nguyên văn. Trang xác thực 2 lớp qua email (`FactorAuthEmailCode.tpl`, đặt cứng đường dẫn trong core)
   vẫn hiện footer gốc.
+- **Trang Quản trị và trang quản lý người dùng** (Admin, Configurator, Studio, Module Builder, Upgrade Wizard, Scheduler, Users,
+  Employees, Email, Bảo mật, Bản đồ…): mod_strings của 18 module đi qua `custom/include/VPU/Language/BrandRelabel.php`
+  (`custom/Extension/modules/<M>/Ext/Language/*.vpu_brand.php`), thay "SuiteCRM" bằng "VPU-CRM". Bỏ qua các khoá về giấy phép,
+  ghi công, bản quyền (`ABOUT|CONTRIBUT|PARTNER|LICEN|COPYRIGHT|SUPERCHARGED|POWERED|CREDIT|AGPL`). Tên scheduler
+  "Prune SuiteCRM Feed Tables" được `post_deploy.php` đổi trong DB. Logo trang đặt lại mật khẩu qua email dùng logo VPU
+  (`custom/modules/Users/Changenewpassword.tpl`).
+- **Trang Giới thiệu (About)** là trang duy nhất còn chữ "SuiteCRM", **cố ý giữ**: đây là thông báo pháp lý của AGPLv3 (§5(d)).
+  Bản ghi đè `custom/modules/Home/About.php` thêm khối giới thiệu VPU-CRM lên đầu, rồi hiển thị nguyên văn trang gốc.
 - Gói `vi_VN` chính thức của cộng đồng (Crowdin), bản `7.15-26.10` lấy từ SourceForge
   `suitecrmtranslations/7.15`, khoảng 72% chuỗi đã dịch. Đã quét tĩnh: chỉ có mảng chuỗi, không có code thực thi.
 - Bổ sung các nhãn Leads còn tiếng Anh và đổi tên module theo nghiệp vụ: Leads → **Thí sinh**,
@@ -226,7 +234,7 @@ php custom/include/VPU/Setup/setup_counselors.php --users="tvts04:Phạm|Văn An
 | Liên hệ, Gia đình, Hồ sơ xét tuyển | tất cả | của mình | không | không | không |
 | Chiến dịch | tất cả | không | không | không | không |
 
-Không có quyền quản trị; nếu tư vấn viên vào trang Quản trị, SuiteCRM sẽ huỷ phiên đăng nhập. Không cho phép xuất dữ liệu
+Không có quyền quản trị; tư vấn viên mở trang Quản trị sẽ bị từ chối. Không cho phép xuất dữ liệu
 vì Thí sinh chứa dữ liệu cá nhân, có cả người chưa thành niên (NĐ 13/2023).
 
 Tài khoản demo (chỉ dùng cho bản demo, mật khẩu được giao riêng): `tvts01` Nguyễn Thu Hà phụ trách Khánh Hòa,
@@ -234,10 +242,54 @@ Tài khoản demo (chỉ dùng cho bản demo, mật khẩu được giao riêng
 mỗi người được chia trường THPT theo tỉnh và thí sinh theo tỉnh của trường đã gắn. Đã kiểm thử: cả 3 đăng nhập được,
 nhập sai mật khẩu bị từ chối, quyền khớp bảng trên (kiểm tra qua `ACLController::checkAccess`).
 
+### 3.6 Loại tài khoản, trang "Tài khoản & mật khẩu" và đổi mật khẩu
+
+**Ba loại tài khoản** (`custom/include/VPU/Setup/AccountService.php`):
+
+| Loại | Cơ chế | Quyền |
+|---|---|---|
+| Quản trị hệ thống | `is_admin = 1` | toàn quyền, kể cả trang Quản trị |
+| Quản lý tuyển sinh | vai trò ACL "Quản lý tuyển sinh" | xem/sửa/xoá/nhập/xuất/cập nhật hàng loạt trên Thí sinh, Trường THPT, Cuộc gọi, Lịch hẹn, Công việc, Ghi chú, Liên hệ, Gia đình, Hồ sơ xét tuyển, Chiến dịch, Đối tượng/Danh sách mục tiêu, Tài liệu, Báo cáo. Không vào được trang Quản trị |
+| Tư vấn tuyển sinh | vai trò ACL "Tư vấn tuyển sinh" | như bảng §3.5 |
+
+**Trang Quản trị → mục "VPU-CRM" (đầu trang) → "Tài khoản & mật khẩu"** (`custom/modules/Administration/vpu_accounts.php`), chỉ admin mở được:
+- Tạo tài khoản: chọn loại, tên đăng nhập (`a-z 0-9 . _ -`, 3–30 ký tự), họ tên, email; mật khẩu **tự sinh** (khuyến nghị) hoặc **tự nhập**;
+  mặc định bật "Bắt đổi mật khẩu ở lần đăng nhập kế tiếp".
+- Đặt lại mật khẩu cho bất kỳ người dùng nào (tự sinh hoặc tự nhập, có/không bắt đổi).
+- Đổi loại tài khoản; kích hoạt/vô hiệu hoá. **Chặn** tự hạ quyền hoặc tự vô hiệu hoá chính mình, và chặn mất admin cuối cùng.
+- Mật khẩu chỉ hiển thị **một lần** trên màn hình, không lưu, không gửi email. Mọi thao tác ghi vào log mức `security`.
+- Form dùng CSRF token dùng một lần (thêm vào lớp kiểm tra Referer sẵn có của SuiteCRM).
+
+**Chính sách mật khẩu** (`AccountService::validatePassword`): ≥ 8 ký tự, có chữ hoa, chữ thường và chữ số, không chứa tên đăng nhập,
+không có khoảng trắng. Mật khẩu tự sinh không có nguyên âm, `d`, `w`, nên gõ đúng cả khi bật Unikey/EVKey.
+
+**Người dùng tự đổi mật khẩu:** menu tên người dùng (góc phải) → **Đổi mật khẩu** (`index.php?entryPoint=vpuChangePassword`,
+`custom/include/globalControlLinks.php`). Phải nhập mật khẩu hiện tại; kiểm tra bằng `User::change_password()` của core.
+
+**Bắt đổi mật khẩu:** hook `after_session_start` (`custom/include/VPU/Setup/ForcePasswordChange.php`). Nếu tài khoản có cờ
+`system_generated_password = 1`, mọi trang đều chuyển về trang đổi mật khẩu. Yêu cầu AJAX nhận 403. Riêng webhook `vpuInbound`,
+đăng nhập và đăng xuất vẫn đi qua bình thường. Đổi xong thì cờ được xoá.
+
+**Lỗi SuiteCRM 7.15.2 đã gặp:** luồng "mật khẩu hết hạn" gốc hỏng ở bước lưu. POST tới `Users/ChangePassword` trả
+"Không có hành động bởi cái tên: ChangePassword" (thông báo phát sinh từ `listViewPrepare` của `view.list.php`), cả khi không có
+bản ghi đè nào. Vì vậy VPU-CRM dùng luồng riêng ở trên và đặt `passwordsetting.systexpiration = '0'` trong
+`config_override.php.example` để tắt luồng gốc. Không sửa core.
+
+**CLI** (chạy lại an toàn):
+```bash
+php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts01..03 + qlts01 (Quản lý)
+```
+
 ## 4. Kết quả kiểm thử (31/10/2026)
 
 - `php custom/include/VPU/Omnichannel/tests/run_tests.php` → **OK 55 tests** (chữ ký, parser Messenger/Instagram/Zalo/Telegram/WhatsApp/Lead Ads/generic, SĐT, phân loại).
 - `php custom/include/VPU/Import/tests/run_tests.php` → **OK 21 tests** (đọc xlsx/csv thật, ANSI, tiêu đề tiếng Việt).
+- **01/11/2026, tài khoản & thương hiệu (demo Docker cài mới):** quét mọi trang Quản trị và trang người dùng (admin, quản lý, tư vấn viên):
+  **0 trang** còn "SuiteCRM", trừ trang Giới thiệu (cố ý). E2E 12/12 đạt: tạo Quản lý (mật khẩu tự sinh), tạo Tư vấn (tự nhập),
+  chặn trùng tên/mật khẩu yếu/thiếu CSRF, đặt lại mật khẩu, vô hiệu hoá (không đăng nhập được), đổi loại, chặn tự hạ quyền,
+  bắt đổi mật khẩu (không vào được trang khác, sai mật khẩu cũ báo lỗi, đổi xong đăng nhập bằng mật khẩu mới), tự đổi qua menu,
+  tư vấn viên bị từ chối ở trang Quản trị. ACL đối chiếu bằng `ACLController::checkAccess`: `qlts01` có sửa/xoá/nhập/xuất,
+  `tvts01` chỉ sửa Thí sinh và Trường THPT, không quyền gì trên Chiến dịch ngoài xem.
 - `php custom/include/VPU/Schools/tests/run_tests.php` → **OK 41 tests** (ghép tên trường trên 463 bản ghi thật, 0 gắn sai).
 - Import vào bản cài thật: tạo 463 bản ghi, không lỗi. Chạy lại: 463 không đổi. Dữ liệu tác nghiệp được giữ nguyên. Gắn thí sinh qua webhook đúng 6/6 tình huống (gồm tình huống mơ hồ, kết quả để trống).
 - Bản cài thật: Quick Repair tạo đủ 16 cột `vpu_*` và 2 index. Đã gửi webhook thật cho Messenger, Zalo, Telegram và SMS: tạo Lead đúng kênh,

@@ -16,6 +16,9 @@ $sugar_config['default_time_format'] = 'H:i';
 $sugar_config['datef'] = 'd/m/Y';
 $sugar_config['timef'] = 'H:i';
 $sugar_config['default_decimal_seperator'] = ',';
+// Bắt đổi mật khẩu do VPU-CRM tự xử lý (ForcePasswordChange.php); tắt luồng "hết hạn" của SuiteCRM 7.15.2 (lỗi ở bước lưu).
+$sugar_config['passwordsetting']['systexpiration'] = '0';
+$sugar_config['passwordsetting']['minpwdlength'] = '8';
 $sugar_config['default_number_grouping_seperator'] = '.';
 
 // Phễu tuyển sinh đa kênh: index.php?entryPoint=vpuInbound&channel=<kênh>

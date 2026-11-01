@@ -1,0 +1,8 @@
+<?php
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
+$mod_strings['LBL_VPU_ADMIN_SECTION'] = 'VPU-CRM';
+$mod_strings['LBL_VPU_ADMIN_SECTION_DESC'] = 'Quản lý tài khoản người dùng của VPU-CRM';
+$mod_strings['LBL_VPU_ACCOUNTS_TITLE'] = 'Tài khoản & mật khẩu';
+$mod_strings['LBL_VPU_ACCOUNTS_DESC'] = 'Tạo tài khoản Quản lý / Tư vấn tuyển sinh / Quản trị, đặt lại mật khẩu, đổi loại, kích hoạt hoặc vô hiệu hóa người dùng';

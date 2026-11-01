@@ -16,8 +16,6 @@ if (PHP_SAPI !== 'cli') {
 chdir(dirname(__DIR__, 4));
 define('sugarEntry', true);
 require_once 'include/entryPoint.php';
-require_once 'modules/ACLRoles/ACLRole.php';
-require_once 'modules/ACLActions/ACLAction.php';
 
 $opt = getopt('', ['demo', 'demo-assign', 'users::', 'reset-password', 'reset-admin', 'email-domain::']);
 global $current_user;
@@ -25,42 +23,15 @@ $current_user = BeanFactory::getBean('Users', '1');
 $db = DBManagerFactory::getInstance();
 $emailDomain = $opt['email-domain'] ?? 'demo.vpu.invalid';
 
-// ---------- 1. Vai trò ----------
-const ROLE_NAME = 'Tư vấn tuyển sinh';
-$A = ['all' => ACL_ALLOW_ALL, 'own' => ACL_ALLOW_OWNER, 'none' => ACL_ALLOW_NONE, 'on' => ACL_ALLOW_ENABLED];
-// [access, view, list, edit, delete, import, export, massupdate]
-$matrix = [
-    'Leads'         => ['on', 'all', 'all', 'all', 'none', 'none', 'none', 'own'],   // làm chung phễu; không xoá, không xuất dữ liệu cá nhân
-    'VPU_Schools'   => ['on', 'all', 'all', 'all', 'none', 'none', 'none', 'own'],   // cập nhật đầu mối, tình trạng tiếp cận
-    'Calls'         => ['on', 'all', 'all', 'own', 'own', 'none', 'none', 'own'],
-    'Meetings'      => ['on', 'all', 'all', 'own', 'own', 'none', 'none', 'own'],
-    'Tasks'         => ['on', 'all', 'all', 'own', 'own', 'none', 'none', 'own'],
-    'Notes'         => ['on', 'all', 'all', 'own', 'own', 'none', 'none', 'own'],
-    'Contacts'      => ['on', 'all', 'all', 'own', 'none', 'none', 'none', 'own'],
-    'Accounts'      => ['on', 'all', 'all', 'own', 'none', 'none', 'none', 'own'],
-    'Opportunities' => ['on', 'all', 'all', 'own', 'none', 'none', 'none', 'own'],
-    'Campaigns'     => ['on', 'all', 'all', 'none', 'none', 'none', 'none', 'none'],  // xem chiến dịch, không sửa
-];
-$actionNames = ['access', 'view', 'list', 'edit', 'delete', 'import', 'export', 'massupdate'];
-
-ACLAction::addActions('VPU_Schools', 'module');
-$roleId = $db->getOne('SELECT id FROM acl_roles WHERE deleted = 0 AND name = ' . $db->quoted(ROLE_NAME));
-$role = $roleId ? BeanFactory::getBean('ACLRoles', $roleId) : BeanFactory::newBean('ACLRoles');
-$role->name = ROLE_NAME;
-$role->description = 'Nhân viên tư vấn tuyển sinh: làm việc với Thí sinh, Trường THPT, hoạt động; không xoá/xuất/nhập dữ liệu; không quản trị.';
-$role->save();
-$set = 0;
-foreach ($matrix as $module => $levels) {
-    foreach ($actionNames as $i => $action) {
-        $aid = $db->getOne("SELECT id FROM acl_actions WHERE deleted = 0 AND acltype = 'module' AND category = "
-            . $db->quoted($module) . ' AND name = ' . $db->quoted($action));
-        if ($aid) {
-            $role->setAction($role->id, $aid, $A[$levels[$i]]);
-            $set++;
-        }
-    }
+// ---------- 1. Vai trò (định nghĩa quyền ở AccountService — dùng chung với trang Quản trị) ----------
+require_once 'custom/include/VPU/Setup/AccountService.php';
+use VPU\Setup\AccountService;
+$roleIds = [];
+foreach (array_keys(AccountService::ROLE_NAMES) as $t) {
+    $roleIds[$t] = AccountService::ensureRole($t);
+    printf("Vai trò \"%s\" (%s)\n", AccountService::ROLE_NAMES[$t], $roleIds[$t]);
 }
-printf("Vai trò \"%s\" (%s): %d quyền\n", ROLE_NAME, $role->id, $set);
+$role = \BeanFactory::getBean('ACLRoles', $roleIds[AccountService::TYPE_COUNSELOR]);
 
 // ---------- 2. Tài khoản ----------
 $users = [];
@@ -69,6 +40,7 @@ if (isset($opt['demo'])) {
         ['tvts01', 'Nguyễn', 'Thu Hà'],
         ['tvts02', 'Trần', 'Minh Quân'],
         ['tvts03', 'Lê', 'Ngọc Ánh'],
+        ['qlts01', 'Phạm', 'Thị Lan', AccountService::TYPE_MANAGER],
     ];
 }
 if (!empty($opt['users'])) {
@@ -85,10 +57,12 @@ if (!empty($opt['users'])) {
 
 require_once 'custom/include/VPU/Setup/Password.php';
 // Mật khẩu không có nguyên âm/d/w -> gõ bằng Unikey/EVKey (Telex, VNI) vẫn đúng. Xem Password.php.
-$genPassword = [\VPU\Setup\Password::class, 'generate'];
+$genPassword = [AccountService::class, 'generatePassword'];
 
 $created = [];
-foreach ($users as [$uname, $last, $first]) {
+foreach ($users as $vpuU) {
+    [$uname, $last, $first] = $vpuU;
+    $vpuType = $vpuU[3] ?? AccountService::TYPE_COUNSELOR;
     $id = $db->getOne('SELECT id FROM users WHERE deleted = 0 AND user_name = ' . $db->quoted($uname));
     $u = $id ? BeanFactory::getBean('Users', $id) : BeanFactory::newBean('Users');
     $isNew = !$id;
@@ -99,7 +73,7 @@ foreach ($users as [$uname, $last, $first]) {
     $u->employee_status = 'Active';
     $u->is_admin = 0;
     $u->is_group = 0;
-    $u->title = 'Tư vấn tuyển sinh';
+    $u->title = AccountService::TYPES[$vpuType];
     $u->department = 'Phòng Tuyển sinh';
     $u->email1 = $uname . '@' . $emailDomain;
     // User::save() là code của form UI: đọc $_POST['ut'] và echo thông báo của GeneratePassword — chặn cho CLI.
@@ -114,7 +88,7 @@ foreach ($users as [$uname, $last, $first]) {
     $u->setPreference('timef', 'H:i');
     $u->setPreference('default_locale_name_format', 's l f');
     $u->savePreferencesToDB();
-    $role->set_relationship('acl_roles_users', ['role_id' => $role->id, 'user_id' => $u->id], false);
+    AccountService::setType($u, $vpuType);
 
     $pwd = null;
     if ($isNew || isset($opt['reset-password'])) {

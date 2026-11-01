@@ -5,7 +5,7 @@
     .\start-demo.ps1 -Reset       xoá sạch dữ liệu demo rồi dựng lại từ đầu
     .\start-demo.ps1 -Stop        dừng demo (giữ dữ liệu)
     .\start-demo.ps1 -Accounts    xem tài khoản và mật khẩu hiện tại
-    .\start-demo.ps1 -ResetPasswords   đặt lại mật khẩu admin + tvts01..03 (demo phải đang chạy)
+    .\start-demo.ps1 -ResetPasswords   đặt lại mật khẩu admin + qlts01 + tvts01..03 (demo phải đang chạy)
   Cổng đã chọn được lưu trong .env (cùng thư mục) để các lần sau dùng lại.
 #>
 param([switch]$Reset, [switch]$Stop, [switch]$Accounts, [switch]$ResetPasswords, [int]$Port = 0)

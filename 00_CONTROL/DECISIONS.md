@@ -51,3 +51,10 @@
 - **Phương án:** (A) "Gia đình" — giữ chức năng nhóm gia đình; (B) "Đối tác & tổ chức" — dùng cho doanh nghiệp/đại lý.
 - **Quyết định:** A (tác giả chọn). Đổi đồng bộ mọi nhãn trỏ tới Accounts; giữ nhãn tài khoản người dùng/email/lịch/cổng.
 - **Người quyết:** tác giả
+
+## D-008 · 2026-11-01 · Quản lý tài khoản trong VPU-CRM; bắt đổi mật khẩu bằng luồng riêng
+- **Bối cảnh:** Admin cần tạo tài khoản theo loại (Quản lý, Tư vấn tuyển sinh) và đổi mật khẩu người dùng. Trang Users gốc của SuiteCRM có nhiều trường không liên quan, không gán vai trò theo loại. Ngoài ra, luồng "mật khẩu hết hạn / bắt đổi" gốc của SuiteCRM 7.15.2 hỏng ở bước lưu ("Không có hành động bởi cái tên: ChangePassword"), tái hiện được cả khi không có bản ghi đè.
+- **Quyết định:** (1) Loại tài khoản = `is_admin` (Quản trị) hoặc vai trò ACL VPU (Quản lý / Tư vấn), quản lý tập trung trong `AccountService`; trang riêng "Tài khoản & mật khẩu" trong Quản trị. (2) Bắt đổi mật khẩu dùng hook `after_session_start` + entry point `vpuChangePassword`, dựa trên cờ `system_generated_password` của core; tắt luồng hết hạn gốc (`systexpiration = 0`). (3) Mật khẩu chỉ hiện một lần, không gửi email. (4) Trang Giới thiệu giữ chữ "SuiteCRM" vì là thông báo pháp lý AGPL.
+- **Lý do:** Không sửa core; dùng lại `User::setNewPassword` / `User::change_password` của core nên băm mật khẩu và kiểm tra mật khẩu cũ vẫn theo SuiteCRM.
+- **Đánh đổi:** Chính sách hết hạn mật khẩu định kỳ (sau N ngày) chưa có; nếu cần thì bổ sung vào hook `ForcePasswordChange`. Trang quản trị phải mở bằng cách bấm từ trang Quản trị (kiểm tra Referer của SuiteCRM).
+- **Người quyết:** (tác giả xác nhận)

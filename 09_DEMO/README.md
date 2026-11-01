@@ -1,7 +1,7 @@
 # VPU-CRM — Bản demo chạy trên máy (Docker)
 
 Bản demo đầy đủ của VPU-CRM: theme VPU, tiếng Việt, phễu tuyển sinh đa kênh, 463 trường THPT/GDTX thuộc 4 tỉnh,
-24 thí sinh mẫu và 3 tài khoản tư vấn viên. **Toàn bộ thí sinh là dữ liệu giả.** Bản demo chỉ mở ở `localhost`,
+24 thí sinh mẫu, 1 tài khoản quản lý và 3 tài khoản tư vấn viên. **Toàn bộ thí sinh là dữ liệu giả.** Bản demo chỉ mở ở `localhost`,
 không lộ ra mạng LAN.
 
 ![Danh sách thí sinh — tài khoản tư vấn viên](demo-screenshot.png)
@@ -30,7 +30,7 @@ Nếu PowerShell chặn script: `Set-ExecutionPolicy -Scope Process Bypass`, r�
 | `.\start-demo.ps1 -Stop` | Dừng, giữ dữ liệu |
 | `.\start-demo.ps1 -Reset` | **Xoá sạch** dữ liệu demo rồi dựng lại (mật khẩu mới) |
 | `.\start-demo.ps1 -Accounts` | Xem lại tài khoản và mật khẩu |
-| `.\start-demo.ps1 -ResetPasswords` | Đặt lại mật khẩu `admin` và `tvts01..03` |
+| `.\start-demo.ps1 -ResetPasswords` | Đặt lại mật khẩu `admin`, `qlts01` và `tvts01..03` |
 | `docker compose logs -f app` | Xem log |
 
 Không dùng PowerShell thì chạy `docker compose up -d --build` trong thư mục này.
@@ -43,11 +43,24 @@ cả khi đang bật Unikey/EVKey (Telex, VNI).
 | Tài khoản | Vai trò | Dữ liệu được chia |
 |---|---|---|
 | `admin` | Quản trị | toàn bộ |
+| `qlts01` Phạm Thị Lan | Quản lý tuyển sinh | toàn bộ dữ liệu tuyển sinh |
 | `tvts01` Nguyễn Thu Hà | Tư vấn tuyển sinh | trường và thí sinh Khánh Hòa |
 | `tvts02` Trần Minh Quân | Tư vấn tuyển sinh | Lâm Đồng |
 | `tvts03` Lê Ngọc Ánh | Tư vấn tuyển sinh | Đắk Lắk, Gia Lai |
 
 Tư vấn viên xem và sửa được Thí sinh và Trường THPT, nhưng không xoá, nhập hay xuất dữ liệu, và không có quyền quản trị.
+Quản lý tuyển sinh có thêm quyền xoá, nhập, xuất, báo cáo, chiến dịch, nhưng không vào được trang Quản trị.
+
+**Tạo tài khoản, đặt lại mật khẩu:** đăng nhập `admin` → **Quản trị viên** → mục **VPU-CRM** ở đầu trang → **Tài khoản & mật khẩu**.
+Tại đây tạo tài khoản Quản lý / Tư vấn / Quản trị, đặt lại mật khẩu, đổi loại, vô hiệu hoá. Mật khẩu mới chỉ hiện một lần, nên chép
+lại ngay. Hãy mở trang bằng cách bấm từ trang Quản trị: SuiteCRM chặn trang quản trị khi mở thẳng bằng URL dán vào trình duyệt
+(chống CSRF).
+
+**Người dùng tự đổi mật khẩu:** bấm tên người dùng (góc phải trên) → **Đổi mật khẩu**. Tài khoản do admin tạo hoặc đặt lại với tuỳ chọn
+"Bắt đổi mật khẩu" sẽ tự được đưa tới trang này ngay sau khi đăng nhập.
+
+`-ResetPasswords` và `-Accounts` vẫn dùng cho tài khoản demo. Mật khẩu đã đổi trên giao diện thì `-Accounts` không biết; quên thì dùng
+`-ResetPasswords` hoặc admin đặt lại.
 
 ## 4. Gợi ý kịch bản demo
 1. Đăng nhập `tvts01`. Vào **Thí sinh**: xem giai đoạn phễu, kênh tiếp nhận, ngành theo mã Bộ GD&ĐT, trường THPT đã tự gắn.
@@ -98,6 +111,7 @@ Tư vấn viên xem và sửa được Thí sinh và Trường THPT, nhưng khô
 ## 6. Đã kiểm thử (31/10/2026, Docker 29, trên Linux)
 - Dựng sạch: sẵn sàng sau 31–40 giây. 463 trường, 24 thí sinh mẫu (17 thí sinh tự gắn được trường), 4 tài khoản.
 - Đăng nhập `admin` và `tvts01` qua http://localhost:8080; footer bản quyền VPU hiển thị.
+- 01/11/2026: trang Tài khoản & mật khẩu, bắt đổi mật khẩu, menu Đổi mật khẩu (E2E 12/12); bản demo cũ khởi động lại tự có thêm `qlts01`.
 - Webhook SMS nhận tin (khoá đúng) và trả 401 (khoá sai).
 - `docker compose down` rồi `up`: dữ liệu và mật khẩu còn nguyên.
 - Cổng 8080 bị chương trình khác chiếm: tái hiện được lỗi `bind`. Chuyển sang 8090 trên dữ liệu đã cài thì địa chỉ site và file tài khoản tự cập nhật, đăng nhập bình thường.

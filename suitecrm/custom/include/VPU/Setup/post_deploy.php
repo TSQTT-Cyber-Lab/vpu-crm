@@ -49,6 +49,10 @@ if ($r['pending']) {
     echo "  -> xem " . BuildGuard::PENDING . ", rồi chạy lại với --apply-modify nếu chấp nhận.\n";
 }
 
+// Tên tác vụ định kỳ lưu trong DB lúc cài (vd. "Prune SuiteCRM Feed Tables") -> VPU-CRM. Chạy lại an toàn.
+$db = DBManagerFactory::getInstance();
+$db->query("UPDATE schedulers SET name = REPLACE(name, 'SuiteCRM', 'VPU-CRM') WHERE deleted = 0 AND name LIKE '%SuiteCRM%'");
+
 if (isset($opt['seed'])) {
     require_once 'modules/ACLActions/ACLAction.php';
     ACLAction::addActions('VPU_Schools', 'module');
