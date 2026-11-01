@@ -14,6 +14,9 @@ $sugar_config['default_currency_symbol'] = '₫';
 $sugar_config['default_date_format'] = 'd/m/Y';
 $sugar_config['default_time_format'] = 'H:i';
 $sugar_config['datef'] = 'd/m/Y';
+// Họ tên kiểu Việt (họ trước): "Phạm Thị Lan". 's l f' không có sẵn trong danh sách định dạng của SuiteCRM.
+$sugar_config['name_formats']['s l f'] = 's l f';
+$sugar_config['default_locale_name_format'] = 's l f';
 $sugar_config['timef'] = 'H:i';
 $sugar_config['default_decimal_seperator'] = ',';
 // Bắt đổi mật khẩu do VPU-CRM tự xử lý (ForcePasswordChange.php); tắt luồng "hết hạn" của SuiteCRM 7.15.2 (lỗi ở bước lưu).

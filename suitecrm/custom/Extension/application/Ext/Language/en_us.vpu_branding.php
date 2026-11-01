@@ -13,7 +13,7 @@ $vpuKeep = ['LBL_SUITE_SUPERCHARGED', 'LBL_SUITE_POWERED_BY', 'LBL_SUITE_DESC1',
 if (isset($app_strings) && is_array($app_strings)) {
     foreach ($app_strings as $vpuKey => $vpuVal) {
         if (is_string($vpuVal) && !in_array($vpuKey, $vpuKeep, true) && strpos($vpuVal, 'SuiteCRM') !== false) {
-            $app_strings[$vpuKey] = str_replace('SuiteCRM', 'VPU-CRM', $vpuVal);
+            $app_strings[$vpuKey] = preg_replace('/SuiteCRM(?!\s+(Ltd|Limited))/', 'VPU-CRM', $vpuVal);   // "SuiteCRM Ltd" = tên công ty, giữ nguyên
         }
     }
     $app_strings['LBL_BROWSER_TITLE'] = 'VPU-CRM · Victoria Pacific University';

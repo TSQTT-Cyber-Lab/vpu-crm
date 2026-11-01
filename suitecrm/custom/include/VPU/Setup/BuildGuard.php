@@ -26,6 +26,9 @@ final class BuildGuard
     public const STAMP = 'cache/vpu_build.stamp';
     public const LOCK = 'cache/vpu_build.lock';
     public const PENDING = 'cache/vpu_schema_pending.sql';
+    /** Lần kiểm tra gần nhất (mtime). Kiểm tra dấu vân tay tối đa 1 lần / CHECK_EVERY giây thay vì mọi request. */
+    public const CHECKED = 'cache/vpu_build.checked';
+    public const CHECK_EVERY = 3;
 
     /** Thư mục/file quyết định kết quả biên dịch (nguồn + đầu ra). */
     private const WATCH = [
@@ -34,6 +37,11 @@ final class BuildGuard
         'custom/modules',          // gồm */Ext/** đã biên dịch, metadata, logic_hooks.php
         'custom/metadata',
         'custom/include/language',
+        'custom/include/VPU/Language',   // TermRelabel/BrandRelabel… -> cache ngôn ngữ
+        'custom/include/VPU/Setup',      // MenuSetup::VERSION, AccountService::ACL_VERSION -> runMigrations()
+        'custom/themes/SuiteP/tpls',     // template ghi đè -> cache đường dẫn template của theme
+        'custom/themes/SuiteP/css',      // CSS VPU -> cache theme (không quét fonts/, images/ cho nhẹ)
+        'custom/themes/SuiteP/login.tpl',
     ];
 
     /** Hook after_entry_point. Không bao giờ làm hỏng request. */
@@ -44,6 +52,11 @@ final class BuildGuard
                 || !is_dir('cache') || !is_writable('cache')) {
                 return;
             }
+            $last = @filemtime(self::CHECKED);
+            if ($last !== false && time() - $last < self::CHECK_EVERY && is_file(self::STAMP)) {
+                return;                                         // vừa kiểm tra xong ở request khác
+            }
+            @touch(self::CHECKED);
             if (self::isCurrent()) {
                 return;
             }
@@ -58,13 +71,17 @@ final class BuildGuard
     {
         $parts = [];
         foreach (array_merge(self::WATCH, glob('modules/VPU_*', GLOB_ONLYDIR) ?: []) as $root) {
+            if (is_file($root)) {
+                $parts[] = $root . '|' . filemtime($root) . '|' . filesize($root);
+                continue;
+            }
             if (!is_dir($root)) {
                 continue;
             }
             $it = new \RecursiveIteratorIterator(new \RecursiveDirectoryIterator($root, \FilesystemIterator::SKIP_DOTS));
             foreach ($it as $f) {
                 /** @var \SplFileInfo $f */
-                if ($f->isFile() && substr($f->getFilename(), -4) === '.php') {
+                if ($f->isFile() && in_array(strrchr($f->getFilename(), '.'), ['.php', '.tpl', '.css'], true)) {
                     $parts[] = $f->getPathname() . '|' . $f->getMTime() . '|' . $f->getSize();
                 }
             }
@@ -128,9 +145,11 @@ final class BuildGuard
             } elseif (is_file(self::PENDING)) {
                 unlink(self::PENDING);
             }
+            $migrations = self::runMigrations();
             file_put_contents(self::STAMP, self::fingerprint());
             return [
-                'summary' => ['rebuilt' => true, 'schema_applied' => count($applied), 'schema_pending' => count($pending)],
+                'summary' => ['rebuilt' => true, 'schema_applied' => count($applied), 'schema_pending' => count($pending),
+                    'migrations' => $migrations],
                 'applied' => $applied,
                 'pending' => $pending,
             ];
@@ -138,6 +157,33 @@ final class BuildGuard
             flock($lock, LOCK_UN);
             fclose($lock);
         }
+    }
+
+    /**
+     * Cấu hình lưu trong DB đi kèm code, áp MỘT lần cho mỗi phiên bản (menu, vai trò ACL). Lỗi không chặn request.
+     */
+    private static function runMigrations(): array
+    {
+        $steps = [
+            'menu' => static function () {
+                require_once __DIR__ . '/MenuSetup.php';
+                return MenuSetup::apply();
+            },
+            'acl' => static function () {
+                require_once __DIR__ . '/AccountService.php';
+                return AccountService::syncRoles();
+            },
+        ];
+        $out = [];
+        foreach ($steps as $k => $fn) {
+            try {
+                $out[$k] = $fn();
+            } catch (\Throwable $e) {
+                $out[$k] = 'error: ' . $e->getMessage();
+                $GLOBALS['log']->fatal("VPU BuildGuard migration $k: " . $e->getMessage());
+            }
+        }
+        return $out;
     }
 
     /** @return array{0: string[], 1: string[]} [đã chạy, chờ duyệt] */

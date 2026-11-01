@@ -35,6 +35,15 @@ ensure_password_policy() {
   echo "\$sugar_config['passwordsetting']['systexpiration'] = '0';   // bắt đổi mật khẩu: VPU-CRM tự xử lý" >> "$f"
 }
 
+# Họ tên kiểu Việt: "Phạm Thị Lan" (họ trước). 's l f' không có sẵn trong name_formats của SuiteCRM nên phải khai báo.
+ensure_name_format() {
+  local f="$STATE/config_override.php"
+  grep -q "name_formats'\]\['s l f'\]" "$f" 2>/dev/null || cat >> "$f" <<'PHP'
+$sugar_config['name_formats']['s l f'] = 's l f';
+$sugar_config['default_locale_name_format'] = 's l f';   // họ tên kiểu Việt: Phạm Thị Lan
+PHP
+}
+
 # Mật khẩu an toàn với bộ gõ tiếng Việt (custom/include/VPU/Setup/Password.php)
 gen_password() { php -r 'require "/var/www/html/custom/include/VPU/Setup/Password.php"; echo VPU\Setup\Password::generate();'; }
 
@@ -85,6 +94,7 @@ if [ -f "$STATE/config.php" ]; then
   link_state
   set_site_url
   ensure_password_policy
+  ensure_name_format
   as_www php custom/include/VPU/Setup/post_deploy.php >/dev/null || true
   # Bổ sung vai trò/tài khoản demo mới có ở bản cập nhật (vd. qlts01 — Quản lý tuyển sinh); tài khoản cũ giữ mật khẩu.
   NEWACC=$(as_www php custom/include/VPU/Setup/setup_counselors.php --demo 2>/dev/null | awk '/^  (qlts|tvts)/ && $2 != "-"')

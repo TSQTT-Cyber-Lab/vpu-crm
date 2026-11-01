@@ -6,8 +6,12 @@ if (!defined('sugarEntry') || !sugarEntry) {
     die('Not A Valid Entry Point');
 }
 require_once 'custom/include/VPU/Setup/AccountService.php';
+require_once 'custom/include/VPU/Language/I18n.php';
 
 use VPU\Setup\AccountService;
+use VPU\Language\I18n;
+
+$t = [I18n::class, 't'];
 
 global $current_user, $sugar_config;
 if (empty($current_user->id)) {
@@ -27,11 +31,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $new = (string)($_POST['new_password'] ?? '');
     $cf = (string)($_POST['confirm_password'] ?? '');
     if (!hash_equals($_SESSION['vpu_cp_csrf'], (string)($_POST['csrf'] ?? ''))) {
-        $err = 'Phiên biểu mẫu không hợp lệ. Tải lại trang rồi thử lại.';
+        $err = $t('Phiên biểu mẫu không hợp lệ. Tải lại trang rồi thử lại.', 'The form is invalid or expired. Reload the page and try again.');
     } elseif ($new !== $cf) {
-        $err = 'Mật khẩu nhập lại không khớp.';
+        $err = $t('Mật khẩu nhập lại không khớp.', 'The new passwords do not match.');
     } elseif ($new === $old) {
-        $err = 'Mật khẩu mới phải khác mật khẩu hiện tại.';
+        $err = $t('Mật khẩu mới phải khác mật khẩu hiện tại.', 'The new password must differ from the current one.');
     } elseif ($e = AccountService::validatePassword($new, (string)$current_user->user_name)) {
         $err = $e;
     } else {
@@ -43,15 +47,15 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             header('Location: index.php?module=Home&action=index');
             exit;
         }
-        $err = 'Mật khẩu hiện tại không đúng' . (!empty($u->error_string) ? ' (' . strip_tags((string)$u->error_string) . ')' : '') . '.';
+        $err = $t('Mật khẩu hiện tại không đúng', 'The current password is incorrect') . (!empty($u->error_string) ? ' (' . strip_tags((string)$u->error_string) . ')' : '') . '.';
     }
 }
 $csrf = $h($_SESSION['vpu_cp_csrf']);
 $name = $h(trim($current_user->last_name . ' ' . $current_user->first_name));
 $css = 'custom/themes/SuiteP/fonts/montserrat/';
 ?><!DOCTYPE html>
-<html lang="vi"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Đổi mật khẩu · VPU-CRM</title>
+<html lang="<?= I18n::isEnglish() ? 'en' : 'vi' ?>"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1">
+<title><?= $t('Đổi mật khẩu', 'Change password') ?> · VPU-CRM</title>
 <style>
 @font-face{font-family:Montserrat;font-weight:400;src:url(<?= $css ?>montserrat-vietnamese-400-normal.woff2) format("woff2");unicode-range:U+0102-0103,U+0110-0111,U+0128-0129,U+0168-0169,U+01A0-01A1,U+01AF-01B0,U+0300-0301,U+0303-0304,U+0308-0309,U+0323,U+0329,U+1EA0-1EF9,U+20AB}
 @font-face{font-family:Montserrat;font-weight:400;src:url(<?= $css ?>montserrat-latin-400-normal.woff2) format("woff2")}
@@ -68,18 +72,18 @@ small{color:#5A6080;font-size:12px}a{color:#283388}
 </style></head><body>
 <div class="top"><img src="custom/themes/SuiteP/images/vpu_login_logo.png" alt="VPU-CRM"></div>
 <div class="card">
-  <h1>Đổi mật khẩu</h1>
-  <p>Xin chào <strong><?= $name ?></strong>. <?= $must ? 'Quản trị đã cấp mật khẩu tạm cho bạn — hãy đặt mật khẩu mới trước khi tiếp tục.' : 'Đặt mật khẩu mới cho tài khoản của bạn.' ?></p>
+  <h1><?= $t('Đổi mật khẩu', 'Change password') ?></h1>
+  <p><?= $t('Xin chào', 'Hello') ?> <strong><?= $name ?></strong>. <?= $must ? $t('Quản trị đã cấp mật khẩu tạm cho bạn — hãy đặt mật khẩu mới trước khi tiếp tục.', 'An administrator issued you a temporary password — please set a new one to continue.') : $t('Đặt mật khẩu mới cho tài khoản của bạn.', 'Set a new password for your account.') ?></p>
   <?php if ($err): ?><div class="err" role="alert"><?= $h($err) ?></div><?php endif; ?>
   <form method="post" action="index.php?entryPoint=vpuChangePassword" autocomplete="off">
     <input type="hidden" name="csrf" value="<?= $csrf ?>">
-    <label for="op">Mật khẩu hiện tại (mật khẩu tạm)</label><input id="op" type="password" name="old_password" required autocomplete="current-password">
-    <label for="np">Mật khẩu mới</label><input id="np" type="password" name="new_password" required minlength="8" autocomplete="new-password">
-    <label for="cp">Nhập lại mật khẩu mới</label><input id="cp" type="password" name="confirm_password" required minlength="8" autocomplete="new-password">
-    <small>Tối thiểu 8 ký tự, có chữ hoa, chữ thường và chữ số; không chứa tên đăng nhập. Nên tránh nguyên âm có dấu để gõ được cả khi bật Unikey/EVKey.</small>
-    <button type="submit">Lưu mật khẩu mới</button>
+    <label for="op"><?= $must ? $t('Mật khẩu hiện tại (mật khẩu tạm)', 'Current (temporary) password') : $t('Mật khẩu hiện tại', 'Current password') ?></label><input id="op" type="password" name="old_password" required autocomplete="current-password">
+    <label for="np"><?= $t('Mật khẩu mới', 'New password') ?></label><input id="np" type="password" name="new_password" required minlength="8" autocomplete="new-password">
+    <label for="cp"><?= $t('Nhập lại mật khẩu mới', 'Confirm new password') ?></label><input id="cp" type="password" name="confirm_password" required minlength="8" autocomplete="new-password">
+    <small><?= $t('Tối thiểu 8 ký tự, có chữ hoa, chữ thường và chữ số; không chứa tên đăng nhập. Nên tránh nguyên âm có dấu để gõ được cả khi bật Unikey/EVKey.', 'At least 8 characters with upper- and lowercase letters and a digit; must not contain the username.') ?></small>
+    <button type="submit"><?= $t('Lưu mật khẩu mới', 'Save new password') ?></button>
   </form>
-  <p style="margin:14px 0 0;font-size:13px"><a href="index.php?module=Users&action=Logout">Đăng xuất</a></p>
+  <p style="margin:14px 0 0;font-size:13px"><a href="index.php?module=Users&action=Logout"><?= $t('Đăng xuất', 'Log out') ?></a></p>
 </div>
 </body></html>
 <?php

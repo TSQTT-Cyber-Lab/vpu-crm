@@ -4,9 +4,11 @@ define('sugarEntry', true);
 require __DIR__ . '/../BuildGuard.php';
 require __DIR__ . '/../Password.php';
 require __DIR__ . '/../AccountService.php';
+require __DIR__ . '/../MenuSetup.php';
 use VPU\Setup\BuildGuard as G;
 use VPU\Setup\Password as PW;
 use VPU\Setup\AccountService as AS2;
+use VPU\Setup\MenuSetup as MS;
 
 $fail = 0; $n = 0;
 $eq = function ($exp, $got, string $name) use (&$fail, &$n) {
@@ -85,6 +87,62 @@ $eq('Mật khẩu không được chứa tên đăng nhập.', AS2::validatePass
 $eq('Mật khẩu không được có khoảng trắng.', AS2::validatePassword('Abc def 123', 'x'), 'password whitespace');
 $eq(null, AS2::validatePassword(AS2::generatePassword(), 'tvts04'), 'generated password passes policy');
 $eq(['admin', 'manager', 'counselor'], array_keys(AS2::TYPES), 'account types');
+
+// ---- Menu (MenuSetup) ----
+$all = array_merge(...array_values(MS::GROUPS));
+$eq(count($all), count(array_unique($all)), 'menu: mỗi module chỉ ở một nhóm');
+$eq(false, in_array('Home', $all, true), 'menu: không có Trang chủ trong nhóm');
+$eq([], array_values(array_intersect($all, MS::HIDDEN_TABS)), 'menu: module trong nhóm không bị ẩn');
+$eq(['Leads', 'VPU_Schools', 'Opportunities', 'Accounts', 'Contacts'], MS::GROUPS['LBL_TABGROUP_VPU_ADMISSIONS'], 'menu: nhóm Tuyển sinh');
+$eq(['label' => 'LBL_TABGROUP_VPU_REPORTS', 'modules' => ['AOR_Reports', 'Documents']], MS::tabStructure()['LBL_TABGROUP_VPU_REPORTS'], 'menu: tabStructure');
+// $moduleList thật của bản cài (SuiteCRM 7.15.2 + VPU_Schools)
+$moduleList = explode(' ', 'Home Calendar Calls Meetings Tasks Notes Leads Contacts Accounts Opportunities Emails EmailTemplates Campaigns Prospects ProspectLists Documents Cases Project Bugs ResourceCalendar AOBH_BusinessHours Spots AM_ProjectTemplates AOK_Knowledge_Base_Categories AOK_KnowledgeBase FP_events FP_Event_Locations AOR_Reports AOR_Scheduled_Reports AOS_Contracts AOS_Invoices AOS_PDF_Templates AOS_Product_Categories AOS_Products AOS_Quotes AOW_WorkFlow jjwg_Maps jjwg_Markers jjwg_Areas jjwg_Address_Cache SecurityGroups Surveys VPU_Schools');
+$expectTabs = array_merge(['Home'], $all);
+$eq($expectTabs, array_values(MS::visibleTabs($moduleList, $moduleList)), 'menu: cài mới (chưa lưu tab) -> chỉ Trang chủ + module tuyển sinh');
+$installed32 = explode(' ', 'Home Accounts Contacts Opportunities Leads AOS_Quotes Calendar Documents Emails Spots Campaigns Calls Meetings Tasks Notes AOS_Invoices AOS_Contracts Cases Prospects ProspectLists Project AM_ProjectTemplates FP_events FP_Event_Locations AOS_Products AOS_Product_Categories AOS_PDF_Templates AOR_Reports AOK_KnowledgeBase AOK_Knowledge_Base_Categories EmailTemplates Surveys');
+$eq($expectTabs, array_values(MS::visibleTabs($installed32, $moduleList)), 'menu: bản đang chạy -> thêm Trường THPT, bỏ 13 module bán hàng/hỗ trợ');
+$eq(array_merge($expectTabs, ['Custom_Module']), array_values(MS::visibleTabs(array_merge($installed32, ['Custom_Module']), array_merge($moduleList, ['Custom_Module']))), 'menu: module cài thêm sau vẫn hiện ở Tất cả');
+$eq(false, isset(MS::visibleTabs($installed32, array_diff($moduleList, ['Surveys']))['Surveys']), 'menu: module không có trong moduleList bị bỏ');
+// Template header sinh từ bản gốc = file đã commit (phát hiện khi nâng cấp SuiteCRM đổi template)
+$root = dirname(__DIR__, 5);
+$core = (string)file_get_contents($root . '/' . MS::TEMPLATE_CORE);
+$eq((string)file_get_contents($root . '/' . MS::TEMPLATE_CUSTOM), MS::headerTemplate($core), 'menu: template header khớp bản sinh từ lõi');
+$eq((string)file_get_contents($root . '/' . MS::TAB_CONFIG), MS::tabConfigSource(), 'menu: custom/include/tabConfig.php khớp MenuSetup::tabConfigSource() (bản ghi lại sau trình cài đặt)');
+$hdr = (string)file_get_contents($root . '/' . MS::HEADER_CORE);
+$eq((string)file_get_contents($root . '/' . MS::HEADER_CUSTOM), MS::headerWrapper($hdr), 'menu: header.tpl khớp bản sinh từ lõi');
+$eq(1, substr_count(MS::headerWrapper($hdr), '{include file="custom/themes/SuiteP/tpls/_headerModuleList.tpl"}'), 'menu: header.tpl include bản menu custom');
+$tpl = MS::headerTemplate($core);
+$eq(2, substr_count($tpl, '|vpu_in_group:$group}'), 'menu: template lọc cả mục chính và mục tràn');
+$threw = false; try { MS::headerTemplate(str_replace('{foreach from=$modules.extra', '{foreach from=$modules.other', $core)); } catch (\RuntimeException $e) { $threw = true; }
+$eq(true, $threw, 'menu: template lõi đổi cấu trúc -> báo lỗi, không sinh sai');
+// Modifier lọc mục do lõi chèn vào nhóm
+require $root . '/custom/include/Smarty/plugins/modifier.vpu_in_group.php';
+$GLOBALS['tabStructure'] = MS::tabStructure();
+$GLOBALS['app_strings'] = ['LBL_TABGROUP_VPU_ADMISSIONS' => 'Tuyển sinh', 'LBL_TABGROUP_ACTIVITIES' => 'Hoạt động', 'LBL_TABGROUP_VPU_OUTREACH' => 'Truyền thông tuyển sinh', 'LBL_TABGROUP_VPU_REPORTS' => 'Báo cáo & tài liệu'];
+$eq(true, smarty_modifier_vpu_in_group('Leads', 'Tuyển sinh'), 'modifier: module của nhóm');
+$eq(false, smarty_modifier_vpu_in_group('Home', 'Tuyển sinh'), 'modifier: Trang chủ bị chèn -> bỏ');
+$eq(false, smarty_modifier_vpu_in_group('Leads', 'Hoạt động'), 'modifier: Thí sinh bị chèn vào Hoạt động -> bỏ');
+$eq(true, smarty_modifier_vpu_in_group('Administration', 'Tất cả'), 'modifier: nhóm Tất cả giữ nguyên');
+
+// ---- Phân quyền: mọi module có ACL đều được phân loại ----
+// Danh mục acl_actions (acltype=module) thật của bản cài
+$cats = explode(' ', 'Accounts Alerts AM_ProjectTemplates AM_TaskTemplates AOD_Index AOD_IndexEvent AOK_KnowledgeBase AOK_Knowledge_Base_Categories AOP_Case_Events AOP_Case_Updates AOR_Reports AOR_Scheduled_Reports AOS_Contracts AOS_Invoices AOS_PDF_Templates AOS_Products AOS_Product_Categories AOS_Quotes AOW_Processed AOW_WorkFlow Bugs CalendarAccount Calls Calls_Reschedule Campaigns Cases Contacts Documents EAPM EmailMarketing Emails EmailTemplates ExternalOAuthConnection ExternalOAuthProvider FP_events FP_Event_Locations InboundEmail jjwg_Address_Cache jjwg_Areas jjwg_Maps jjwg_Markers Leads Meetings Notes Opportunities OutboundEmailAccounts Project ProjectTask ProspectLists Prospects SecurityGroups Spots SurveyQuestionOptions SurveyQuestionResponses SurveyQuestions SurveyResponses Surveys Tasks TemplateSectionLine Users VPU_Schools');
+$eq([], AS2::undeclaredModules(AS2::TYPE_COUNSELOR, $cats), 'acl: tư vấn — không module nào bị bỏ ngỏ (mặc định SuiteCRM = toàn quyền)');
+$eq([], AS2::undeclaredModules(AS2::TYPE_MANAGER, $cats), 'acl: quản lý — không module nào bị bỏ ngỏ');
+$eq(['X_New'], AS2::undeclaredModules(AS2::TYPE_COUNSELOR, array_merge($cats, ['X_New'])), 'acl: module mới chưa phân loại bị phát hiện');
+foreach ([AS2::TYPE_COUNSELOR, AS2::TYPE_MANAGER] as $t) {
+    $m = AS2::matrixFor($t);
+    $eq('off', $m['AOS_Invoices'][0] . (count(array_unique(array_slice($m['AOS_Invoices'], 1))) === 1 ? '' : '?'), "acl: $t — Hóa đơn bị tắt");
+    $eq('off', $m['Cases'][0], "acl: $t — Hỗ trợ khách hàng bị tắt");
+    $eq('on', $m['Leads'][0], "acl: $t — Thí sinh bật");
+    $eq([], array_values(array_intersect(array_keys(AS2::matrixFor($t)), AS2::INFRA_MODULES)), "acl: $t — module hạ tầng không bị chặn");
+}
+$c = AS2::matrixFor(AS2::TYPE_COUNSELOR);
+$eq(['none', 'none', 'none'], [$c['Leads'][4], $c['Leads'][5], $c['Leads'][6]], 'acl: tư vấn — Thí sinh không xoá/nhập/xuất');
+$eq('none', $c['Documents'][4], 'acl: tư vấn — không xoá tài liệu');
+$eq('none', $c['AOR_Reports'][6], 'acl: tư vấn — không xuất báo cáo');
+$eq('off', $c['AOR_Scheduled_Reports'][0], 'acl: tư vấn — không gửi báo cáo định kỳ');
+$eq('all', AS2::matrixFor(AS2::TYPE_MANAGER)['AOR_Reports'][6], 'acl: quản lý — xuất báo cáo');
 
 echo ($fail ? "FAILED $fail/$n\n" : "OK $n tests\n");
 exit($fail ? 1 : 0);

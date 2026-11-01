@@ -24,5 +24,6 @@ $hook_array['after_entry_point'] = Array();
 $hook_array['after_entry_point'][] = Array(1, 'VPU BuildGuard', 'custom/include/VPU/Setup/BuildGuard.php', 'VPU\\Setup\\BuildGuard', 'afterEntryPoint');
 // VPU-CRM: bắt đổi mật khẩu khi Quản trị đặt mật khẩu tạm (xem custom/include/VPU/Setup/ForcePasswordChange.php).
 $hook_array['after_session_start'] = Array();
+$hook_array['after_session_start'][] = Array(0, 'VPU LanguageLayer', 'custom/include/VPU/Language/LanguageLayer.php', 'VPU\\Language\\LanguageLayer', 'afterSessionStart');
 $hook_array['after_session_start'][] = Array(1, 'VPU ForcePasswordChange', 'custom/include/VPU/Setup/ForcePasswordChange.php', 'VPU\\Setup\\ForcePasswordChange', 'afterSessionStart');
 

@@ -41,6 +41,19 @@ suitecrm/custom/themes/default/images/company_logo.png   # logo trên trang đă
 
 Build lại: `suitecrm/custom/themes/SuiteP/build_vpu_theme.sh` (cần Node; script tự dùng `npx sass`).
 
+**Cỡ chữ và độ đậm (01/11/2026):**
+- Nội dung, menu, thanh bên và ô trong bảng danh sách dùng **14px**. SuiteP gốc là 12–13px, hơi nhỏ với Montserrat. Biến đặt trong `_vpu-overrides.scss`.
+- Tiêu đề cột giữ 13px đậm và được phép xuống dòng; gốc là `nowrap`, cộng biểu tượng sắp xếp khiến bảng tràn quá màn hình 1366px.
+- Trong bảng danh sách, chữ thường 400 màu mực, liên kết xanh 400, riêng tên bản ghi đậm 600. Gốc của SuiteP: mọi ô đậm 700, liên kết màu
+  `$list-view-link-color` gạch nét đứt; màu này thành đỏ sau khi đổi bảng màu, nên ô đỏ lẫn ô xanh.
+- Họ tên, chức vụ và đơn vị hiển thị trên một dòng; ngày giờ, điện thoại, email và trạng thái không xuống dòng.
+- Đã đo: không còn cuộn ngang ở 1366px và 1280px.
+
+**Viền focus:**
+- Bootstrap 3 đặt `outline: 5px auto` khi `:focus`, nên Chrome vẽ **khung đen** mỗi lần bấm chuột vào nút hay biểu tượng.
+- Nay bấm chuột không vẽ viền (`:focus:not(:focus-visible)`).
+- Dùng bàn phím (Tab) thì có viền 2px đỏ thương hiệu, hoặc trắng trên nền xanh. Vẫn đạt WCAG 2.4.7.
+
 ## 2. Đổi tên VPU-CRM và Tiếng Việt
 
 - Tiêu đề trình duyệt "VPU-CRM · Victoria Pacific University"; các chuỗi "SuiteCRM" trong giao diện đổi thành "VPU-CRM"
@@ -68,6 +81,29 @@ Build lại: `suitecrm/custom/themes/SuiteP/build_vpu_theme.sh` (cần Node; scr
   và 10 danh sách chọn (`custom/include/VPU/Language/FamilyRelabel.php`, `custom/include/language/*.lang.php`); giữ nguyên
   tài khoản người dùng/email/lịch/cổng. Form gia đình bỏ Website, Fax và panel kinh doanh (ngành nghề, doanh thu, số nhân viên).
 - `config_override.php.example` đặt `vi_VN` làm ngôn ngữ mặc định, tiền tệ VND, ngày `d/m/Y`.
+- **Thuật ngữ thống nhất (01/11/2026):** Department = **Đơn vị**, Employees = **Nhân viên** (cả mục menu người dùng), "Về" = **Giới thiệu**.
+  Lead = **thí sinh**, thay "Đầu mối" của gói vi_VN trong module Thí sinh. Meetings = **Lịch hẹn**, Calls = Cuộc gọi, Tasks = Công việc,
+  Prospects = Đối tượng mục tiêu, Target lists = Danh sách mục tiêu, Email templates = Mẫu email; "BULK ACTION" = Hành động;
+  danh xưng "Nhỡ" (Miss) sửa thành "Cô".
+  - Mã: `custom/include/VPU/Language/TermRelabel.php` (chỉ thay khi giá trị còn đúng bản dịch gốc, nên nhãn admin sửa trong Studio được giữ nguyên).
+  - 21 tiêu đề cột còn tiếng Anh hoặc viết thường ("tên" → "Họ tên"…) ở 20 module: `ListLabels.php`.
+- **Không đổi tên công ty "SuiteCRM Ltd":** bộ đổi tên chỉ đổi tên sản phẩm (regex `SuiteCRM(?!\s+Ltd)`) và giữ các nhãn ghi công,
+  bảo trì, thương hiệu. Câu "SuiteCRM is written and maintained by SuiteCRM Ltd" ở trang Giới thiệu được giữ nguyên.
+- **Họ tên kiểu Việt** "Phạm Thị Lan":
+  - Cấu hình `default_locale_name_format = 's l f'`. Định dạng này **không có sẵn** trong `name_formats` của SuiteCRM, nên phải khai báo thêm;
+    nếu không, tuỳ chọn của người dùng bị bỏ qua.
+  - Khai báo trong `config_override.php.example`; demo tự bổ sung khi khởi động.
+- **Chuyển ngôn ngữ English / Tiếng Việt:**
+  - Menu người dùng (góc phải) có mục "Switch to English" / "Chuyển sang Tiếng Việt" (entry point `vpuLanguage`). Nhãn viết bằng ngôn ngữ đích.
+  - Có hiệu lực ngay và quay lại trang đang xem; chỉ chuyển hướng về đường dẫn cùng máy chủ.
+  - Ngôn ngữ lưu vào tuỳ chọn `language` của người dùng nên giữ cho lần đăng nhập sau.
+  - Đã sửa hai lỗi gốc (hook `LanguageLayer`, `after_session_start`):
+    1. Ô "Ngôn ngữ" ở trang đăng nhập không đọc cookie (PHP `request_order=GP`), nên luôn ghi đè lựa chọn trước.
+    2. SuiteCRM nạp ngôn ngữ theo tầng en_us → `default_language` (vi_VN) → ngôn ngữ chọn, nên giao diện tiếng Anh lẫn chữ Việt.
+       Phiên tiếng Anh nay không dùng tầng vi_VN.
+  - Đã quét toàn bộ nhãn tiếng Anh của 25 module: không còn chữ Việt.
+  - Các trang VPU tự viết song ngữ qua `I18n::t()`: Tài khoản & mật khẩu, Đổi mật khẩu, Giới thiệu, thông báo kiểm tra mật khẩu.
+
 
 ## 3. Phễu tuyển sinh đa kênh
 
@@ -252,13 +288,22 @@ nhập sai mật khẩu bị từ chối, quyền khớp bảng trên (kiểm tr
 | Quản lý tuyển sinh | vai trò ACL "Quản lý tuyển sinh" | xem/sửa/xoá/nhập/xuất/cập nhật hàng loạt trên Thí sinh, Trường THPT, Cuộc gọi, Lịch hẹn, Công việc, Ghi chú, Liên hệ, Gia đình, Hồ sơ xét tuyển, Chiến dịch, Đối tượng/Danh sách mục tiêu, Tài liệu, Báo cáo. Không vào được trang Quản trị |
 | Tư vấn tuyển sinh | vai trò ACL "Tư vấn tuyển sinh" | như bảng §3.5 |
 
-**Trang Quản trị → mục "VPU-CRM" (đầu trang) → "Tài khoản & mật khẩu"** (`custom/modules/Administration/vpu_accounts.php`), chỉ admin mở được:
+**Trang Quản trị → mục "VPU-CRM" (đầu trang) → "Tài khoản & mật khẩu"** (thêm hai lối vào: menu người dùng → "Tài khoản người dùng"; trang Người dùng → "Tạo tài khoản Quản lý / Tư vấn") (`custom/modules/Administration/vpu_accounts.php`), chỉ admin mở được:
 - Tạo tài khoản: chọn loại, tên đăng nhập (`a-z 0-9 . _ -`, 3–30 ký tự), họ tên, email; mật khẩu **tự sinh** (khuyến nghị) hoặc **tự nhập**;
   mặc định bật "Bắt đổi mật khẩu ở lần đăng nhập kế tiếp".
 - Đặt lại mật khẩu cho bất kỳ người dùng nào (tự sinh hoặc tự nhập, có/không bắt đổi).
 - Đổi loại tài khoản; kích hoạt/vô hiệu hoá. **Chặn** tự hạ quyền hoặc tự vô hiệu hoá chính mình, và chặn mất admin cuối cùng.
 - Mật khẩu chỉ hiển thị **một lần** trên màn hình, không lưu, không gửi email. Mọi thao tác ghi vào log mức `security`.
 - Form dùng CSRF token dùng một lần (thêm vào lớp kiểm tra Referer sẵn có của SuiteCRM).
+
+**Module ngoài tuyển sinh bị tắt** với Quản lý và Tư vấn: Báo giá, Hóa đơn, Hợp đồng, Sản phẩm, Mẫu PDF, Hỗ trợ khách hàng, Lỗi, Dự án,
+Kiến thức cơ bản, Điểm, Bản đồ, Quy trình (`AccountService::DENIED_MODULES`, `access = disabled`).
+- Lý do: module **không khai** trong vai trò thì SuiteCRM mặc định cho **toàn quyền**. Trước đây tư vấn viên xoá được Hóa đơn, Hỗ trợ khách hàng…
+- Các module tuyển sinh còn lại (Email, Tài liệu, Báo cáo, Chiến dịch, Đối tượng mục tiêu, Sự kiện, Khảo sát, Mẫu email) đều đã khai rõ.
+  Tư vấn viên không xoá tài liệu, không xuất báo cáo, không gửi báo cáo định kỳ.
+- Module hạ tầng (thông báo, tìm kiếm, email cá nhân, người dùng…) giữ mặc định: `INFRA_MODULES`.
+- Test bắt buộc mọi module có ACL đều được phân loại (`undeclaredModules() = []`).
+- Khi ma trận đổi, tăng `ACL_VERSION`; BuildGuard tự áp lại cho các vai trò đã có. Người dùng đang đăng nhập cần đăng nhập lại.
 
 **Chính sách mật khẩu** (`AccountService::validatePassword`): ≥ 8 ký tự, có chữ hoa, chữ thường và chữ số, không chứa tên đăng nhập,
 không có khoảng trắng. Mật khẩu tự sinh không có nguyên âm, `d`, `w`, nên gõ đúng cả khi bật Unikey/EVKey.
@@ -280,10 +325,43 @@ bản ghi đè nào. Vì vậy VPU-CRM dùng luồng riêng ở trên và đặt
 php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts01..03 + qlts01 (Quản lý)
 ```
 
+### 3.7 Menu theo nghiệp vụ tuyển sinh
+
+| Nhóm | Mục |
+|---|---|
+| Tuyển sinh | Thí sinh · Trường THPT · Hồ sơ xét tuyển · Gia đình · Liên hệ |
+| Hoạt động | Lịch · Cuộc gọi · Lịch hẹn · Công việc · Ghi chú · Email |
+| Truyền thông tuyển sinh | Chiến dịch · Đối tượng mục tiêu · Danh sách mục tiêu · Sự kiện · Khảo sát · Mẫu email |
+| Báo cáo & tài liệu | Báo cáo · Tài liệu |
+
+- Nguồn duy nhất: `custom/include/VPU/Setup/MenuSetup.php` (`GROUPS`, `HIDDEN_TABS`). `custom/include/tabConfig.php` đọc từ đây.
+  Tên nhóm khai trong `custom/Extension/application/Ext/Language/*.vpu_menu.php`.
+- Mỗi module chỉ ở một nhóm, không có Trang chủ (đã có biểu tượng ngôi nhà ở góc trái).
+- **Trường THPT** trước đây không có trong menu. Các module bán hàng và hỗ trợ khách hàng bị ẩn khỏi menu; dữ liệu vẫn giữ nguyên, admin bật lại
+  ở Quản trị → Hiển thị module.
+- **Lõi `SugarView` chèn "module đang mở" vào mọi nhóm** (vì vậy "Trang chủ" xuất hiện ở mọi nhóm).
+  - `custom/themes/SuiteP/tpls/_headerModuleList.tpl` lọc mục bị chèn bằng modifier Smarty `vpu_in_group`.
+    `header.tpl` cũng được ghi đè, vì bản gốc include cứng đường dẫn template menu.
+  - Hai template **sinh tự động** từ bản gốc. Sau khi nâng cấp SuiteCRM: `php custom/include/VPU/Setup/MenuSetup.php --write-template`.
+    Test so khớp sẽ báo nếu template gốc đổi.
+- **Trình cài đặt SuiteCRM xoá `custom/include/tabConfig.php`** và ghi nhóm mặc định (`install/performSetup.php`).
+  `MenuSetup::apply()`, chạy qua BuildGuard sau cài đặt hoặc triển khai, ghi lại bản VPU và danh sách tab hệ thống. Áp một lần cho mỗi `VERSION`.
+  Nếu admin sửa nhóm menu trong Studio, cấu hình của admin được giữ cho tới khi tăng `VERSION`.
+
 ## 4. Kết quả kiểm thử (31/10/2026)
 
 - `php custom/include/VPU/Omnichannel/tests/run_tests.php` → **OK 55 tests** (chữ ký, parser Messenger/Instagram/Zalo/Telegram/WhatsApp/Lead Ads/generic, SĐT, phân loại).
 - `php custom/include/VPU/Import/tests/run_tests.php` → **OK 21 tests** (đọc xlsx/csv thật, ANSI, tiêu đề tiếng Việt).
+- **01/11/2026, menu · quyền · ngôn ngữ · giao diện (demo Docker, cả cài mới lẫn nâng cấp volume cũ):**
+  - E2E 37/37. Menu theo nghiệp vụ cho cả 3 loại tài khoản, không còn "Trang chủ" bị chèn.
+  - Tư vấn viên bị chặn Hỗ trợ khách hàng, Hóa đơn, Báo giá, Dự án, vẫn sửa và lưu thí sinh được. Quản lý bị chặn Hóa đơn, vào được Báo cáo.
+    Admin không bị ảnh hưởng.
+  - Chuyển ngôn ngữ: quay lại đúng trang, giữ ngôn ngữ sau khi đăng nhập lại, bỏ qua ngôn ngữ lạ, không chuyển hướng ra ngoài.
+  - Trang tài khoản và trang Giới thiệu hiện bằng tiếng Anh. Tư vấn viên dùng English không còn mục menu tiếng Việt.
+  - Cỡ chữ 14px. Bấm chuột không còn khung đen, phím Tab có viền focus.
+  - Bảng Người dùng: Họ tên, Tên đăng nhập, Đơn vị; họ tên kiểu Việt.
+  - E2E tài khoản & mật khẩu (đợt trước) 12/12, chạy lại trên bản cài mới.
+  - Test đơn vị: Setup 65, Language 41.
 - **01/11/2026, tài khoản & thương hiệu (demo Docker cài mới):** quét mọi trang Quản trị và trang người dùng (admin, quản lý, tư vấn viên):
   **0 trang** còn "SuiteCRM", trừ trang Giới thiệu (cố ý). E2E 12/12 đạt: tạo Quản lý (mật khẩu tự sinh), tạo Tư vấn (tự nhập),
   chặn trùng tên/mật khẩu yếu/thiếu CSRF, đặt lại mật khẩu, vô hiệu hoá (không đăng nhập được), đổi loại, chặn tự hạ quyền,
@@ -317,6 +395,9 @@ php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts0
 - Webhook mới chỉ nhận tin vào. Trả lời ngược lại kênh (gửi tin Zalo/Messenger từ CRM) chưa làm, cần token gửi tin của từng nền tảng.
 - TikTok và WhatsApp chưa có adapter riêng, đang đi qua cổng generic (n8n/Make hoặc nhà cung cấp BSP).
 - Mũi tên ô chọn ngôn ngữ ở trang đăng nhập vẫn màu bạc hà của core (đặt cứng trong CSS lõi), lỗi thẩm mỹ nhỏ.
+- Dữ liệu do người nhập (tên thí sinh, chức danh, tên vai trò "Tư vấn tuyển sinh"…) không được dịch khi chuyển sang English.
+- Chuyển ngôn ngữ đặt `default_language = en_us` cho request của phiên tiếng Anh. Nếu bật cache ngoài (APCu/Redis) thì xoá cache
+  ngôn ngữ sau khi triển khai; BuildGuard đã tự làm việc này khi code đổi.
 
 ## 7. Triển khai không cần Quick Repair (BuildGuard)
 
@@ -330,12 +411,15 @@ php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts0
 - Bỏ các file biên dịch khỏi git (`.gitignore`: `suitecrm/custom/application/Ext/`, `suitecrm/custom/modules/*/Ext/`). Đây là sản phẩm build.
 - `custom/include/VPU/Setup/BuildGuard.php` chạy ở hook `after_entry_point`. Hook được đăng ký trong `custom/modules/logic_hooks.php`,
   file được nạp trực tiếp, nên hook vẫn chạy kể cả khi bản biên dịch đang cũ. Mỗi request, BuildGuard tính dấu vân tay
-  (đường dẫn, mtime, kích thước) của **cả file nguồn lẫn file đã biên dịch**, tốn khoảng 0,7 ms. Nếu dấu khác với `cache/vpu_build.stamp`,
+  (đường dẫn, mtime, kích thước) của **cả file nguồn lẫn file đã biên dịch**, template/CSS theme và `custom/include/VPU/{Language,Setup}`.
+  Lần kiểm tra đầy đủ tốn khoảng 3 ms và chạy **tối đa 1 lần mỗi 3 giây**: `cache/vpu_build.checked`; các request trong khoảng giữa
+  tốn 0,002 ms. Nếu dấu khác với `cache/vpu_build.stamp`,
   trong một khoá loại trừ (`flock`, nên các request đồng thời không biên dịch chồng nhau), nó sẽ:
   1. biên dịch Extension, rồi xoá cache vardefs, ngôn ngữ, template, theme và JS;
   2. đồng bộ schema **chỉ theo kiểu cộng thêm**: tự chạy CREATE TABLE và các mệnh đề ADD COLUMN/INDEX. Các lệnh MODIFY/CHANGE/DROP,
      ADD PRIMARY KEY và lệnh lạ **không bao giờ tự chạy**; chúng được ghi vào `cache/vpu_schema_pending.sql` để người duyệt;
-  3. lưu dấu mới, tính sau khi biên dịch. Nhờ vậy, nếu ai đó ghi đè file biên dịch bằng bản cũ, request kế tiếp sẽ phát hiện.
+  3. áp cấu hình lưu trong DB đi kèm code, mỗi phiên bản một lần: menu (`MenuSetup::VERSION`) và vai trò ACL (`AccountService::ACL_VERSION`);
+  4. lưu dấu mới, tính sau khi biên dịch. Nhờ vậy, nếu ai đó ghi đè file biên dịch bằng bản cũ, request kế tiếp sẽ phát hiện.
   Mọi lỗi trong guard đều được ghi log và không làm hỏng request.
 - CLI `custom/include/VPU/Setup/post_deploy.php` dùng cho pipeline:
   `--check` (exit 0 = đồng bộ, 3 = cần biên dịch; dùng cho health check), `--apply-modify` (chạy các lệnh chờ duyệt sau khi đã xem),
@@ -347,7 +431,7 @@ php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts0
 |---|---|
 | Triển khai mới: xoá toàn bộ file biên dịch và cache, xoá cột `vpu_program` và một index, thu hẹp `vpu_province` | Request đầu tiên tự sửa trong khoảng 1 giây: biên dịch lại, tạo lại cột và index. Lệnh MODIFY cột `vpu_province` vào file chờ duyệt, không tự chạy |
 | Ghi đè vardefs Leads đã biên dịch bằng bản cũ (đúng lỗi từng gặp) | Phát hiện ở request kế tiếp; các trường `vpu_*` hiện lại |
-| Request bình thường | Chi phí kiểm tra 0,72 ms |
+| Request bình thường | Kiểm tra đầy đủ khoảng 3 ms, tối đa 1 lần mỗi 3 giây; request khác 0,002 ms. Sửa một file nguồn: request đầu tiên sau đó tự biên dịch lại |
 | `post_deploy.php --check` / `--apply-modify` | exit 0 hoặc 3 đúng trạng thái; chạy lệnh chờ duyệt xong thì xoá file chờ |
 
 **Lưu ý vận hành:** thư mục `cache/` phải ghi được bởi web server (SuiteCRM vốn đã yêu cầu). Request đầu tiên sau khi triển khai

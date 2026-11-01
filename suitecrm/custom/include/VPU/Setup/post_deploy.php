@@ -39,6 +39,9 @@ $t = microtime(true);
 $r = BuildGuard::rebuild(true, isset($opt['apply-modify']));
 printf("Biên dịch Extension + xoá cache: xong (%.1fs)\n", microtime(true) - $t);
 printf("Schema: đã áp dụng %d lệnh, %d lệnh chờ duyệt\n", count($r['applied']), count($r['pending']));
+foreach (($r['summary']['migrations'] ?? []) as $k => $v) {
+    printf("Cấu hình %s: %s\n", $k, is_array($v) ? json_encode($v, JSON_UNESCAPED_UNICODE) : $v);
+}
 foreach ($r['applied'] as $s) {
     echo "  + $s\n";
 }

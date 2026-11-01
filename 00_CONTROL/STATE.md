@@ -13,7 +13,7 @@ CRM cho VPU trên SuiteCRM 7.15.2, phục vụ sinh viên và gia đình; quy tr
 ## 5. Trạng thái stage
 | Stage | Agent | Trạng thái | Ghi chú |
 |-------|-------|-----------|---------|
-| S0 khởi tạo        | cowork | done | CRM giai đoạn 3 (T-003) xong 2026-10-31; T-017/T-018 xong 2026-11-01 |
+| S0 khởi tạo        | cowork | done | CRM giai đoạn 3 (T-003) xong 2026-10-31; T-017..T-022 xong 2026-11-01 |
 | S1 lit review      | cowork | todo | |
 | S2 gap+RQ (G1)     | cowork | todo | |
 | S3 protocol (G2)   | cowork | todo | |
@@ -36,6 +36,7 @@ CRM cho VPU trên SuiteCRM 7.15.2, phục vụ sinh viên và gia đình; quy tr
 - [x] T-011: bản demo Docker trong 09_DEMO (chờ thử trên Windows)
 - [x] T-012..T-015: Gia đình, font Montserrat, đa nguồn (WhatsApp/Lead Ads/Google Forms/Excel), hướng dẫn kết nối kênh
 - [x] T-017/T-018: bỏ "SuiteCRM" ở trang Quản trị/người dùng; trang Tài khoản & mật khẩu (3 loại tài khoản), bắt đổi và tự đổi mật khẩu
+- [x] T-019..T-022: menu theo nghiệp vụ + chặn module ngoài tuyển sinh; chữ 14px, bỏ khung đen, bảng Người dùng; English/Tiếng Việt; thuật ngữ Đơn vị/Nhân viên
 - [ ] T-016: kết nối thật các kênh trên staging (cần tài khoản của trường)
 - [x] T-006: module Trường THPT, import 463 trường 4 tỉnh, tự gắn thí sinh với trường
 - [ ] T-007: xác minh 33 bản ghi trường và phân hạng ưu tiên, nhập đầu mối

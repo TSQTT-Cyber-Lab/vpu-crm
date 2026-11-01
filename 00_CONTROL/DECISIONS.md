@@ -58,3 +58,15 @@
 - **Lý do:** Không sửa core; dùng lại `User::setNewPassword` / `User::change_password` của core nên băm mật khẩu và kiểm tra mật khẩu cũ vẫn theo SuiteCRM.
 - **Đánh đổi:** Chính sách hết hạn mật khẩu định kỳ (sau N ngày) chưa có; nếu cần thì bổ sung vào hook `ForcePasswordChange`. Trang quản trị phải mở bằng cách bấm từ trang Quản trị (kiểm tra Referer của SuiteCRM).
 - **Người quyết:** (tác giả xác nhận)
+
+## D-009 · 2026-11-01 · Menu theo nghiệp vụ tuyển sinh; vai trò VPU tắt module ngoài tuyển sinh
+- **Bối cảnh:** Menu dùng nhóm mặc định của SuiteCRM (Bán hàng, Marketing, Hỗ trợ); Trang chủ/Gia đình/Liên hệ lặp ở mọi nhóm; Trường THPT không có trong menu. Kiểm tra phát hiện module không khai trong vai trò được SuiteCRM cho toàn quyền (tư vấn viên xoá được Hóa đơn, Hỗ trợ khách hàng…).
+- **Quyết định:** (1) 4 nhóm: Tuyển sinh · Hoạt động · Truyền thông tuyển sinh · Báo cáo & tài liệu (tác giả chọn đổi tên Bán hàng/Marketing). (2) Ẩn module bán hàng/hỗ trợ khỏi menu (không xoá dữ liệu). (3) Vai trò Quản lý/Tư vấn tắt hẳn các module đó; mọi module có ACL phải được phân loại (test). (4) Lọc mục lõi chèn vào nhóm bằng template sinh tự động từ bản gốc (không sửa core).
+- **Đánh đổi:** Template header ghi đè phải sinh lại sau khi nâng cấp SuiteCRM (test báo khi lõi đổi). Trình cài đặt ghi đè tabConfig -> MenuSetup ghi lại.
+- **Người quyết:** tác giả (đồng ý đề xuất, chọn đổi tên nhóm)
+
+## D-010 · 2026-11-01 · Song ngữ English / Tiếng Việt; thuật ngữ thống nhất
+- **Bối cảnh:** Cần đổi ngôn ngữ cho toàn hệ thống. SuiteCRM chỉ cho chọn ở trang đăng nhập, và với default_language = vi_VN thì giao diện tiếng Anh lẫn chữ Việt (tầng dự phòng).
+- **Quyết định:** Mục chuyển ngôn ngữ trong menu người dùng (lưu tuỳ chọn người dùng). Phiên tiếng Anh dùng en_us làm tầng dự phòng cho riêng request đó. Giữ vi_VN là mặc định của hệ thống. Thuật ngữ: Department = Đơn vị, Employees = Nhân viên, Lead = thí sinh, Meetings = Lịch hẹn, About = Giới thiệu. Không đổi tên pháp nhân "SuiteCRM Ltd".
+- **Đánh đổi:** Dữ liệu người dùng nhập (tên vai trò, chức danh) không dịch. Cache ngôn ngữ ngoài (nếu bật) phải xoá khi triển khai — BuildGuard đã làm.
+- **Người quyết:** tác giả (yêu cầu thuật ngữ)

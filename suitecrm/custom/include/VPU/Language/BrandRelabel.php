@@ -13,13 +13,21 @@ if (!defined('sugarEntry') || !sugarEntry) {
 final class BrandRelabel
 {
     /** Khoá thuộc thông báo pháp lý / ghi công — không đổi. */
-    private const KEEP = '/ABOUT|CONTRIBUT|PARTNER|LICEN|COPYRIGHT|SUPERCHARGED|POWERED|CREDIT|AGPL/';
+    private const KEEP = '/ABOUT|CONTRIBUT|PARTNER|LICEN|COPYRIGHT|SUPERCHARGED|POWERED|CREDIT|AGPL|MAINTAIN|TRADEMARK/';
+
+    /** "SuiteCRM" là tên sản phẩm -> đổi; "SuiteCRM Ltd" là tên CÔNG TY (pháp nhân) -> không bao giờ đổi. */
+    public const PRODUCT = '/SuiteCRM(?!\s+(Ltd|Limited))/';
+
+    public static function text(string $v): string
+    {
+        return preg_replace(self::PRODUCT, 'VPU-CRM', $v);
+    }
 
     public static function apply(array $strings): array
     {
         foreach ($strings as $k => $v) {
             if (is_string($v) && strpos($v, 'SuiteCRM') !== false && !preg_match(self::KEEP, (string)$k)) {
-                $strings[$k] = str_replace('SuiteCRM', 'VPU-CRM', $v);
+                $strings[$k] = self::text($v);
             }
         }
         return $strings;

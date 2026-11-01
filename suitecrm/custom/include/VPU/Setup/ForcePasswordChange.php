@@ -47,7 +47,8 @@ final class ForcePasswordChange
             $isAjax = (($_SERVER['HTTP_X_REQUESTED_WITH'] ?? '') === 'XMLHttpRequest') || !empty($_REQUEST['to_pdf']) || !empty($_REQUEST['sugar_body_only']);
             if ($isAjax) {
                 http_response_code(403);
-                echo 'Cần đổi mật khẩu trước khi tiếp tục.';
+                require_once dirname(__DIR__) . '/Language/I18n.php';
+                echo \VPU\Language\I18n::t('Cần đổi mật khẩu trước khi tiếp tục.', 'You must change your password before continuing.');
                 exit;
             }
             header('Location: index.php?entryPoint=' . self::ENTRY);

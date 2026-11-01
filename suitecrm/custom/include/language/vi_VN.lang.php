@@ -13,3 +13,12 @@ if (isset($app_list_strings) && is_array($app_list_strings)) {
     }
     unset($vpuK, $vpuL);
 }
+
+// VPU-CRM: sửa tên module dịch chưa ổn (Cuộc gọi, Lịch hẹn, Công việc, Đối tượng/Danh sách mục tiêu, Mẫu email…).
+require_once 'custom/include/VPU/Language/TermRelabel.php';
+if (isset($app_list_strings) && is_array($app_list_strings)) {
+    $app_list_strings = \VPU\Language\TermRelabel::applyLists($app_list_strings);
+}
+if (isset($app_strings) && is_array($app_strings)) {
+    $app_strings = \VPU\Language\TermRelabel::applyAppStrings($app_strings);
+}

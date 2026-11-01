@@ -48,3 +48,43 @@ html, body, input, button, select, textarea, optgroup, table, th, td, h1, h2, h3
 .yui-skin-sam, .yui-dt, .qtip, .tooltip, .popover, .modal-content, .fc, .dashletPanel, .reportTitle {
   font-family: "Montserrat", sans-serif;
 }
+
+// Bảng danh sách: nội dung SuiteP đặt cứng 12px -> 14px. Tiêu đề cột giữ 13px đậm nhưng được XUỐNG DÒNG
+// (gốc nowrap + biểu tượng sắp xếp làm bảng rộng hơn màn hình 1366px).
+.list, .list tr td, .td_alt { font-size: 14px; }
+.list tr th { white-space: normal; }
+.table-responsive > .table > thead > tr > th { white-space: normal; }
+
+// Viền focus. Bootstrap 3 vẽ `outline: 5px auto` khi :focus -> Chrome hiện khung đen mỗi lần BẤM CHUỘT vào nút/biểu tượng.
+// Chuột/chạm: không vẽ. Bàn phím (Tab): viền đỏ thương hiệu, trắng trên nền xanh — vẫn đạt WCAG 2.4.7 (focus nhìn thấy được).
+:focus:not(:focus-visible) { outline: none !important; }
+a, button, .btn, summary, [role="button"], [tabindex],
+input[type="button"], input[type="submit"], input[type="checkbox"], input[type="radio"] {
+  &:focus-visible { outline: 2px solid $vpu-red !important; outline-offset: 2px; }
+}
+#toolbar, .navbar, #sidebar_container, .sidebar, .panel-heading, #tab-actions, .nav-tabs {
+  a:focus-visible, button:focus-visible { outline-color: $vpu-white !important; outline-offset: -2px; }
+}
+
+// Bảng danh sách — chữ đồng đều (phản hồi 01/11/2026). SuiteP gốc: MỌI ô đậm 700; liên kết màu $list-view-link-color
+// (sau khi đổi bảng màu = đỏ) đậm + gạch nét đứt; cột tên lại xanh -> lẫn lộn. Nay: chữ 400 màu mực, liên kết xanh 400,
+// riêng tên bản ghi (cột mở hồ sơ) đậm 600.
+div#content div#pagecontent form#MassUpdate table.list.view tbody tr td,
+.list.view > tbody > tr > td { font-weight: 400; color: $vpu-ink; }
+div#content div#pagecontent form#MassUpdate table.list.view tbody tr td a,
+.table-responsive.list > tbody > tr > td > a,
+.popupBody .list tbody > tr > td a,
+.inbound-email .list tbody > tr > td a {
+  font-weight: 400; color: $vpu-blue; border-bottom: 0; text-decoration: none;
+  &:hover { color: $vpu-red; text-decoration: underline; }
+}
+div#content div#pagecontent form#MassUpdate table.list.view tbody tr {
+  td[field="name"] a, td[field="full_name"] a, td[field="document_name"] a { font-weight: 600; }
+  // Họ tên, chức vụ trên một dòng; ngày giờ, điện thoại, email, trạng thái không xuống dòng.
+  td { vertical-align: middle; }   // gốc valign=top -> cột liên kết lệch dòng với cột tên
+  td[field="name"], td[field="full_name"] { min-width: 160px; }
+  td[field="title"] { min-width: 150px; }
+  td[field="department"] { white-space: nowrap; }
+  td[type="datetime"], td[type="datetimecombo"], td[type="date"], td[type="phone"],
+  td[field="user_name"], td[field="email1"], td[field="status"], td[field="employee_status"] { white-space: nowrap; }
+}
