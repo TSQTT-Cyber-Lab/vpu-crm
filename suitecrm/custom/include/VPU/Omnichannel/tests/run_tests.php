@@ -1,5 +1,6 @@
 <?php
 // php custom/include/VPU/Omnichannel/tests/run_tests.php  (không cần SuiteCRM/DB)
+if (PHP_SAPI !== 'cli') { exit; }   // chỉ chạy bằng CLI (không bao giờ qua web)
 require __DIR__ . '/../ChannelParser.php';
 use VPU\Omnichannel\ChannelParser as P;
 

@@ -1,0 +1,94 @@
+# VPU-CRM — triển khai PRODUCTION bằng Docker (máy chủ Linux).
+#   cp .env.example .env && nano .env
+#   docker compose --profile https up -d --build     # HTTPS tự động (Caddy + Let's Encrypt), cần tên miền trỏ về máy
+#   docker compose up -d --build                      # hoặc: chỉ app ở 127.0.0.1:8080, đặt sau nginx/Apache có sẵn
+# Hướng dẫn đầy đủ: HUONG_DAN_DOCKER.md
+name: vpu-crm
+
+x-app-env: &app-env
+  DB_HOST: db
+  DB_NAME: ${DB_NAME:-vpucrm}
+  DB_USER: ${DB_USER:-vpucrm}
+  DB_PASSWORD: ${DB_PASSWORD:?Đặt DB_PASSWORD trong .env}
+  SITE_URL: ${SITE_URL:?Đặt SITE_URL trong .env (vd. https://crm.example.edu.vn)}
+  TZ: ${TZ:-Asia/Ho_Chi_Minh}
+
+services:
+  db:
+    image: mariadb:10.11
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: ${DB_NAME:-vpucrm}
+      MARIADB_USER: ${DB_USER:-vpucrm}
+      MARIADB_PASSWORD: ${DB_PASSWORD:?Đặt DB_PASSWORD trong .env}
+      MARIADB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:?Đặt DB_ROOT_PASSWORD trong .env}
+      TZ: ${TZ:-Asia/Ho_Chi_Minh}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci", "--innodb-buffer-pool-size=${DB_BUFFER_POOL:-512M}"]
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 10s
+      timeout: 5s
+      retries: 30
+
+  app:
+    build:
+      context: ../..
+      dockerfile: 10_DEPLOY/docker/Dockerfile
+      args:
+        VPU_VERSION: ${VPU_VERSION:-dev}
+    image: ${VPU_IMAGE:-vpu-crm:latest}
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      <<: *app-env
+      ADMIN_USER: ${ADMIN_USER:-admin}
+      ADMIN_PASSWORD: ${ADMIN_PASSWORD:-}
+    ports:
+      - "${HTTP_BIND:-127.0.0.1}:${HTTP_PORT:-8080}:80"
+    volumes:
+      - app_state:/state
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /state/.ready && curl -fsS -o /dev/null 'http://localhost/index.php?module=Users&action=Login'"]
+      interval: 15s
+      timeout: 10s
+      retries: 60
+      start_period: 60s
+
+  cron:
+    image: ${VPU_IMAGE:-vpu-crm:latest}
+    command: ["cron"]
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    environment: *app-env
+    volumes:
+      - app_state:/state
+
+  caddy:
+    image: caddy:2
+    profiles: ["https"]
+    restart: unless-stopped
+    depends_on:
+      app:
+        condition: service_healthy
+    environment:
+      DOMAIN: ${DOMAIN:-}
+      ACME_EMAIL: ${ACME_EMAIL:-}
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
+
+volumes:
+  db_data:
+  app_state:
+  caddy_data:
+  caddy_config:

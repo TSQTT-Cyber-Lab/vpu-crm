@@ -1,5 +1,6 @@
 <?php
 // php custom/include/VPU/Schools/tests/run_tests.php  (không cần DB; dùng CSV seed làm danh mục)
+if (PHP_SAPI !== 'cli') { exit; }   // chỉ chạy bằng CLI (không bao giờ qua web)
 require __DIR__ . '/../SchoolMatcher.php';
 use VPU\Schools\SchoolMatcher as M;
 

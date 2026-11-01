@@ -207,8 +207,8 @@ final class AccountService
     }
 
     /**
-     * Áp lại ma trận cho các vai trò ĐÃ CÓ khi ACL_VERSION tăng (gọi từ BuildGuard sau triển khai).
-     * Không tạo vai trò mới. @return string[] loại đã cập nhật
+     * Tạo vai trò còn thiếu và áp lại ma trận khi ACL_VERSION tăng (gọi từ BuildGuard sau cài đặt/triển khai —
+     * hosting không có SSH vẫn có đủ vai trò). @return string[] loại đã tạo/cập nhật
      */
     public static function syncRoles(bool $force = false): array
     {
@@ -219,10 +219,8 @@ final class AccountService
         }
         $done = [];
         foreach (array_keys(self::ROLE_NAMES) as $type) {
-            if (self::roleId($type)) {
-                self::ensureRole($type);
-                $done[] = $type;
-            }
+            self::ensureRole($type);
+            $done[] = $type;
         }
         \BeanFactory::newBean('Administration')->saveSetting('vpu', 'acl_version', (string)self::ACL_VERSION);
         return $done;

@@ -1,5 +1,6 @@
 <?php
 // php custom/include/VPU/Language/tests/run_tests.php
+if (PHP_SAPI !== 'cli') { exit; }   // chỉ chạy bằng CLI (không bao giờ qua web)
 define('sugarEntry', true);
 require __DIR__ . '/../FamilyRelabel.php';
 require __DIR__ . '/../TermRelabel.php';

@@ -1,0 +1,15 @@
+# Build context là thư mục gốc repo — chỉ gửi những gì image cần (không gửi .env, backups, dữ liệu nghiên cứu).
+*
+!suitecrm
+!10_DEPLOY/docker/rootfs
+suitecrm/config.php
+suitecrm/config_override.php
+suitecrm/config_si.php
+suitecrm/cache/*
+!suitecrm/cache/index.html
+suitecrm/upload/*
+!suitecrm/upload/index.html
+suitecrm/custom/application/Ext
+suitecrm/custom/modules/*/Ext
+suitecrm/custom/include/VPU/*/tests
+suitecrm/*.log

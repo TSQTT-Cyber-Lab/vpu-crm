@@ -88,3 +88,23 @@ div#content div#pagecontent form#MassUpdate table.list.view tbody tr {
   td[type="datetime"], td[type="datetimecombo"], td[type="date"], td[type="phone"],
   td[field="user_name"], td[field="email1"], td[field="status"], td[field="employee_status"] { white-space: nowrap; }
 }
+
+// Tên người dùng (góc phải). Gốc: nhãn nằm DƯỚI biểu tượng, canh trái trong nút 48px, rộng tới 100px -> tràn quá mép
+// phải màn hình, bị cắt ("Trần Min…"). Nay: tên đứng BÊN TRÁI biểu tượng, cùng hàng, canh giữa dọc, rộng tới 180px.
+.globalLinks-desktop .user-menu-button.dropdown-toggle {
+  width: auto; height: 48px; display: inline-flex; align-items: center; gap: 8px; padding: 0 2px;
+  .suitepicon-action-current-user { order: 2; top: 0; line-height: 1; }
+  .globallabel-user {
+    order: 1; max-width: 180px; margin: 0; vertical-align: middle; line-height: 1.2; font-size: 14px; text-align: right;
+  }
+  .suitepicon-action-caret { order: 3; line-height: 1; }
+}
+
+// Trang tạo chiến dịch — ô chọn loại: biểu tượng 64px nằm trong dòng cao 20px nên ĐÈ lên chữ. Xếp dọc: biểu tượng, chữ.
+.icon-btn-lst .icon-btn a,
+form[name="wizform"] .icon-btn-lst .icon-btn a {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  min-height: 150px; padding: 16px 10px; line-height: 1.3; font-size: 14px; font-weight: 600; text-decoration: none;
+  br { display: none; }
+  .suitepicon { display: block; font-size: 56px; line-height: 1; }
+}

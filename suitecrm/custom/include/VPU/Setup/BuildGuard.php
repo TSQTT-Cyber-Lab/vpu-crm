@@ -64,6 +64,21 @@ final class BuildGuard
             $GLOBALS['log']->warn('VPU BuildGuard: tự biên dịch lại sau triển khai — ' . json_encode($r['summary'], JSON_UNESCAPED_UNICODE));
         } catch (\Throwable $e) {
             $GLOBALS['log']->fatal('VPU BuildGuard: ' . $e->getMessage());
+        } finally {
+            self::tagAssetVersion();
+        }
+    }
+
+    /**
+     * Đường dẫn CSS/JS của SuiteCRM có ?v= tính từ js_version_key (phiên bản SuiteCRM) — KHÔNG đổi khi VPU đổi giao diện,
+     * trong khi .htaccess cho trình duyệt giữ CSS 1 năm -> người dùng thấy giao diện cũ sau khi cập nhật.
+     * Gắn dấu vân tay build vào khoá -> URL đổi mỗi khi code/CSS VPU đổi (js_version_key đặt ở entryPoint, trước hook này).
+     */
+    public static function tagAssetVersion(): void
+    {
+        $stamp = is_file(self::STAMP) ? trim((string)@file_get_contents(self::STAMP)) : '';
+        if ($stamp !== '' && strpos((string)($GLOBALS['js_version_key'] ?? ''), '|vpu:') === false) {
+            $GLOBALS['js_version_key'] = ($GLOBALS['js_version_key'] ?? '') . '|vpu:' . substr($stamp, 0, 12);
         }
     }
 
@@ -173,6 +188,13 @@ final class BuildGuard
                 require_once __DIR__ . '/AccountService.php';
                 return AccountService::syncRoles();
             },
+            'seed' => static function () {
+                return self::seedOnce();
+            },
+            'config' => static function () {
+                require_once __DIR__ . '/ConfigDefaults.php';
+                return ConfigDefaults::ensureOverride();
+            },
         ];
         $out = [];
         foreach ($steps as $k => $fn) {
@@ -184,6 +206,47 @@ final class BuildGuard
             }
         }
         return $out;
+    }
+
+    /** Tăng khi cần nạp lại dữ liệu danh mục lúc triển khai. */
+    public const SEED_VERSION = 1;
+
+    /**
+     * Nạp danh mục trường THPT (463 trường, 4 tỉnh) MỘT lần sau cài đặt — hosting không có SSH vẫn có dữ liệu.
+     * - Bản cài cũ đã có trường (kể cả đã sửa tay): chỉ đánh dấu xong.
+     * - Đánh dấu 'running' trước khi nạp: nếu lần trước bị ngắt giữa chừng (hết thời gian), lần sau NẠP TIẾP phần thiếu
+     *   (chỉ thêm, không sửa bản ghi đã có) thay vì bỏ qua.
+     */
+    private static function seedOnce(): array
+    {
+        $db = \DBManagerFactory::getInstance();
+        $admin = \BeanFactory::newBean('Administration');
+        $state = (string)$db->getOne("SELECT value FROM config WHERE category = 'vpu' AND name = 'seed_version'");
+        if ($state !== 'running' && (int)$state >= self::SEED_VERSION) {
+            return ['seed' => 'unchanged'];
+        }
+        if (!$db->tableExists('vpu_schools')) {
+            return ['seed' => 'no table'];
+        }
+        if ($state !== 'running' && (int)$db->getOne('SELECT COUNT(*) FROM vpu_schools WHERE deleted = 0') > 0) {
+            $admin->saveSetting('vpu', 'seed_version', (string)self::SEED_VERSION);
+            return ['seed' => 'skipped (đã có dữ liệu)'];
+        }
+        $admin->saveSetting('vpu', 'seed_version', 'running');
+        require_once 'custom/include/VPU/Schools/SchoolImporter.php';
+        $prevUser = $GLOBALS['current_user'] ?? null;
+        if (empty($prevUser->id)) {
+            $GLOBALS['current_user'] = \BeanFactory::getBean('Users', '1');   // người tạo = admin
+        }
+        try {
+            $prov = return_app_list_strings_language('vi_VN')['vpu_province_dom'] ?? [];
+            $st = \VPU\Schools\SchoolImporter::import(\VPU\Schools\SchoolImporter::DEFAULT_FILE, $prov, false, '2', '1',
+                \VPU\Schools\SchoolImporter::DEFAULT_SOURCE, true);
+        } finally {
+            $GLOBALS['current_user'] = $prevUser;
+        }
+        $admin->saveSetting('vpu', 'seed_version', (string)self::SEED_VERSION);
+        return ['seed' => 'schools', 'created' => $st['created'], 'existing' => $st['unchanged'], 'invalid' => $st['invalid']];
     }
 
     /** @return array{0: string[], 1: string[]} [đã chạy, chờ duyệt] */

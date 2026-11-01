@@ -1,5 +1,6 @@
 <?php
 // php custom/include/VPU/Import/tests/run_tests.php  (không cần DB)
+if (PHP_SAPI !== 'cli') { exit; }   // chỉ chạy bằng CLI (không bao giờ qua web)
 require __DIR__ . '/../LeadSheet.php';
 use VPU\Import\LeadSheet as S;
 use VPU\Omnichannel\ChannelParser as P;

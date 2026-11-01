@@ -1,10 +1,12 @@
 <?php
 // php custom/include/VPU/Setup/tests/run_tests.php  (không cần DB)
+if (PHP_SAPI !== 'cli') { exit; }   // chỉ chạy bằng CLI (không bao giờ qua web)
 define('sugarEntry', true);
 require __DIR__ . '/../BuildGuard.php';
 require __DIR__ . '/../Password.php';
 require __DIR__ . '/../AccountService.php';
 require __DIR__ . '/../MenuSetup.php';
+require __DIR__ . '/../ConfigDefaults.php';
 use VPU\Setup\BuildGuard as G;
 use VPU\Setup\Password as PW;
 use VPU\Setup\AccountService as AS2;
@@ -143,6 +145,19 @@ $eq('none', $c['Documents'][4], 'acl: tư vấn — không xoá tài liệu');
 $eq('none', $c['AOR_Reports'][6], 'acl: tư vấn — không xuất báo cáo');
 $eq('off', $c['AOR_Scheduled_Reports'][0], 'acl: tư vấn — không gửi báo cáo định kỳ');
 $eq('all', AS2::matrixFor(AS2::TYPE_MANAGER)['AOR_Reports'][6], 'acl: quản lý — xuất báo cáo');
+
+// ---- config_override.php tự tạo lần đầu (hosting không SSH) ----
+$ex = (string)file_get_contents($root . '/config_override.php.example');
+$n2 = 0; $co = \VPU\Setup\ConfigDefaults::fromExample($ex, function () use (&$n2) { return 'K' . (++$n2); });
+$eq(3, substr_count($co, "=> 'K"), 'override: sinh 3 khoá (verify_token Meta, secret_token Telegram, api_key)');
+$eq(false, strpos($co, 'DOI_CHUOI_NAY'), 'override: không còn chuỗi mẫu');
+$eq(1, preg_match("/'whatsapp'\s*=>\s*\[\s*(\/\/[^\n]*\n\s*)?'verify_token'\s*=>\s*''/", $co), 'override: whatsapp.verify_token để trống (dùng chung Meta)');
+$eq(0, preg_match("/'(app_secret|oa_secret)'\s*=>\s*'[^']+'/", $co), 'override: khoá do nền tảng cấp để trống (kênh tự chặn)');
+$tmp = tempnam(sys_get_temp_dir(), 'co'); file_put_contents($tmp, $co);
+$eq(0, (function () use ($tmp) { exec(escapeshellarg(PHP_BINARY) . ' -l ' . escapeshellarg($tmp) . ' 2>&1', $o, $rc); return $rc; })(), 'override: file sinh ra đúng cú pháp PHP');
+$sugar_config = []; include $tmp; unlink($tmp);
+$eq(['vi_VN', 's l f', '0'], [$sugar_config['default_language'], $sugar_config['default_locale_name_format'], $sugar_config['passwordsetting']['systexpiration']], 'override: tiếng Việt, họ tên kiểu Việt, tắt luồng hết hạn lỗi');
+$eq(32, strlen(\VPU\Setup\ConfigDefaults::randomToken()), 'override: khoá ngẫu nhiên 32 ký tự');
 
 echo ($fail ? "FAILED $fail/$n\n" : "OK $n tests\n");
 exit($fail ? 1 : 0);
