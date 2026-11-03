@@ -18,6 +18,35 @@ final class ConfigDefaults
     public const EXAMPLE = 'config_override.php.example';
     public const TARGET = 'config_override.php';
 
+    /**
+     * Thiết lập VPU bổ sung sau này: bản cài đã có config_override.php (có khối VPU) mà thiếu khoá -> thêm vào.
+     * Khoá đã có (kể cả admin đặt giá trị khác) thì giữ nguyên.
+     */
+    public const REQUIRED = [
+        // SuiteCRM mặc định false (ghi sẵn trong config.php lúc cài) -> CSV không có BOM, Excel hiện sai tiếng Việt
+        'export_excel_compatible' => "\$sugar_config['export_excel_compatible'] = true;   // CSV (xuất dữ liệu, mẫu nhập) UTF-8 có BOM: Excel hiện đúng tiếng Việt",
+    ];
+    private const RUNTIME_MARKER = '// --- VPU runtime (setup.sh)';
+
+    /** Thêm các dòng REQUIRED còn thiếu; chèn TRƯỚC khối "VPU runtime" (setup.sh xoá từ đó tới cuối mỗi lần khởi động). */
+    public static function withRequired(string $content): string
+    {
+        $add = '';
+        foreach (self::REQUIRED as $key => $line) {
+            if (!preg_match("/\\['" . preg_quote($key, '/') . "'\\]/", $content)) {
+                $add .= $line . "\n";
+            }
+        }
+        if ($add === '') {
+            return $content;
+        }
+        $pos = strpos($content, self::RUNTIME_MARKER);
+        if ($pos !== false) {
+            return substr($content, 0, $pos) . $add . substr($content, $pos);
+        }
+        return rtrim($content) . "\n" . $add;
+    }
+
     public static function randomToken(): string
     {
         return rtrim(strtr(base64_encode(random_bytes(24)), '+/', 'Az'), '=');
@@ -55,7 +84,11 @@ final class ConfigDefaults
         $exists = is_file(self::TARGET);
         $current = $exists ? (string)@file_get_contents(self::TARGET) : '';
         if ($exists && strpos($current, 'vpu_omnichannel') !== false) {
-            return ['override' => 'exists'];
+            $updated = self::withRequired($current);
+            if ($updated === $current) {
+                return ['override' => 'exists'];
+            }
+            return ['override' => @file_put_contents(self::TARGET, $updated, LOCK_EX) === false ? 'not writable' : 'updated'];
         }
         if (!is_file(self::EXAMPLE)) {
             return ['override' => 'no example'];
@@ -64,6 +97,7 @@ final class ConfigDefaults
         if ($exists) {
             $content = self::merge($content, $current);
         }
+        $content = self::withRequired($content);
         if (@file_put_contents(self::TARGET, $content, LOCK_EX) === false) {
             return ['override' => 'not writable'];
         }

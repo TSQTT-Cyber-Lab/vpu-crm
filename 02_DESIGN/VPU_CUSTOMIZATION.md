@@ -91,11 +91,19 @@ rồi chữ); gốc là biểu tượng 64px trong dòng cao 20px nên đè lên
   tài khoản người dùng/email/lịch/cổng. Form gia đình bỏ Website, Fax và panel kinh doanh (ngành nghề, doanh thu, số nhân viên).
 - `config_override.php.example` đặt `vi_VN` làm ngôn ngữ mặc định, tiền tệ VND, ngày `d/m/Y`.
 - **Thuật ngữ thống nhất (01/11/2026):** Department = **Đơn vị**, Employees = **Nhân viên** (cả mục menu người dùng), "Về" = **Giới thiệu**.
-  Lead = **thí sinh**, thay "Đầu mối" của gói vi_VN trong module Thí sinh. Meetings = **Lịch hẹn**, Calls = Cuộc gọi, Tasks = Công việc,
+  Lead = **thí sinh**, thay "Đầu mối" của gói vi_VN trong module Thí sinh. Opportunity = **hồ sơ xét tuyển**, thay "Cơ hội" (và "Tạo Opportunity") ở module Hồ sơ xét tuyển
+  và 7 module liên quan, danh sách chọn, nhãn chung. Meetings = **Lịch hẹn**, Calls = Cuộc gọi, Tasks = Công việc,
   Prospects = Đối tượng mục tiêu, Target lists = Danh sách mục tiêu, Email templates = Mẫu email; "BULK ACTION" = Hành động;
   danh xưng "Nhỡ" (Miss) sửa thành "Cô".
   - Mã: `custom/include/VPU/Language/TermRelabel.php` (chỉ thay khi giá trị còn đúng bản dịch gốc, nên nhãn admin sửa trong Studio được giữ nguyên).
   - 21 tiêu đề cột còn tiếng Anh hoặc viết thường ("tên" → "Họ tên"…) ở 20 module: `ListLabels.php`.
+- **CSV mở bằng Excel (03/11/2026):**
+  - SuiteCRM mặc định `export_excel_compatible = false`: mẫu tập tin nhập và file xuất là UTF-8 **không BOM**, nên Excel trên Windows
+    đọc theo bảng mã ANSI và hiện **lỗi font** tiếng Việt.
+  - VPU-CRM bật `true` (UTF-8 + BOM): thêm vào `config_override.php.example`, và BuildGuard tự bổ sung cho bản cài đã có
+    (`ConfigDefaults::REQUIRED`).
+  - Trang Nhập tự bỏ BOM khi đọc, nên file mẫu sửa trong Excel rồi lưu lại ("CSV UTF-8") nhập được bình thường.
+  - Đã kiểm 12 mẫu nhập: đều có BOM, đúng UTF-8.
 - **Không đổi tên công ty "SuiteCRM Ltd":** bộ đổi tên chỉ đổi tên sản phẩm (regex `SuiteCRM(?!\s+Ltd)`) và giữ các nhãn ghi công,
   bảo trì, thương hiệu. Câu "SuiteCRM is written and maintained by SuiteCRM Ltd" ở trang Giới thiệu được giữ nguyên.
 - **Họ tên kiểu Việt** "Phạm Thị Lan":

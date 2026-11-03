@@ -5,3 +5,4 @@ if (!defined('sugarEntry') || !sugarEntry) {
 }
 require_once 'custom/include/VPU/Language/TermRelabel.php';
 $mod_strings = \VPU\Language\TermRelabel::moduleName($mod_strings, 'Campaigns');
+$mod_strings = \VPU\Language\TermRelabel::replaceTerm($mod_strings, 'Cơ hội', 'hồ sơ xét tuyển');

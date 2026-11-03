@@ -25,6 +25,7 @@ final class TermRelabel
         'campaign'           => ['Chiến dịch kinh doanh' => 'Chiến dịch'],
         'AOS_Products'       => ['Products' => 'Sản phẩm'],
         'FP_Event_Locations' => ['Vị trí' => 'Địa điểm sự kiện'],
+        'Opportunities'      => ['Cơ hội' => 'Hồ sơ xét tuyển'],
         'Miss'               => ['Nhỡ' => 'Cô'],          // danh xưng: bản dịch sai
         'Ms.'                => ['Cô.' => 'Chị'],
     ];
@@ -36,6 +37,8 @@ final class TermRelabel
         'LBL_BULK_ACTION_BUTTON_LABEL'      => ['BULK ACTION' => 'HÀNH ĐỘNG'],
         'LNK_ABOUT'                         => ['Về' => 'Giới thiệu'],
         'LBL_EMPLOYEES'                     => ['Employees' => 'Nhân viên'],
+        'LBL_OPPORTUNITIES'                 => ['Cơ hội' => 'Hồ sơ xét tuyển'],
+        'LBL_OPPORTUNITY_NAME'              => ['Tên Cơ hội' => 'Tên hồ sơ xét tuyển'],
     ];
 
     /** mod_strings: tên module còn tiếng Anh hoặc chưa ổn */

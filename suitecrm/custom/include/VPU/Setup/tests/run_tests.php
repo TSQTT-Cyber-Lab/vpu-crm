@@ -164,6 +164,15 @@ $eq(true, strpos($m, 'vpu_omnichannel') !== false && substr_count($m, '<?php') =
 $m2 = \VPU\Setup\ConfigDefaults::merge($co, "<?php\n\$sugar_config['default_language'] = 'en_us';\n");
 $tmp = tempnam(sys_get_temp_dir(), 'co'); file_put_contents($tmp, $m2); $sugar_config = []; include $tmp; unlink($tmp);
 $eq(['en_us', 's l f'], [$sugar_config['default_language'], $sugar_config['default_locale_name_format']], 'override: giá trị có trước được ưu tiên, mặc định VPU bổ sung phần thiếu');
+// Thiết lập bổ sung sau (export_excel_compatible): thêm cho bản cài cũ, trước khối runtime; không đè giá trị admin đặt
+$CD = '\VPU\Setup\ConfigDefaults';
+$eq(1, substr_count($co, "['export_excel_compatible'] = true"), 'override: file tạo từ mẫu có CSV kèm BOM (Excel)');
+$old = "<?php\n\$sugar_config['vpu_omnichannel'] = [];\n// --- VPU runtime (setup.sh) — tự ghi lại\n\$sugar_config['site_url'] = 'x';\n";
+$new = $CD::withRequired($old);
+$eq(true, strpos($new, "export_excel_compatible") < strpos($new, '// --- VPU runtime'), 'override: dòng mới chèn TRƯỚC khối VPU runtime');
+$eq($new, $CD::withRequired($new), 'override: chạy lại không thêm trùng');
+$admin = "<?php\n\$sugar_config['export_excel_compatible'] = false;\n";
+$eq($admin, $CD::withRequired($admin), 'override: admin đã đặt false thì giữ nguyên');
 
 echo ($fail ? "FAILED $fail/$n\n" : "OK $n tests\n");
 exit($fail ? 1 : 0);

@@ -23,6 +23,8 @@ $sugar_config['default_decimal_seperator'] = ',';
 $sugar_config['passwordsetting']['systexpiration'] = '0';
 $sugar_config['passwordsetting']['minpwdlength'] = '8';
 $sugar_config['default_number_grouping_seperator'] = '.';
+// CSV (xuất dữ liệu, mẫu nhập) UTF-8 có BOM: Excel hiện đúng tiếng Việt (SuiteCRM mặc định false -> lỗi font)
+$sugar_config['export_excel_compatible'] = true;
 
 // Phễu tuyển sinh đa kênh: index.php?entryPoint=vpuInbound&channel=<kênh>
 $sugar_config['vpu_omnichannel'] = [
