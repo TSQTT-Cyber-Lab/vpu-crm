@@ -1,0 +1,93 @@
+<?php
+if (!defined('sugarEntry') || !sugarEntry) {
+    die('Not A Valid Entry Point');
+}
+$mod_strings['LBL_MODULE_NAME'] = 'Thí sinh tiềm năng';
+$mod_strings['LBL_VPU_PANEL_ADMISSIONS'] = 'Tuyển sinh';
+$mod_strings['LBL_VPU_PANEL_CHANNEL'] = 'Kênh tiếp nhận & đồng ý';
+$mod_strings['LBL_VPU_FUNNEL_STAGE'] = 'Giai đoạn phễu';
+$mod_strings['LBL_VPU_CHANNEL'] = 'Kênh tiếp nhận';
+$mod_strings['LBL_VPU_CHANNEL_USER_ID'] = 'ID người dùng trên kênh';
+$mod_strings['LBL_VPU_INTEREST'] = 'Quan tâm';
+$mod_strings['LBL_VPU_MAJOR'] = 'Ngành quan tâm';
+$mod_strings['LBL_VPU_SCHOLARSHIP'] = 'Học bổng quan tâm';
+$mod_strings['LBL_VPU_INTAKE_YEAR'] = 'Năm dự kiến nhập học';
+$mod_strings['LBL_VPU_HIGH_SCHOOL'] = 'Trường THPT';
+$mod_strings['LBL_VPU_PROVINCE'] = 'Tỉnh/Thành phố';
+$mod_strings['LBL_VPU_GUARDIAN_NAME'] = 'Phụ huynh / người giám hộ';
+$mod_strings['LBL_VPU_GUARDIAN_PHONE'] = 'SĐT phụ huynh';
+$mod_strings['LBL_VPU_CONSENT_MARKETING'] = 'Đồng ý nhận thông tin tuyển sinh';
+$mod_strings['LBL_VPU_CONSENT_AT'] = 'Thời điểm đồng ý';
+$mod_strings['LBL_VPU_UTM_SOURCE'] = 'UTM source';
+$mod_strings['LBL_VPU_UTM_CAMPAIGN'] = 'UTM campaign';
+$mod_strings['LBL_VPU_LAST_MESSAGE_AT'] = 'Tin nhắn gần nhất';
+
+// Bổ sung các nhãn gói dịch cộng đồng 7.15 còn để tiếng Anh (ngữ cảnh tuyển sinh).
+$mod_strings = array_merge($mod_strings, [
+    'LBL_MODULE_NAME' => 'Thí sinh tiềm năng',
+    'LBL_MODULE_TITLE' => 'Thí sinh tiềm năng: Trang chính',
+    'LBL_LIST_FORM_TITLE' => 'Danh sách thí sinh',
+    'LNK_NEW_LEAD' => 'Thêm thí sinh',
+    'LNK_LEAD_LIST' => 'Xem thí sinh',
+    'LNK_IMPORT_LEADS' => 'Nhập danh sách thí sinh',
+    'LBL_ACCOUNT_ID' => 'ID gia đình',
+    'LBL_ACCOUNT_NAME' => 'Gia đình:',
+    'LBL_LIST_ACCOUNT_NAME' => 'Gia đình',
+    'LBL_ALTERNATE_ADDRESS' => 'Địa chỉ khác:',
+    'LBL_ALT_ADDRESS' => 'Địa chỉ khác:',
+    'LBL_ANY_ADDRESS' => 'Địa chỉ bất kỳ:',
+    'LBL_ANY_EMAIL' => 'Email bất kỳ:',
+    'LBL_ANY_PHONE' => 'Điện thoại bất kỳ:',
+    'LBL_CITY' => 'Tỉnh/Thành phố:',
+    'LBL_CONVERTED' => 'Đã chuyển đổi',
+    'LBL_CONVERTLEAD' => 'Chuyển thành hồ sơ',
+    'LBL_COUNTRY' => 'Quốc gia:',
+    'LBL_CREATED_ACCOUNT' => 'Đã tạo gia đình mới',
+    'LBL_CREATED_CALL' => 'Đã tạo cuộc gọi mới',
+    'LBL_CREATED_CONTACT' => 'Đã tạo liên hệ mới',
+    'LBL_CREATED_MEETING' => 'Đã tạo cuộc hẹn mới',
+    'LBL_CREATED_OPPORTUNITY' => 'Đã tạo hồ sơ xét tuyển mới',
+    'LBL_DEPARTMENT' => 'Lớp / Khối:',
+    'LBL_DO_NOT_CALL' => 'Không gọi điện:',
+    'LBL_EMAIL_ADDRESS' => 'Địa chỉ email:',
+    'LBL_EXISTING_ACCOUNT' => 'Dùng gia đình có sẵn',
+    'LBL_EXISTING_CONTACT' => 'Dùng liên hệ có sẵn',
+    'LBL_FAX_PHONE' => 'Fax:',
+    'LBL_HOME_PHONE' => 'Điện thoại nhà:',
+    'LBL_IMPORT_VCARD' => 'Nhập vCard',
+    'LBL_INVALID_EMAIL' => 'Email không hợp lệ:',
+    'LBL_LIST_ACCEPT_STATUS' => 'Trạng thái chấp nhận',
+    'LBL_LIST_EMAIL_ADDRESS' => 'Email',
+    'LBL_LIST_PHONE' => 'Điện thoại',
+    'LBL_MOBILE_PHONE' => 'Di động / Zalo:',
+    'LBL_OFFICE_PHONE' => 'Điện thoại khác:',
+    'LBL_OPP_NAME' => 'Tên hồ sơ xét tuyển:',
+    'LBL_OPPORTUNITY_NAME' => 'Tên hồ sơ xét tuyển:',
+    'LBL_OTHER_EMAIL_ADDRESS' => 'Email khác:',
+    'LBL_PHONE' => 'Điện thoại:',
+    'LBL_PORTAL_INFORMATION' => 'Thông tin cổng',
+    'LBL_PORTAL_NAME' => 'Tên cổng:',
+    'LBL_POSTAL_CODE' => 'Mã bưu chính:',
+    'LBL_STREET' => 'Đường',
+    'LBL_PRIMARY_ADDRESS' => 'Địa chỉ liên hệ:',
+    'LBL_REPORTS_TO' => 'Báo cáo cho:',
+    'LBL_SALUTATION' => 'Danh xưng',
+    'LBL_SELECT_CHECKED_BUTTON_TITLE' => 'Chọn các thí sinh đã đánh dấu',
+    'LBL_STATE' => 'Quận/Huyện:',
+    'LNK_NEW_APPOINTMENT' => 'Tạo lịch hẹn',
+    'LNK_NEW_NOTE' => 'Tạo ghi chú',
+    'LBL_CAMPAIGN_LIST_SUBPANEL_TITLE' => 'Chiến dịch',
+    'LBL_CAMPAIGN' => 'Chiến dịch:',
+    'LBL_CAMPAIGN_LEAD' => 'Chiến dịch',
+    'LBL_CAMPAIGNS' => 'Chiến dịch',
+    'LBL_BIRTHDATE' => 'Ngày sinh:',
+    'LBL_CREATED_USER' => 'Người tạo',
+    'LBL_MODIFIED_USER' => 'Người sửa',
+    'LBL_CONVERT_REQUIRED' => 'Bắt buộc',
+    'LBL_ENTERDATE' => 'Ngày nhập',
+]);
+
+$mod_strings['LBL_VPU_SCHOOL_NAME'] = 'Trường THPT (danh mục)';
+$mod_strings['LBL_VPU_SCHOOL_ID'] = 'ID trường THPT';
+$mod_strings['LBL_VPU_HIGH_SCHOOL'] = 'Trường THPT (thí sinh khai)';
+$mod_strings['LBL_VPU_PROGRAM'] = 'Chương trình quan tâm (học phí)';

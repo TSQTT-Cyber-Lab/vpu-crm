@@ -1,0 +1,18 @@
+// VPU-CRM — token nhận diện Trường Đại học Thái Bình Dương (TBD / VPU).
+// Mã hex đo trực tiếp từ ảnh chụp header tbd.edu.vn (31/10/2026):
+//   thanh trên  #283388 (xanh), thanh chính #EC1A3B (đỏ), chữ #FFFFFF.
+// Sửa ở đây rồi chạy ../../build_vpu_theme.sh.
+$vpu-blue:      #283388;   // xanh thương hiệu — navbar, sidebar, header panel, link (trắng/xanh 10.9:1)
+$vpu-red-brand: #EC1A3B;   // đỏ thương hiệu — mảng nhận diện không mang chữ nhỏ (viền, gạch tab, logo)
+// Biến thể AA cho nền có chữ trắng cỡ thường (nút, tab, badge) và chữ đỏ trên nền trắng:
+// trắng/#EC1A3B = 4.40:1 (< 4.5 AA) -> giảm 2% độ sáng: trắng/#E91335 = 4.56:1.
+$vpu-red:       #E91335;
+$vpu-white:     #FFFFFF;
+
+$vpu-blue-dark:  darken($vpu-blue, 8%);
+$vpu-blue-light: #E9EBF6;
+$vpu-red-dark:   darken($vpu-red, 8%);
+$vpu-ink:        #1A2050;  // chữ chính trên nền trắng
+$vpu-muted:      #5A6080;
+$vpu-line:       #D6D9EC;
+$vpu-bg:         #F5F6FB;

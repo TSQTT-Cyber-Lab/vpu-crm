@@ -1,0 +1,48 @@
+<?php
+/**
+ * VPU-CRM — mẫu config_override.php (file thật bị .gitignore vì chứa bí mật).
+ * cp config_override.php.example config_override.php  rồi điền khoá thật.
+ */
+$sugar_config['system_name'] = 'VPU-CRM';
+$sugar_config['default_language'] = 'vi_VN';
+$sugar_config['languages'] = ['vi_VN' => 'Tiếng Việt', 'en_us' => 'English (US)'];
+$sugar_config['default_theme'] = 'SuiteP';
+$sugar_config['default_subtheme'] = 'Dawn';
+$sugar_config['default_currency_iso4217'] = 'VND';
+$sugar_config['default_currency_name'] = 'Việt Nam Đồng';
+$sugar_config['default_currency_symbol'] = '₫';
+$sugar_config['default_date_format'] = 'd/m/Y';
+$sugar_config['default_time_format'] = 'H:i';
+$sugar_config['datef'] = 'd/m/Y';
+// Họ tên kiểu Việt (họ trước): "Phạm Thị Lan". 's l f' không có sẵn trong danh sách định dạng của SuiteCRM.
+$sugar_config['name_formats']['s l f'] = 's l f';
+$sugar_config['default_locale_name_format'] = 's l f';
+$sugar_config['timef'] = 'H:i';
+$sugar_config['default_decimal_seperator'] = ',';
+// Bắt đổi mật khẩu do VPU-CRM tự xử lý (ForcePasswordChange.php); tắt luồng "hết hạn" của SuiteCRM 7.15.2 (lỗi ở bước lưu).
+$sugar_config['passwordsetting']['systexpiration'] = '0';
+$sugar_config['passwordsetting']['minpwdlength'] = '8';
+$sugar_config['default_number_grouping_seperator'] = '.';
+// CSV (xuất dữ liệu, mẫu nhập) UTF-8 có BOM: Excel hiện đúng tiếng Việt (SuiteCRM mặc định false -> lỗi font)
+$sugar_config['export_excel_compatible'] = true;
+
+// Phễu tuyển sinh đa kênh: index.php?entryPoint=vpuInbound&channel=<kênh>
+$sugar_config['vpu_omnichannel'] = [
+    'assigned_user_id' => '1',          // người nhận lead mặc định (id user Tuyển sinh)
+    'facebook' => [                      // Messenger + Instagram + Lead Ads (Meta webhook)
+        'verify_token' => 'DOI_CHUOI_NAY',
+        'app_secret'   => '',            // để kiểm X-Hub-Signature-256
+        'page_access_token' => '',       // Lead Ads: token Trang, quyền leads_retrieval (lấy nội dung form)
+        'graph_version' => 'v21.0',
+    ],
+    'whatsapp' => [                      // WhatsApp Cloud API; để trống app_secret = dùng chung app Facebook
+        'verify_token' => '',
+        'app_secret'   => '',
+    ],
+    'zalo' => [                          // Zalo Official Account webhook
+        'app_id'     => '',
+        'oa_secret'  => '',              // để kiểm X-ZEvent-Signature
+    ],
+    'telegram' => ['secret_token' => ''],// X-Telegram-Bot-Api-Secret-Token
+    'generic'  => ['api_key' => ''],     // SMS gateway, TikTok, n8n/Make…: header X-VPU-Key
+];

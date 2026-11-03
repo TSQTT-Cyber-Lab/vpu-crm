@@ -7,3 +7,84 @@
 - **Lý do:**
 - **Đánh đổi:**
 - **Người quyết:** (tác giả — không phải agent)
+
+## D-002 · 2026-10-31 · Tùy biến SuiteCRM cho tuyển sinh: theme, vi_VN, phễu đa kênh
+- **Bối cảnh:** Cần giao diện theo nhận diện VPU (đỏ, trắng, xanh dương), tiếng Việt, và thu lead/hội thoại từ SMS, mạng xã hội, messenger.
+- **Phương án đã cân nhắc:** (a) theme mới viết từ đầu; (b) ghi đè CSS thủ công; (c) build lại SCSS SuiteP với bảng màu VPU, nạp qua custom/. Hội thoại: (a) Chatwoot + đồng bộ; (b) module riêng; (c) webhook vào Leads + Notes.
+- **Quyết định:** Theme (c); gói vi_VN chính thức của cộng đồng; webhook `vpuInbound` ghi vào Leads + Notes.
+- **Lý do:** Không sửa core, nâng cấp an toàn; ít thành phần vận hành; dùng được báo cáo sẵn có của SuiteCRM.
+- **Đánh đổi:** Chưa có hộp thư hai chiều như Chatwoot; phân loại bằng từ khoá. Danh mục ngành là tạm thời (T-005).
+- **Cập nhật 2026-10-31:** màu chốt theo ảnh chụp tbd.edu.vn: xanh `#283388`, đỏ `#EC1A3B`. Nền có chữ trắng dùng `#E91335` để đạt WCAG AA.
+- **Người quyết:** (tác giả xác nhận)
+
+## D-003 · 2026-10-31 · Danh mục trường THPT là module riêng, gắn thí sinh theo nguyên tắc "duy nhất hoặc bỏ trống"
+- **Bối cảnh:** Cần quản lý tập trung trường THPT/GDTX ở 4 tỉnh trọng điểm (463 cơ sở) làm nguồn thí sinh ưu tiên.
+- **Phương án đã cân nhắc:** (a) dùng Accounts với loại "Trường học"; (b) module riêng VPU_Schools; (c) chỉ là dropdown.
+- **Quyết định:** (b). Khoá tự nhiên (mã tỉnh, mã trường). Importer chỉ cập nhật trường danh mục, không đụng dữ liệu tác nghiệp. Tự gắn Lead với trường chỉ khi ghép được đúng một ứng viên.
+- **Lý do:** Accounts đã dùng cho "Hộ gia đình" (D-002, CRM_WORKFLOW §1). Dropdown 463 mục không chứa được đầu mối và tình trạng tiếp cận. Gắn nhầm trường làm sai báo cáo nguồn tuyển, tệ hơn để trống.
+- **Đánh đổi:** Khoảng 9% tên chuẩn (40/463) không tự gắn được vì mơ hồ, tư vấn viên phải chọn tay. Dữ liệu nguồn là VietJack, chưa phải công bố chính thức (T-007).
+- **Người quyết:** (tác giả xác nhận)
+
+## D-004 · 2026-10-31 · Khoá ngành là mã Bộ GD&ĐT; tư vấn viên không được xuất dữ liệu
+- **Bối cảnh:** T-005 thay danh mục tạm bằng dữ liệu tuyển sinh 2026 của trường; cần tài khoản cho nhân viên tư vấn.
+- **Quyết định:** (1) `vpu_major_dom` dùng mã ngành 7 chữ số của Bộ GD&ĐT, vì mã này ổn định khi đổi tên ngành và khớp với hồ sơ xét tuyển. (2) Bỏ "An toàn thông tin" (trường không đào tạo), quy các từ khoá liên quan về CNTT. (3) Loại học bổng chỉ được gán khi tin nhắn nêu dấu hiệu cụ thể. (4) Vai trò Tư vấn tuyển sinh: sửa chung Thí sinh và Trường THPT; không xoá/nhập/xuất.
+- **Lý do:** Mã ngành là định danh chính thức. Dữ liệu cá nhân của thí sinh (có người chưa thành niên) không nên cho phép xuất hàng loạt (NĐ 13/2023).
+- **Đánh đổi:** Nguồn ngành/học phí/học bổng lấy qua tìm kiếm, chưa đối chiếu văn bản gốc (proxy chặn tbd.edu.vn). Còn 4 điểm mâu thuẫn chờ trường xác nhận.
+- **Người quyết:** (tác giả xác nhận)
+
+## D-005 · 2026-10-31 · Footer giữ ghi công SuiteCRM/SugarCRM bên cạnh bản quyền VPU
+- **Bối cảnh:** Yêu cầu footer "Bản quyền thuộc về VPU, Phát triển từ nguồn SuiteCRM".
+- **Quyết định:** Thêm dòng bản quyền VPU và "Phát triển từ nguồn SuiteCRM"; **giữ nguyên văn** "Supercharged by SuiteCRM" và "Powered by SugarCRM" (chữ nhỏ).
+- **Lý do:** SuiteCRM phát hành theo AGPLv3 kèm điều khoản §7(b) bắt buộc giữ hai dòng ghi công này. Xoá chúng là vi phạm giấy phép.
+- **Người quyết:** (tác giả xác nhận)
+
+## D-006 · 2026-10-31 · Biên dịch Extension tự động khi chạy (BuildGuard), file biên dịch không vào git
+- **Bối cảnh:** Mỗi lần triển khai đều phải chạy Quick Repair; quên chạy thì trường biến mất. Repo commit file biên dịch gốc nên deploy ghi đè bản đúng.
+- **Phương án đã cân nhắc:** (a) quy trình thủ công/checklist; (b) git hook post-merge; (c) bước CI duy nhất; (d) tự phát hiện ở runtime + CLI cho CI.
+- **Quyết định:** (d), kèm bỏ file biên dịch khỏi git. Schema chỉ tự áp dụng phần cộng thêm; thay đổi phá huỷ luôn chờ người duyệt.
+- **Lý do:** (a), (b), (c) vẫn phụ thuộc vào việc người hoặc máy nhớ chạy, và không bắt được trường hợp rsync ghi đè. (d) tự sửa bất kể cách triển khai, chi phí khoảng 0,7 ms mỗi request.
+- **Đánh đổi:** Request đầu tiên sau deploy chậm khoảng 1 giây. Hook nằm trong `custom/modules/logic_hooks.php`; nếu ModuleInstaller viết lại file này thì vẫn giữ mục hook nhưng mất comment.
+- **Người quyết:** (tác giả xác nhận)
+
+## D-007 · 2026-10-31 · Module Accounts mang tên "Gia đình"
+- **Bối cảnh:** Menu ghi "Hộ gia đình" nhưng trong module vẫn "Tài khoản/Khách hàng/Account"; "hộ" gợi hộ khẩu, khó hiểu với tư vấn viên.
+- **Phương án:** (A) "Gia đình" — giữ chức năng nhóm gia đình; (B) "Đối tác & tổ chức" — dùng cho doanh nghiệp/đại lý.
+- **Quyết định:** A (tác giả chọn). Đổi đồng bộ mọi nhãn trỏ tới Accounts; giữ nhãn tài khoản người dùng/email/lịch/cổng.
+- **Người quyết:** tác giả
+
+## D-008 · 2026-11-01 · Quản lý tài khoản trong VPU-CRM; bắt đổi mật khẩu bằng luồng riêng
+- **Bối cảnh:** Admin cần tạo tài khoản theo loại (Quản lý, Tư vấn tuyển sinh) và đổi mật khẩu người dùng. Trang Users gốc của SuiteCRM có nhiều trường không liên quan, không gán vai trò theo loại. Ngoài ra, luồng "mật khẩu hết hạn / bắt đổi" gốc của SuiteCRM 7.15.2 hỏng ở bước lưu ("Không có hành động bởi cái tên: ChangePassword"), tái hiện được cả khi không có bản ghi đè.
+- **Quyết định:** (1) Loại tài khoản = `is_admin` (Quản trị) hoặc vai trò ACL VPU (Quản lý / Tư vấn), quản lý tập trung trong `AccountService`; trang riêng "Tài khoản & mật khẩu" trong Quản trị. (2) Bắt đổi mật khẩu dùng hook `after_session_start` + entry point `vpuChangePassword`, dựa trên cờ `system_generated_password` của core; tắt luồng hết hạn gốc (`systexpiration = 0`). (3) Mật khẩu chỉ hiện một lần, không gửi email. (4) Trang Giới thiệu giữ chữ "SuiteCRM" vì là thông báo pháp lý AGPL.
+- **Lý do:** Không sửa core; dùng lại `User::setNewPassword` / `User::change_password` của core nên băm mật khẩu và kiểm tra mật khẩu cũ vẫn theo SuiteCRM.
+- **Đánh đổi:** Chính sách hết hạn mật khẩu định kỳ (sau N ngày) chưa có; nếu cần thì bổ sung vào hook `ForcePasswordChange`. Trang quản trị phải mở bằng cách bấm từ trang Quản trị (kiểm tra Referer của SuiteCRM).
+- **Người quyết:** (tác giả xác nhận)
+
+## D-009 · 2026-11-01 · Menu theo nghiệp vụ tuyển sinh; vai trò VPU tắt module ngoài tuyển sinh
+- **Bối cảnh:** Menu dùng nhóm mặc định của SuiteCRM (Bán hàng, Marketing, Hỗ trợ); Trang chủ/Gia đình/Liên hệ lặp ở mọi nhóm; Trường THPT không có trong menu. Kiểm tra phát hiện module không khai trong vai trò được SuiteCRM cho toàn quyền (tư vấn viên xoá được Hóa đơn, Hỗ trợ khách hàng…).
+- **Quyết định:** (1) 4 nhóm: Tuyển sinh · Hoạt động · Truyền thông tuyển sinh · Báo cáo & tài liệu (tác giả chọn đổi tên Bán hàng/Marketing). (2) Ẩn module bán hàng/hỗ trợ khỏi menu (không xoá dữ liệu). (3) Vai trò Quản lý/Tư vấn tắt hẳn các module đó; mọi module có ACL phải được phân loại (test). (4) Lọc mục lõi chèn vào nhóm bằng template sinh tự động từ bản gốc (không sửa core).
+- **Đánh đổi:** Template header ghi đè phải sinh lại sau khi nâng cấp SuiteCRM (test báo khi lõi đổi). Trình cài đặt ghi đè tabConfig -> MenuSetup ghi lại.
+- **Người quyết:** tác giả (đồng ý đề xuất, chọn đổi tên nhóm)
+
+## D-010 · 2026-11-01 · Song ngữ English / Tiếng Việt; thuật ngữ thống nhất
+- **Bối cảnh:** Cần đổi ngôn ngữ cho toàn hệ thống. SuiteCRM chỉ cho chọn ở trang đăng nhập, và với default_language = vi_VN thì giao diện tiếng Anh lẫn chữ Việt (tầng dự phòng).
+- **Quyết định:** Mục chuyển ngôn ngữ trong menu người dùng (lưu tuỳ chọn người dùng). Phiên tiếng Anh dùng en_us làm tầng dự phòng cho riêng request đó. Giữ vi_VN là mặc định của hệ thống. Thuật ngữ: Department = Đơn vị, Employees = Nhân viên, Lead = thí sinh, Meetings = Lịch hẹn, About = Giới thiệu. Không đổi tên pháp nhân "SuiteCRM Ltd".
+- **Đánh đổi:** Dữ liệu người dùng nhập (tên vai trò, chức danh) không dịch. Cache ngôn ngữ ngoài (nếu bật) phải xoá khi triển khai — BuildGuard đã làm.
+- **Người quyết:** tác giả (yêu cầu thuật ngữ)
+
+## D-011 · 2026-11-01 · Hai gói triển khai; phần VPU tự cấu hình ở lần tải trang đầu
+- **Bối cảnh:** Cần triển khai được trên hosting PHP thông thường (thường không có SSH) và chạy được bằng Docker.
+- **Quyết định:** (1) Gói zip từ `git archive` (chỉ nội dung đã commit, bỏ test) + hướng dẫn cPanel. (2) Docker production riêng (không dùng ảnh demo): db/app/cron + Caddy HTTPS tuỳ chọn, cấu hình qua `.env`, trạng thái trong volume `/state`, sao lưu/khôi phục bằng script. (3) Mọi bước VPU trước đây cần CLI (vai trò, nạp trường, config_override) chuyển vào BuildGuard, chạy theo phiên bản, nạp tiếp được khi bị ngắt. (4) Admin của bản Docker bắt buộc đổi mật khẩu lần đầu. (5) Gắn dấu build vào `?v=` của CSS/JS để trình duyệt không giữ giao diện cũ.
+- **Đánh đổi:** Lần tải trang đầu sau cài trên hosting mất khoảng 10–60 giây. Studio trên production bị ghi đè khi cập nhật (tuỳ biến đi qua repo). Script PowerShell chưa thử trên Windows.
+- **Người quyết:** tác giả (yêu cầu đóng gói hosting + Docker)
+
+## D-012 · 2026-11-03 · Synology: HTTPS qua Reverse Proxy của DSM, không dùng Caddy
+- **Bối cảnh:** Triển khai lên Synology NAS của tác giả, tên miền Dynu `vpu-crm.mywire.org`, IP cập nhật bởi container `dynu-updater`.
+- **Quyết định:** App nghe ở `127.0.0.1:8380`; DSM Reverse Proxy + chứng chỉ Let's Encrypt của DSM (cổng 80/443 đã thuộc nginx của DSM). Header `X-Forwarded-Proto` khớp tiền tố để chịu được header lặp. Thêm tên miền vào `dynu-updater` bằng script có chế độ kiểm tra trước, sao lưu cấu hình trước khi sửa.
+- **Đánh đổi:** Bước Reverse Proxy, chứng chỉ, tạo host trên Dynu, chuyển cổng router là thao tác giao diện, tác giả tự làm. Session cloud không vào được NAS.
+- **Người quyết:** tác giả (yêu cầu cài lên Synology bằng Docker)
+
+## D-013 · 2026-11-03 · Khoá các kênh điền trên giao diện (trang Kết nối kênh)
+- **Bối cảnh:** Điền khoá phải sửa `config_override.php` (chép ra/vào volume Docker, File Manager trên hosting) — khó cho cán bộ; tác giả muốn menu "Kết nối kênh" cho Administrator.
+- **Quyết định:** Trang chỉ cho admin; ghi một khối riêng có đánh dấu vào `config_override.php` (không dùng Configurator vì nó ghi lại cả file, mất chú thích); khoá do nền tảng cấp chỉ ghi, không hiện lại; khoá tự đặt xem/sinh được; kiểm định dạng, CSRF, nhật ký tên khoá. Font chỉ `sans-serif` (yêu cầu tác giả).
+- **Đánh đổi:** Ai có quyền admin xem được khoá tự đặt (cần để khai ở nền tảng). Khoá lưu dạng rõ trong file cấu hình như trước (không mã hoá).
+- **Người quyết:** tác giả

@@ -1,0 +1,55 @@
+# VPU-CRM — bản demo chạy cục bộ (Docker Desktop trên Windows / macOS / Linux).
+#   docker compose up -d --build        (hoặc chạy start-demo.ps1 trên Windows)
+#   mở http://localhost:8080 — tài khoản: docker compose exec app cat /state/demo-accounts.txt
+#   xoá sạch để dựng lại:  docker compose down -v
+# Cổng chỉ mở trên 127.0.0.1 (không lộ ra mạng LAN). Mọi dữ liệu là dữ liệu GIẢ.
+name: vpu-crm-demo
+
+services:
+  db:
+    image: mariadb:10.11
+    container_name: vpu-demo-db
+    restart: unless-stopped
+    environment:
+      MARIADB_DATABASE: vpucrm
+      MARIADB_USER: vpucrm
+      MARIADB_PASSWORD: ${DEMO_DB_PASSWORD:-vpucrm_demo_db}
+      MARIADB_ROOT_PASSWORD: ${DEMO_DB_ROOT_PASSWORD:-vpucrm_demo_root}
+    command: ["--character-set-server=utf8mb4", "--collation-server=utf8mb4_unicode_ci"]
+    volumes:
+      - db_data:/var/lib/mysql
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      interval: 5s
+      timeout: 5s
+      retries: 30
+
+  app:
+    build:
+      context: ..
+      dockerfile: 09_DEMO/Dockerfile
+    container_name: vpu-demo-app
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DB_HOST: db
+      DB_NAME: vpucrm
+      DB_USER: vpucrm
+      DB_PASSWORD: ${DEMO_DB_PASSWORD:-vpucrm_demo_db}
+      SITE_URL: ${DEMO_SITE_URL:-http://localhost:8080}
+    ports:
+      - "127.0.0.1:${DEMO_PORT:-8080}:80"
+    volumes:
+      - app_state:/state
+    healthcheck:
+      test: ["CMD-SHELL", "test -f /state/.ready && curl -fsS -o /dev/null 'http://localhost/index.php?module=Users&action=Login'"]
+      interval: 10s
+      timeout: 10s
+      retries: 60
+      start_period: 30s
+
+volumes:
+  db_data:
+  app_state:

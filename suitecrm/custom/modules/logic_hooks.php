@@ -17,8 +17,13 @@ $hook_array['after_ui_footer'] = Array();
 $hook_array['after_ui_footer'][] = Array(10, 'popup_onload', 'modules/SecurityGroups/AssignGroups.php','AssignGroups', 'popup_onload'); 
 $hook_array['after_ui_frame'] = Array(); 
 $hook_array['after_ui_frame'][] = Array(20, 'mass_assign', 'modules/SecurityGroups/AssignGroups.php','AssignGroups', 'mass_assign'); 
-$hook_array['after_ui_frame'][] = Array(1, 'Load Social JS', 'include/social/hooks.php','hooks', 'load_js'); 
+$hook_array['after_ui_frame'][] = Array(1, 'Load Social JS', 'include/social/hooks.php','hooks', 'load_js');
+// VPU-CRM: tự biên dịch Extension + đồng bộ schema cộng thêm khi code thay đổi (xem custom/include/VPU/Setup/BuildGuard.php).
+// Đặt ở file này (nạp trực tiếp) thay vì custom/Extension để hook chạy được cả khi bản biên dịch đang cũ.
+$hook_array['after_entry_point'] = Array();
+$hook_array['after_entry_point'][] = Array(1, 'VPU BuildGuard', 'custom/include/VPU/Setup/BuildGuard.php', 'VPU\\Setup\\BuildGuard', 'afterEntryPoint');
+// VPU-CRM: bắt đổi mật khẩu khi Quản trị đặt mật khẩu tạm (xem custom/include/VPU/Setup/ForcePasswordChange.php).
+$hook_array['after_session_start'] = Array();
+$hook_array['after_session_start'][] = Array(0, 'VPU LanguageLayer', 'custom/include/VPU/Language/LanguageLayer.php', 'VPU\\Language\\LanguageLayer', 'afterSessionStart');
+$hook_array['after_session_start'][] = Array(1, 'VPU ForcePasswordChange', 'custom/include/VPU/Setup/ForcePasswordChange.php', 'VPU\\Setup\\ForcePasswordChange', 'afterSessionStart');
 
-
-
-?>

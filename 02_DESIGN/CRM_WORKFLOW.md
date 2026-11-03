@@ -15,7 +15,7 @@ các mục ở §7.
 | Tốt nghiệp – cựu SV | Việc làm, sự kiện | — | Quan hệ doanh nghiệp | Events, Campaigns |
 
 Quy ước dữ liệu: `Contacts` là một người (sinh viên hoặc người thân), `Accounts` là một
-hộ gia đình, quan hệ Contact–Contact ghi vai (cha, mẹ, người giám hộ) và phạm vi đồng ý
+gia đình (menu "Gia đình"), quan hệ Contact–Contact ghi vai (cha, mẹ, người giám hộ) và phạm vi đồng ý
 chia sẻ. Lead chuyển thành Contact khi có hồ sơ; mã sinh viên là khóa duy nhất.
 
 ## 2. Quy trình phát triển
@@ -55,12 +55,12 @@ Nguồn: `ui-ux-pro-max` (kiểu Flat Design), điều chỉnh theo tham chiếu
 
 | Token | Giá trị đề xuất | Ghi chú |
 |---|---|---|
-| Primary | `#2563EB`, chữ trắng | **Tạm thời**, thay bằng màu nhận diện VPU khi có |
-| Accent | `#059669`, chữ đen | Dùng cho hành động chính |
+| Primary | `#283388` (xanh tbd.edu.vn), chữ trắng | Đã áp dụng, xem `VPU_CUSTOMIZATION.md` §1 |
+| Accent | `#EC1A3B` (đỏ tbd.edu.vn); `#E91335` khi có chữ trắng (AA) | Hành động chính |
 | Nền / chữ | `#F8FAFC` / `#0F172A` | |
 | Muted foreground | `#475569` | |
 | Viền | `#E4ECFC` | |
-| Lỗi | `#DC2626`, chữ trắng | |
+| Lỗi | `#E91335`, chữ trắng | Trùng đỏ AA |
 | Font | Fira Sans | Kiểm tra dấu tiếng Việt trước khi chốt |
 
 Yêu cầu: tương phản chữ tối thiểu 4.5:1, mọi ô nhập có nhãn, có focus bàn phím, thao tác

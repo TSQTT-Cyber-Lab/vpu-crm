@@ -1,0 +1,110 @@
+// Quy tắc bổ sung, nạp SAU toàn bộ SuiteP.
+// Logo thanh trên trang đăng nhập (core viết cứng đường dẫn p_login_logo.svg trong login.scss).
+// Ghi công "Supercharged by SuiteCRM" ở footer được giữ nguyên theo AGPLv3 §7(b).
+$vpu-login-logo: url("../../../../../custom/themes/SuiteP/images/vpu_login_logo.png");
+div.p_login .p_login_top a {
+  background-image: $vpu-login-logo;
+  background-position: 0 0;
+  background-size: auto 40px;
+  width: 190px;
+}
+@media (max-width: 750px) {
+  div.p_login .p_login_top a { background-position: 0 0; background-size: auto 30px; width: 150px; }
+}
+
+// Tab đang chọn: chữ trắng + gạch đỏ (đỏ trên navy chỉ 2.0:1, không đạt WCAG).
+.navbar-inverse .nav > .topnav > span.currentTab > a,
+.navbar-inverse .nav > .topnav .currentTab a { color: $vpu-white; }
+// Header panel chi tiết/chỉnh sửa.
+.panel-default > .panel-heading,
+.panel-default > .panel-heading > a,
+.panel-default > .panel-heading > a > div { background-color: $vpu-blue; color: $vpu-white; }
+.sub-panel > .panel-heading, .panel-default.sub-panel > .panel-heading > a { background-color: lighten($vpu-blue, 6%); color: $vpu-white; }
+
+// Footer: dòng bản quyền VPU nổi bật; ghi công SuiteCRM/SugarCRM (bắt buộc AGPLv3 §7(b)) giữ nguyên, chữ nhỏ hơn.
+#vpu_copyright {
+  display: block;
+  margin-bottom: 4px;
+  color: $vpu-ink;
+  font-size: 13px;
+  .vpu-owner { font-weight: 700; color: $vpu-blue; }
+  .vpu-sep { margin: 0 6px; color: $vpu-muted; }
+  .vpu-built { color: $vpu-ink; }
+}
+#copyright_data #copyrightbuttons a,
+div.p_login .p_login_bottom a#admin_options,
+div.p_login .p_login_bottom a#powered_by {
+  font-size: 11px;
+  color: $vpu-muted;
+}
+div.p_login .p_login_bottom a#admin_options { margin-left: 0; }
+
+// Font sans-serif cho phần tử không kế thừa font (ô nhập, nút) và các chỗ core ghi cứng 'Lato'.
+// Chỉ dùng selector thẻ (độ ưu tiên thấp) -> không đè font biểu tượng (.glyphicon, .suitepicon…).
+html, body, input, button, select, textarea, optgroup, table, th, td, h1, h2, h3, h4, h5, h6, p, label, legend {
+  font-family: sans-serif;
+}
+.ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button,
+.yui-skin-sam, .yui-dt, .qtip, .tooltip, .popover, .modal-content, .fc, .dashletPanel, .reportTitle {
+  font-family: sans-serif;
+}
+
+// Bảng danh sách: nội dung SuiteP đặt cứng 12px -> 14px. Tiêu đề cột giữ 13px đậm nhưng được XUỐNG DÒNG
+// (gốc nowrap + biểu tượng sắp xếp làm bảng rộng hơn màn hình 1366px).
+.list, .list tr td, .td_alt { font-size: 14px; }
+.list tr th { white-space: normal; }
+.table-responsive > .table > thead > tr > th { white-space: normal; }
+
+// Viền focus. Bootstrap 3 vẽ `outline: 5px auto` khi :focus -> Chrome hiện khung đen mỗi lần BẤM CHUỘT vào nút/biểu tượng.
+// Chuột/chạm: không vẽ. Bàn phím (Tab): viền đỏ thương hiệu, trắng trên nền xanh — vẫn đạt WCAG 2.4.7 (focus nhìn thấy được).
+:focus:not(:focus-visible) { outline: none !important; }
+a, button, .btn, summary, [role="button"], [tabindex],
+input[type="button"], input[type="submit"], input[type="checkbox"], input[type="radio"] {
+  &:focus-visible { outline: 2px solid $vpu-red !important; outline-offset: 2px; }
+}
+#toolbar, .navbar, #sidebar_container, .sidebar, .panel-heading, #tab-actions, .nav-tabs {
+  a:focus-visible, button:focus-visible { outline-color: $vpu-white !important; outline-offset: -2px; }
+}
+
+// Bảng danh sách — chữ đồng đều (phản hồi 01/11/2026). SuiteP gốc: MỌI ô đậm 700; liên kết màu $list-view-link-color
+// (sau khi đổi bảng màu = đỏ) đậm + gạch nét đứt; cột tên lại xanh -> lẫn lộn. Nay: chữ 400 màu mực, liên kết xanh 400,
+// riêng tên bản ghi (cột mở hồ sơ) đậm 600.
+div#content div#pagecontent form#MassUpdate table.list.view tbody tr td,
+.list.view > tbody > tr > td { font-weight: 400; color: $vpu-ink; }
+div#content div#pagecontent form#MassUpdate table.list.view tbody tr td a,
+.table-responsive.list > tbody > tr > td > a,
+.popupBody .list tbody > tr > td a,
+.inbound-email .list tbody > tr > td a {
+  font-weight: 400; color: $vpu-blue; border-bottom: 0; text-decoration: none;
+  &:hover { color: $vpu-red; text-decoration: underline; }
+}
+div#content div#pagecontent form#MassUpdate table.list.view tbody tr {
+  td[field="name"] a, td[field="full_name"] a, td[field="document_name"] a { font-weight: 600; }
+  // Họ tên, chức vụ trên một dòng; ngày giờ, điện thoại, email, trạng thái không xuống dòng.
+  td { vertical-align: middle; }   // gốc valign=top -> cột liên kết lệch dòng với cột tên
+  td[field="name"], td[field="full_name"] { min-width: 160px; }
+  td[field="title"] { min-width: 150px; }
+  td[field="department"] { white-space: nowrap; }
+  td[type="datetime"], td[type="datetimecombo"], td[type="date"], td[type="phone"],
+  td[field="user_name"], td[field="email1"], td[field="status"], td[field="employee_status"] { white-space: nowrap; }
+}
+
+// Tên người dùng (góc phải). Gốc: nhãn nằm DƯỚI biểu tượng, canh trái trong nút 48px, rộng tới 100px -> tràn quá mép
+// phải màn hình, bị cắt ("Trần Min…"). Nay: tên đứng BÊN TRÁI biểu tượng, cùng hàng, canh giữa dọc, rộng tới 180px.
+.globalLinks-desktop .user-menu-button.dropdown-toggle {
+  width: auto; height: 48px; display: inline-flex; align-items: center; gap: 8px; padding: 0 2px;
+  .suitepicon-action-current-user { order: 2; top: 0; line-height: 1; }
+  .globallabel-user {
+    order: 1; max-width: 180px; margin: 0; vertical-align: middle; line-height: 1.2; font-size: 14px; text-align: right;
+  }
+  .suitepicon-action-caret { order: 3; line-height: 1; }
+}
+
+// Trang tạo chiến dịch — ô chọn loại: biểu tượng 64px nằm trong dòng cao 20px nên ĐÈ lên chữ. Xếp dọc: biểu tượng, chữ.
+.icon-btn-lst .icon-btn a,
+form[name="wizform"] .icon-btn-lst .icon-btn a {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  min-height: 150px; padding: 16px 10px; line-height: 1.3; font-size: 14px; font-weight: 600; text-decoration: none;
+  br { display: none; }
+  .suitepicon { display: block; font-size: 56px; line-height: 1; }
+}
