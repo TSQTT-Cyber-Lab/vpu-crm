@@ -76,3 +76,9 @@
 - **Quyết định:** (1) Gói zip từ `git archive` (chỉ nội dung đã commit, bỏ test) + hướng dẫn cPanel. (2) Docker production riêng (không dùng ảnh demo): db/app/cron + Caddy HTTPS tuỳ chọn, cấu hình qua `.env`, trạng thái trong volume `/state`, sao lưu/khôi phục bằng script. (3) Mọi bước VPU trước đây cần CLI (vai trò, nạp trường, config_override) chuyển vào BuildGuard, chạy theo phiên bản, nạp tiếp được khi bị ngắt. (4) Admin của bản Docker bắt buộc đổi mật khẩu lần đầu. (5) Gắn dấu build vào `?v=` của CSS/JS để trình duyệt không giữ giao diện cũ.
 - **Đánh đổi:** Lần tải trang đầu sau cài trên hosting mất khoảng 10–60 giây. Studio trên production bị ghi đè khi cập nhật (tuỳ biến đi qua repo). Script PowerShell chưa thử trên Windows.
 - **Người quyết:** tác giả (yêu cầu đóng gói hosting + Docker)
+
+## D-012 · 2026-11-03 · Synology: HTTPS qua Reverse Proxy của DSM, không dùng Caddy
+- **Bối cảnh:** Triển khai lên Synology NAS của tác giả, tên miền Dynu `vpu-crm.mywire.org`, IP cập nhật bởi container `dynu-updater`.
+- **Quyết định:** App nghe ở `127.0.0.1:8380`; DSM Reverse Proxy + chứng chỉ Let's Encrypt của DSM (cổng 80/443 đã thuộc nginx của DSM). Header `X-Forwarded-Proto` khớp tiền tố để chịu được header lặp. Thêm tên miền vào `dynu-updater` bằng script có chế độ kiểm tra trước, sao lưu cấu hình trước khi sửa.
+- **Đánh đổi:** Bước Reverse Proxy, chứng chỉ, tạo host trên Dynu, chuyển cổng router là thao tác giao diện, tác giả tự làm. Session cloud không vào được NAS.
+- **Người quyết:** tác giả (yêu cầu cài lên Synology bằng Docker)

@@ -19,6 +19,8 @@ Quick Repair, không cần chạy lệnh cài đặt thủ công cho phần tùy
 - tạo `config_override.php` từ mẫu với khoá webhook ngẫu nhiên;
 - đổi phiên bản đường dẫn CSS/JS để trình duyệt tải giao diện mới.
 
+**Synology NAS** (Container Manager, HTTPS qua Reverse Proxy của DSM, tên miền Dynu): [`synology/HUONG_DAN_SYNOLOGY.md`](synology/HUONG_DAN_SYNOLOGY.md); cài bằng `synology/install.sh`, thêm tên miền vào container cập nhật DDNS bằng `synology/dynu-check.sh`.
+
 Bản **demo** chạy trên máy cá nhân (dữ liệu giả, tài khoản demo) vẫn nằm ở `09_DEMO/`.
 
 ## Danh sách kiểm tra trước khi đưa vào sử dụng

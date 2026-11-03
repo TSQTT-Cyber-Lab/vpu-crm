@@ -399,6 +399,9 @@ php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts0
   `vpu-crm-<phiên bản>-hosting.zip` từ nội dung đã commit; cài bằng `install.php`. Hướng dẫn: `HUONG_DAN_HOSTING.md`.
 - **Docker production** (máy chủ Linux): `10_DEPLOY/docker`, gồm `db`, `app`, `cron` và Caddy HTTPS tuỳ chọn; cấu hình qua `.env`;
   có `backup.sh`/`restore.sh`. Hướng dẫn: `HUONG_DAN_DOCKER.md`.
+- **Synology NAS** (`10_DEPLOY/synology`): `install.sh` dựng project Docker `vpu-crm`, app ở `127.0.0.1:8380`. HTTPS dùng Reverse Proxy +
+  Let's Encrypt của DSM (cổng 80/443 thuộc DSM nên không dùng Caddy). `dynu-check.sh` thêm tên miền vào container cập nhật DDNS
+  `dynu-updater`: tự sửa với ddns-updater/ddclient (có sao lưu), loại khác thì hướng dẫn sửa tay. Tên miền: `vpu-crm.mywire.org`.
 - Hai cách đều tự hoàn tất phần VPU ở lần tải trang đầu (BuildGuard, §7): menu, vai trò, 463 trường, `config_override.php`.
   Các bước thủ công bên dưới chỉ cần khi triển khai theo cách riêng.
 
