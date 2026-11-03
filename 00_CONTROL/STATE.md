@@ -39,6 +39,7 @@ CRM cho VPU trên SuiteCRM 7.15.2, phục vụ sinh viên và gia đình; quy tr
 - [x] T-019..T-022: menu theo nghiệp vụ + chặn module ngoài tuyển sinh; chữ 14px, bỏ khung đen, bảng Người dùng; English/Tiếng Việt; thuật ngữ Đơn vị/Nhân viên
 - [x] T-023/T-024: gói triển khai 10_DEPLOY (hosting zip + Docker production, tự cấu hình qua web); sửa tên người dùng, trang tạo chiến dịch, cache CSS
 - [x] T-026: mẫu nhập CSV đúng font trong Excel (UTF-8 + BOM); thuật ngữ "hồ sơ xét tuyển"
+- [x] T-027/T-028: font sans-serif; trang Kết nối kênh (admin) — trạng thái, cấu hình khoá, hướng dẫn
 - [~] T-025: Synology NAS — gói 10_DEPLOY/synology sẵn sàng; chờ tác giả chạy install.sh + Reverse Proxy/chứng chỉ DSM + Dynu (vpu-crm.mywire.org, dynu-updater)
 - [ ] T-016: kết nối thật các kênh trên staging (cần tài khoản của trường)
 - [x] T-006: module Trường THPT, import 463 trường 4 tỉnh, tự gắn thí sinh với trường

@@ -84,6 +84,7 @@ Các module bán hàng và hỗ trợ khách hàng của SuiteCRM đã ẩn, và
    Thí sinh mới xuất hiện với ngành Logistics, học bổng Công dân toàn cầu, và được gắn với trường THPT Lý Tự Trọng.
 
 ## 4b. Kết nối kênh thật và nhập danh sách
+- **Trang Kết nối kênh** (đăng nhập `admin` → menu tên người dùng → *Kết nối kênh*): URL webhook, khoá còn thiếu, điền hoặc sinh khoá trên giao diện.
 - **Hướng dẫn cấu hình tài khoản** Facebook/Messenger, Instagram, form quảng cáo (Lead Ads), WhatsApp, Zalo OA, Telegram, SMS,
   Google Forms, TikTok, email…: [`02_DESIGN/KET_NOI_KENH.md`](../02_DESIGN/KET_NOI_KENH.md). Để thử với bản demo trên máy, mở
   tạm ra Internet bằng `cloudflared tunnel --url http://localhost:8080` (mục 0.2 của hướng dẫn).

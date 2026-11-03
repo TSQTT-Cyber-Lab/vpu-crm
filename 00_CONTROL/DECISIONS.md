@@ -82,3 +82,9 @@
 - **Quyết định:** App nghe ở `127.0.0.1:8380`; DSM Reverse Proxy + chứng chỉ Let's Encrypt của DSM (cổng 80/443 đã thuộc nginx của DSM). Header `X-Forwarded-Proto` khớp tiền tố để chịu được header lặp. Thêm tên miền vào `dynu-updater` bằng script có chế độ kiểm tra trước, sao lưu cấu hình trước khi sửa.
 - **Đánh đổi:** Bước Reverse Proxy, chứng chỉ, tạo host trên Dynu, chuyển cổng router là thao tác giao diện, tác giả tự làm. Session cloud không vào được NAS.
 - **Người quyết:** tác giả (yêu cầu cài lên Synology bằng Docker)
+
+## D-013 · 2026-11-03 · Khoá các kênh điền trên giao diện (trang Kết nối kênh)
+- **Bối cảnh:** Điền khoá phải sửa `config_override.php` (chép ra/vào volume Docker, File Manager trên hosting) — khó cho cán bộ; tác giả muốn menu "Kết nối kênh" cho Administrator.
+- **Quyết định:** Trang chỉ cho admin; ghi một khối riêng có đánh dấu vào `config_override.php` (không dùng Configurator vì nó ghi lại cả file, mất chú thích); khoá do nền tảng cấp chỉ ghi, không hiện lại; khoá tự đặt xem/sinh được; kiểm định dạng, CSRF, nhật ký tên khoá. Font chỉ `sans-serif` (yêu cầu tác giả).
+- **Đánh đổi:** Ai có quyền admin xem được khoá tự đặt (cần để khai ở nền tảng). Khoá lưu dạng rõ trong file cấu hình như trước (không mã hoá).
+- **Người quyết:** tác giả

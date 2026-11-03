@@ -39,14 +39,14 @@ div.p_login .p_login_bottom a#powered_by {
 }
 div.p_login .p_login_bottom a#admin_options { margin-left: 0; }
 
-// Font Montserrat cho phần tử không kế thừa font (ô nhập, nút) và các chỗ core ghi cứng 'Lato'.
+// Font sans-serif cho phần tử không kế thừa font (ô nhập, nút) và các chỗ core ghi cứng 'Lato'.
 // Chỉ dùng selector thẻ (độ ưu tiên thấp) -> không đè font biểu tượng (.glyphicon, .suitepicon…).
 html, body, input, button, select, textarea, optgroup, table, th, td, h1, h2, h3, h4, h5, h6, p, label, legend {
-  font-family: "Montserrat", sans-serif;
+  font-family: sans-serif;
 }
 .ui-widget, .ui-widget input, .ui-widget select, .ui-widget textarea, .ui-widget button,
 .yui-skin-sam, .yui-dt, .qtip, .tooltip, .popover, .modal-content, .fc, .dashletPanel, .reportTitle {
-  font-family: "Montserrat", sans-serif;
+  font-family: sans-serif;
 }
 
 // Bảng danh sách: nội dung SuiteP đặt cứng 12px -> 14px. Tiêu đề cột giữ 13px đậm nhưng được XUỐNG DÒNG

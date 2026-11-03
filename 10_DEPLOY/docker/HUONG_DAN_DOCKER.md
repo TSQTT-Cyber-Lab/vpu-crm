@@ -48,7 +48,10 @@ Lần khởi động đầu, hệ thống tự làm các việc sau:
 - Tạo tài khoản cán bộ: **Quản trị → VPU-CRM → Tài khoản & mật khẩu**.
 
 ## 4. Cấu hình kênh (Facebook, Zalo, Telegram, cổng SMS…)
-Khoá lưu trong `/state/config_override.php` (volume). Kênh nào chưa có khoá thì **tự từ chối** mọi yêu cầu gửi tới.
+**Cách nhanh nhất:** đăng nhập Administrator → menu tên người dùng → **Kết nối kênh**. Trang này hiện URL webhook, kênh nào còn
+thiếu khoá, và cho điền hoặc sinh khoá ngay trên giao diện, không cần các lệnh bên dưới.
+
+Sửa tay (tuỳ chọn): khoá lưu trong `/state/config_override.php` (volume). Kênh nào chưa có khoá thì **tự từ chối** mọi yêu cầu gửi tới.
 ```bash
 docker compose cp app:/state/config_override.php ./config_override.php
 nano ./config_override.php                         # điền khoá theo 02_DESIGN/KET_NOI_KENH.md

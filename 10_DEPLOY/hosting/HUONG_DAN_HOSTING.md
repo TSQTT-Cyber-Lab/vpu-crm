@@ -49,7 +49,8 @@ Trình cài đặt tự khoá sau khi chạy xong (`installer_locked` trong `con
 1. **Kiểm tra `config_override.php`** đã có ở thư mục gốc (File Manager).
    - Nếu không có (thư mục gốc không cho PHP ghi): sao chép `config_override.php.example` thành `config_override.php`,
      rồi thay `DOI_CHUOI_NAY` và các khoá để trống bằng chuỗi ngẫu nhiên dài.
-   - Điền khoá thật của từng kênh (Facebook, Zalo, Telegram, cổng SMS…) theo `HUONG_DAN_KET_NOI_KENH.md`.
+   - Điền khoá thật của từng kênh (Facebook, Zalo, Telegram, cổng SMS…): đăng nhập Administrator → menu tên người dùng → **Kết nối kênh**
+     (điền trên giao diện, không cần sửa file). Hướng dẫn chi tiết có trên trang đó và trong `HUONG_DAN_KET_NOI_KENH.md`.
      Kênh nào chưa có khoá thì **tự từ chối** mọi yêu cầu gửi tới.
 2. **Cron Jobs** → thêm lệnh chạy **mỗi phút** (`* * * * *`):
    ```

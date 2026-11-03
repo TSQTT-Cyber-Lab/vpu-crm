@@ -17,11 +17,10 @@ Mã hex **đo trực tiếp** từ ảnh chụp header tbd.edu.vn ngày 31/10/20
 `#EC1A3B`). Chữ trắng trên `#EC1A3B` chỉ đạt 4.40:1, chưa tới ngưỡng WCAG AA 4.5:1 cho chữ thường. Vì vậy các thành phần
 có chữ dùng biến thể `#E91335` (giảm 2% độ sáng); hai màu gần như không phân biệt bằng mắt.
 
-**Font chủ đạo:** `font-family: Montserrat, sans-serif` cho mọi trang (cả trang đăng nhập, form đăng ký, logo). Font
-**đóng gói cục bộ** (`custom/themes/SuiteP/fonts/montserrat/`, @fontsource/montserrat 5.3.0, SIL OFL 1.1, gồm subset vietnamese +
-latin + latin-ext; độ đậm 400/500/600/700 và nghiêng 400; tổng 324 KB). Không gọi Google Fonts lúc chạy, nên vẫn chạy khi mạng
-chặn Google và không gửi IP người dùng ra ngoài. Đã kiểm qua computed style: body, ô nhập, nút, menu đều là Montserrat; font
-biểu tượng (Glyphicons, suitepicon) giữ nguyên.
+**Font chủ đạo (03/11/2026):** chỉ `font-family: sans-serif`, tức font không chân mặc định của hệ điều hành (Arial trên Windows,
+Roboto trên Android, Helvetica/SF trên macOS và iOS). Áp cho mọi trang: giao diện, trang đăng nhập, trang đổi mật khẩu, form đăng ký.
+Không tải file font nào, nên đã gỡ bản Montserrat đóng gói trước đây (324 KB, bản 31/10/2026). Đã kiểm computed style: body, menu,
+bảng, ô nhập, tiêu đề đều là `sans-serif`; font biểu tượng (Glyphicons, suitepicon) giữ nguyên.
 
 Cơ chế: `SugarTheme::getCSSURL()` nối `custom/themes/SuiteP/css/<Subtheme>/style.css` vào
 sau CSS lõi. Bản build ánh xạ lại bảng màu Dawn trước khi nạp biến, nên mọi biến dẫn xuất
@@ -365,10 +364,36 @@ php custom/include/VPU/Setup/setup_counselors.php --demo --demo-assign   # tvts0
   `MenuSetup::apply()`, chạy qua BuildGuard sau cài đặt hoặc triển khai, ghi lại bản VPU và danh sách tab hệ thống. Áp một lần cho mỗi `VERSION`.
   Nếu admin sửa nhóm menu trong Studio, cấu hình của admin được giữ cho tới khi tăng `VERSION`.
 
+### 3.8 Trang "Kết nối kênh" (chỉ Administrator)
+
+Lối vào: menu tên người dùng → **Kết nối kênh**, hoặc **Quản trị → VPU-CRM → Kết nối kênh**
+(`index.php?module=Administration&action=vpu_channels`). Người không phải admin bị từ chối.
+- **Trạng thái các kênh:** mỗi kênh có URL webhook (theo `site_url`, kèm nút sao chép), trạng thái "Đủ khoá" hoặc
+  "Thiếu: <khoá>", và liên kết tới mục hướng dẫn tương ứng. Có cảnh báo khi `site_url` chưa phải HTTPS.
+- **Cấu hình khoá**, thay cho sửa `config_override.php` bằng tay:
+  - khoá **tự đặt** (verify token Meta và WhatsApp, secret token Telegram, `X-VPU-Key`): xem, sao chép và sinh ngẫu nhiên được;
+  - khoá **do nền tảng cấp** (App Secret, OA Secret, Page token): chỉ ghi, **không bao giờ hiện lại**;
+  - App ID Zalo, phiên bản Graph API, người nhận thí sinh mới.
+- Kiểm tra định dạng từng khoá, chặn khoảng trắng, dấu nháy và ký tự điều khiển. CSRF dùng một lần. Nhật ký `security` chỉ ghi tên khoá đã đổi.
+- Ghi bằng `ChannelConfig`: một **khối riêng có đánh dấu** trong `config_override.php`, không ghi lại cả file như trang Quản trị của
+  SuiteCRM. Khối đứng sau khối mặc định nên được ưu tiên, và đứng trước khối "VPU runtime" của Docker nên còn sau khi khởi động lại.
+  Có hiệu lực ngay, không cần khởi động lại.
+- **Hướng dẫn:** hiển thị nguyên `KET_NOI_KENH.md`, chuyển sang HTML an toàn bằng `Markdown.php` (escape HTML, chặn liên kết
+  `javascript:`). Bản trong `suitecrm/custom/include/VPU/docs/` phải trùng `02_DESIGN/KET_NOI_KENH.md`; test kiểm việc này.
+- Sửa kèm: `whatsapp.verify_token` nay được sinh ngẫu nhiên khi tạo cấu hình. Trước đây để trống với chú thích sai là "dùng chung
+  khoá Meta", trong khi webhook không dùng khoá Meta thay thế.
+
 ## 4. Kết quả kiểm thử (31/10/2026)
 
 - `php custom/include/VPU/Omnichannel/tests/run_tests.php` → **OK 55 tests** (chữ ký, parser Messenger/Instagram/Zalo/Telegram/WhatsApp/Lead Ads/generic, SĐT, phân loại).
 - `php custom/include/VPU/Import/tests/run_tests.php` → **OK 21 tests** (đọc xlsx/csv thật, ANSI, tiêu đề tiếng Việt).
+- **03/11/2026, font + Kết nối kênh (demo Docker, nâng cấp volume cũ):** E2E 16/17. Kịch bản còn lại do kỳ vọng sai: demo sinh sẵn
+  `oa_secret` nên Zalo đủ khoá thật.
+  - Mọi vùng dùng `sans-serif`, không tải font.
+  - Lối vào từ menu và từ trang Quản trị; lưu 3 khoá báo đúng tên khoá; App Secret không hiện lại trong HTML.
+  - **Webhook Messenger ký bằng App Secret vừa lưu trả 200**, chữ ký sai trả 401.
+  - Giá trị có mã chèn bị từ chối; thiếu CSRF bị từ chối; giao diện English; tư vấn viên bị chặn.
+  - Khoá còn nguyên sau khi khởi động lại container. E2E chính 37/37; test Setup 98.
 - **01/11/2026, đóng gói triển khai:**
   - *Docker production* (cài mới, cổng riêng): không có dữ liệu giả; admin bị bắt đổi mật khẩu; webhook SMS đúng khoá tạo thí sinh,
     sai khoá trả 401; Messenger khi chưa có `app_secret` trả 401; cron chạy 8 tác vụ; file nhạy cảm trả 403.

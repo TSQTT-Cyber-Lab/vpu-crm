@@ -75,8 +75,8 @@ DSM tự gia hạn chứng chỉ, nên cổng 80 phải luôn được chuyển 
    `cd /volume1/docker/vpu-crm/10_DEPLOY/docker && docker compose -p vpu-crm exec app cat /state/admin-initial-password.txt`).
    Hệ thống bắt đổi mật khẩu. Đổi xong thì xoá file tạm: `docker compose -p vpu-crm exec app rm /state/admin-initial-password.txt`.
 2. **Quản trị → VPU-CRM → Tài khoản & mật khẩu** → tạo tài khoản Quản lý và Tư vấn viên.
-3. Khoá các kênh (Facebook, Zalo, Telegram, SMS): xem mục 4 của `10_DEPLOY/docker/HUONG_DAN_DOCKER.md` (thêm `-p vpu-crm` vào lệnh)
-   và `02_DESIGN/KET_NOI_KENH.md`. Webhook: `https://vpu-crm.mywire.org/index.php?entryPoint=vpuInbound&channel=<kênh>`.
+3. Khoá các kênh (Facebook, Zalo, Telegram, SMS…): menu tên người dùng → **Kết nối kênh**. Trang này hiện URL webhook, trạng thái khoá
+   và hướng dẫn từng kênh, và cho điền khoá trực tiếp. Webhook: `https://vpu-crm.mywire.org/index.php?entryPoint=vpuInbound&channel=<kênh>`.
 4. **Quản trị → Lập lịch**: cột "Lần chạy cuối" được cập nhật mỗi phút (container `vpu-crm-cron-1`).
 
 ## 8. Sao lưu

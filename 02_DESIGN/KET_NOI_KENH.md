@@ -45,6 +45,8 @@ Ghép `<ĐỊA-CHỈ>` (mục 0.1) với đường dẫn:
 
 ### 0.4 Nơi điền khoá
 Khoá **không bao giờ đưa vào git**.
+- **Cách nhanh nhất (mọi bản cài):** đăng nhập Administrator → menu tên người dùng (hoặc trang Quản trị) → **Kết nối kênh**.
+  Trang này hiện URL webhook của từng kênh, kênh nào còn thiếu khoá, và cho điền hoặc sinh khoá trực tiếp; không cần sửa file.
 - **Máy chủ chính thức:** sửa file `suitecrm/config_override.php`, tạo từ file mẫu `config_override.php.example`.
 - **Bản demo Docker:** file nằm trong volume. Chép ra, sửa bằng Notepad, rồi chép vào lại. Không cần khởi động lại.
   ```powershell

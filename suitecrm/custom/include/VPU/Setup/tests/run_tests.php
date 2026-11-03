@@ -7,6 +7,8 @@ require __DIR__ . '/../Password.php';
 require __DIR__ . '/../AccountService.php';
 require __DIR__ . '/../MenuSetup.php';
 require __DIR__ . '/../ConfigDefaults.php';
+require __DIR__ . '/../ChannelConfig.php';
+require __DIR__ . '/../Markdown.php';
 use VPU\Setup\BuildGuard as G;
 use VPU\Setup\Password as PW;
 use VPU\Setup\AccountService as AS2;
@@ -149,9 +151,9 @@ $eq('all', AS2::matrixFor(AS2::TYPE_MANAGER)['AOR_Reports'][6], 'acl: quản lý
 // ---- config_override.php tự tạo lần đầu (hosting không SSH) ----
 $ex = (string)file_get_contents($root . '/config_override.php.example');
 $n2 = 0; $co = \VPU\Setup\ConfigDefaults::fromExample($ex, function () use (&$n2) { return 'K' . (++$n2); });
-$eq(3, substr_count($co, "=> 'K"), 'override: sinh 3 khoá (verify_token Meta, secret_token Telegram, api_key)');
+$eq(4, substr_count($co, "=> 'K"), 'override: sinh 4 khoá (verify_token Meta + WhatsApp, secret_token Telegram, api_key)');
 $eq(false, strpos($co, 'DOI_CHUOI_NAY'), 'override: không còn chuỗi mẫu');
-$eq(1, preg_match("/'whatsapp'\s*=>\s*\[\s*(\/\/[^\n]*\n\s*)?'verify_token'\s*=>\s*''/", $co), 'override: whatsapp.verify_token để trống (dùng chung Meta)');
+$eq(1, preg_match("/'whatsapp'\s*=>\s*\[\s*(\/\/[^\n]*\n\s*)?'verify_token'\s*=>\s*'K\d'/", $co), 'override: whatsapp.verify_token sinh ngẫu nhiên (webhook không dùng khoá Meta thay thế)');
 $eq(0, preg_match("/'(app_secret|oa_secret)'\s*=>\s*'[^']+'/", $co), 'override: khoá do nền tảng cấp để trống (kênh tự chặn)');
 $tmp = tempnam(sys_get_temp_dir(), 'co'); file_put_contents($tmp, $co);
 $eq(0, (function () use ($tmp) { exec(escapeshellarg(PHP_BINARY) . ' -l ' . escapeshellarg($tmp) . ' 2>&1', $o, $rc); return $rc; })(), 'override: file sinh ra đúng cú pháp PHP');
@@ -173,6 +175,45 @@ $eq(true, strpos($new, "export_excel_compatible") < strpos($new, '// --- VPU run
 $eq($new, $CD::withRequired($new), 'override: chạy lại không thêm trùng');
 $admin = "<?php\n\$sugar_config['export_excel_compatible'] = false;\n";
 $eq($admin, $CD::withRequired($admin), 'override: admin đã đặt false thì giữ nguyên');
+
+// ---- Kết nối kênh: trạng thái, kiểm tra, khối cấu hình ----
+$CC = '\VPU\Setup\ChannelConfig';
+$cfgT = ['facebook' => ['verify_token' => 'abcdefgh12', 'app_secret' => ''], 'whatsapp' => ['verify_token' => 'wvt12345678'], 'generic' => ['api_key' => str_repeat('k', 24)]];
+$byId = array_column($CC::CHANNELS, null, 'id');
+$eq(['facebook.app_secret'], $CC::missing($cfgT, $byId['facebook']), 'kênh: Messenger thiếu App Secret');
+$eq(['whatsapp.app_secret|facebook.app_secret'], $CC::missing($cfgT, $byId['whatsapp']), 'kênh: WhatsApp cần app_secret riêng HOẶC của Facebook');
+$cfgT['facebook']['app_secret'] = str_repeat('a', 32);
+$eq([], $CC::missing($cfgT, $byId['whatsapp']), 'kênh: WhatsApp dùng chung App Secret Facebook');
+$eq([], $CC::missing($cfgT, $byId['sms']), 'kênh: SMS đủ khoá');
+$eq(['zalo.app_id', 'zalo.oa_secret'], $CC::missing($cfgT, $byId['zalo']), 'kênh: Zalo thiếu 2 khoá');
+$eq(null, $CC::validate('facebook.app_secret', str_repeat('a1', 16)), 'kiểm tra: App Secret hex hợp lệ');
+$eq(true, $CC::validate('facebook.app_secret', "abc'; system('x'); //") !== null, 'kiểm tra: chặn dấu nháy / mã chèn');
+$eq(true, $CC::validate('telegram.secret_token', 'co dau cach') !== null, 'kiểm tra: chặn khoảng trắng');
+$eq(true, $CC::validate('zalo.app_id', 'abc') !== null, 'kiểm tra: App ID Zalo phải là số');
+$eq(null, $CC::validate('generic.api_key', ''), 'kiểm tra: rỗng = tắt kênh, hợp lệ');
+$blk = $CC::block(['facebook.app_secret' => str_repeat('b', 32), 'zalo.app_id' => '12345', 'telegram.secret_token' => '']);
+$eq(2, substr_count($blk, "\$sugar_config['vpu_omnichannel']"), 'khối: chỉ ghi giá trị đã đặt');
+$base = "<?php\n\$sugar_config['vpu_omnichannel'] = ['facebook' => ['app_secret' => 'old'], 'zalo' => ['app_id' => '1']];\n// --- VPU runtime (setup.sh) — x\n\$sugar_config['site_url'] = 'u';\n";
+$c1 = $CC::applyBlock($base, $blk);
+$eq(true, strpos($c1, $CC::BLOCK_START) < strpos($c1, '// --- VPU runtime'), 'khối: đặt trước khối VPU runtime');
+$c2 = $CC::applyBlock($c1, $CC::block(['zalo.app_id' => '999']));
+$eq(1, substr_count($c2, $CC::BLOCK_START), 'khối: lưu lại thay khối cũ, không nhân đôi');
+$tmp = tempnam(sys_get_temp_dir(), 'cc'); file_put_contents($tmp, $c1); $sugar_config = []; include $tmp; unlink($tmp);
+$eq([str_repeat('b', 32), '12345', 'u'], [$sugar_config['vpu_omnichannel']['facebook']['app_secret'], $sugar_config['vpu_omnichannel']['zalo']['app_id'], $sugar_config['site_url']], 'khối: giá trị trong khối được ưu tiên, phần còn lại giữ nguyên');
+
+// ---- Markdown -> HTML (trang hướng dẫn) ----
+$MD = '\VPU\Setup\Markdown';
+$eq('<h2 id="muc-0-4">0.4 Nơi điền khoá</h2>' . "\n", $MD::toHtml('### 0.4 Nơi điền khoá' === '' ? '' : '## 0.4 Nơi điền khoá'), 'md: tiêu đề có id theo số mục');
+$eq(false, strpos($MD::toHtml("Xin <script>alert(1)</script> chào"), '<script>'), 'md: escape HTML');
+$eq(false, strpos($MD::toHtml('[x](javascript:alert(1))'), 'href'), 'md: chặn liên kết javascript:');
+$tb = $MD::toHtml("| A | B |\n|---|---|\n| `x\\|y` | **đậm** |");
+$eq(true, strpos($tb, '<td><code>x|y</code></td><td><strong>đậm</strong></td>') !== false, 'md: bảng, inline code có dấu |, chữ đậm');
+$nl = $MD::toHtml("1. Bước một\n   ```\n   lệnh\n   ```\n   Ghi chú\n2. Bước hai");
+$eq(true, strpos($nl, '<li>Bước một<pre><code>lệnh</code></pre>') !== false && substr_count($nl, '<li>') === 2, 'md: khối mã nằm trong mục danh sách');
+$guideRepo = dirname($root) . '/02_DESIGN/KET_NOI_KENH.md';
+if (is_file($guideRepo)) {
+    $eq((string)file_get_contents($guideRepo), (string)file_get_contents($root . '/custom/include/VPU/docs/KET_NOI_KENH.md'), 'md: bản hướng dẫn trong suitecrm/ trùng 02_DESIGN/KET_NOI_KENH.md');
+}
 
 echo ($fail ? "FAILED $fail/$n\n" : "OK $n tests\n");
 exit($fail ? 1 : 0);
