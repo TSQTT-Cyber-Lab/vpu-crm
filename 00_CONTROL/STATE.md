@@ -27,4 +27,7 @@ CRM cho VPU trên SuiteCRM 7.15.2, phục vụ sinh viên và gia đình; quy tr
 ## 6. Số liệu chính thức → 05_RESULTS/RESULTS_LOG.md
 ## 7. Danh sách CẤM → PROJECT.md §6
 ## 8. Việc kế tiếp
-- [ ] Xác nhận các mục CRM_WORKFLOW §7, rồi làm T-001 (agent: cowork)
+- [x] T-001: dự thảo bộ câu hỏi khảo sát xong (02_DESIGN/requirements_survey.md), PR chờ duyệt
+- [ ] Người: gửi bộ câu hỏi cho Tuyển sinh, CTSV, Tài vụ, sinh viên, phụ huynh; pháp lý rà §7 của bộ câu hỏi (gate GĐ 1)
+- [ ] Người: xác nhận các mục CRM_WORKFLOW §7
+- [ ] Sau khi có trả lời: tổng hợp 02_DESIGN/requirements.md (T-001 phần 2) rồi T-002
