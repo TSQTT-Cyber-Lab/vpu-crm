@@ -2,7 +2,7 @@
 > Agent ĐỌC file này trước khi ghi. Nếu owner không phải mình và scope giao
 > nhau → DỪNG, báo lại, không ghi đè.
 
-owner: free            # cowork | codex | free
+owner: free
 since: -
 scope: -
 task: -
